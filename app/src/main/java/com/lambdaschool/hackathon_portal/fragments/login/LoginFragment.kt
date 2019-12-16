@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.AuthenticationException
@@ -48,20 +49,17 @@ class LoginFragment : Fragment() {
             auth0 = Auth0(this)
             WebAuthProvider.login(auth0).withScheme("demo").withAudience(String.format("https://%s/userinfo", getString(R.string.com_auth0_domain))).start(this, object : AuthCallback {
                     override fun onFailure(dialog: Dialog) {
-                        runOnUiThread { dialog.show() }
+
                     }
 
                     override fun onFailure(exception: AuthenticationException) {
-                        runOnUiThread {
-                           // Toast.makeText(this, "Error: " + exception.message, Toast.LENGTH_SHORT).show()
-                        }
+
                     }
 
                     override fun onSuccess(credentials: Credentials) {
-                        runOnUiThread {
                             Log.i("BIGBRAIN", "Login Successful")
                             Log.i("BIGBRAIN", credentials.accessToken)
-                        }
+                            this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                     }
                 })
         }
