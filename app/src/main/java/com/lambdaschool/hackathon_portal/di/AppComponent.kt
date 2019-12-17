@@ -9,6 +9,8 @@ import javax.inject.Singleton
 @Component
 interface AppComponent {
 
+    fun getFragmentComponentBuilder(): FragmentComponent.Builder
+
     @Component.Builder
     interface Builder {
 
@@ -17,7 +19,4 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
-
-    //inject functions here
-
 }

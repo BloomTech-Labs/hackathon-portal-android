@@ -1,31 +1,36 @@
 package com.lambdaschool.hackathon_portal.fragments.login
 
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.auth0.android.Auth0
-import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.provider.AuthCallback
-import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.lambdaschool.hackathon_portal.MainActivity
+import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
 import kotlinx.android.synthetic.main.fragment_login.*
+import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
-    lateinit var auth0: Auth0
+    val TAG = "LOGIN FRAGMENT"
+
+    @Inject
+    lateinit var webAuthProviderLogin: WebAuthProvider.Builder
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (activity?.application as App)
+            .appComponent
+            .getFragmentComponentBuilder()
+            .bindFragment(this)
+            .build()
+            .injectLoginFragment(this)
         super.onCreate(savedInstanceState)
 
     }
@@ -46,38 +51,24 @@ class LoginFragment : Fragment() {
     private fun login() {
 
         activity?.apply {
-            auth0 = Auth0(this)
-            WebAuthProvider.login(auth0).withScheme("demo").withAudience(String.format("https://%s/userinfo", getString(R.string.com_auth0_domain))).start(this, object : AuthCallback {
-                    override fun onFailure(dialog: Dialog) {
 
-                    }
+            webAuthProviderLogin.start(this, object : AuthCallback {
+                override fun onFailure(dialog: Dialog) {
+                    Log.i(TAG, "Login Failed")
+                    Log.i(TAG, "${dialog.show()}")
+                }
 
-                    override fun onFailure(exception: AuthenticationException) {
+                override fun onFailure(exception: AuthenticationException) {
+                    Log.i(TAG, "Login Failed")
+                    Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
+                }
 
-                    }
-
-                    override fun onSuccess(credentials: Credentials) {
-                            Log.i("BIGBRAIN", "Login Successful")
-                            Log.i("BIGBRAIN", credentials.accessToken)
-                            this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
-                    }
-                })
-        }
-    }
-
-    private fun logout() {
-        activity?.apply {
-            WebAuthProvider.logout(auth0!!).withScheme("demo").start(this, object : VoidCallback {
-                override fun onSuccess(payload: Void) {}
-                override fun onFailure(error: Auth0Exception) { //Log out canceled, keep the user logged in
-                   // showNextActivity()
+                override fun onSuccess(credentials: Credentials) {
+                    Log.i(TAG, "Login Successful")
+                    Log.i(TAG, credentials.accessToken)
+                    this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                 }
             })
         }
-    }
-
-    companion object {
-        const val EXTRA_CLEAR_CREDENTIALS = "com.auth0.CLEAR_CREDENTIALS"
-        const val EXTRA_ACCESS_TOKEN = "com.auth0.ACCESS_TOKEN"
     }
 }
