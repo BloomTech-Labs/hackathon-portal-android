@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
                 override fun onSuccess(credentials: Credentials) {
                     Log.i(TAG, "Login Successful")
                     Log.i(TAG, credentials.accessToken)
+                    App.prefs?.createLoginCredentialEntry(credentials)
                     this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
                 }
             })
