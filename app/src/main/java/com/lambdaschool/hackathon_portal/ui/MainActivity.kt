@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
+        toolbar.title = title
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
@@ -56,9 +57,13 @@ class MainActivity : AppCompatActivity() {
                         }
                     })
                 }
-                R.id.nav_drawer_account -> {}
+                R.id.nav_drawer_account -> {
+                    nav_host_fragment.findNavController().navigate(R.id.accountFragment)
+                    title = "Account Details"
+                }
                 R.id.nav_drawer_settings -> {
                     nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
+                    title = "Settings"
                 }
             }
             drawerLayout.closeDrawers()
