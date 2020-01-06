@@ -6,15 +6,15 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/accountFragment"
+            android:id="@+id/nav_drawer_account"
             android:title="@string/manage_account" />
 
         <item
-            android:id="@+id/settingsFragment"
+            android:id="@+id/nav_drawer_settings"
             android:title="@string/settings" />
 
         <item
-            android:id="@+id/loginFragment"
+            android:id="@+id/nav_drawer_logout"
             android:title="@string/logout" />
 
     </group>

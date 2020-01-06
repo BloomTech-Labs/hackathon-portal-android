@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.ui
 
 import android.os.Bundle
 import android.util.Log
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -34,14 +35,15 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        drawerLayout.nav_view.setupWithNavController(
-            nav_host_fragment.findNavController()
-        )
+        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
+
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
-            when (menuItem.title) {
-                "Logout" -> {
+            when (menuItem.itemId) {
+                R.id.nav_drawer_logout -> {
                     webAuthProviderLogout.start(this, object : VoidCallback {
                         override fun onSuccess(payload: Void?) {
                             Log.i("Nav Drawer", "Success")
@@ -54,7 +56,12 @@ class MainActivity : AppCompatActivity() {
                         }
                     })
                 }
+                R.id.nav_drawer_account -> {}
+                R.id.nav_drawer_settings -> {
+                    nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
+                }
             }
+            drawerLayout.closeDrawers()
             true
         }
     }
