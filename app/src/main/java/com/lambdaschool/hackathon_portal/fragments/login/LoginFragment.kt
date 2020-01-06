@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
@@ -49,6 +50,7 @@ class LoginFragment : Fragment() {
         }
 
         if (App.credentialsManager.hasValidCredentials()) {
+            Log.i("Login Fragment", "Sending to Dashboard")
             showNextFragment()
         }
     }
@@ -90,7 +92,11 @@ class LoginFragment : Fragment() {
         App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
             override fun onSuccess(credentials: Credentials) {
-                this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment)
+                val bundle = Bundle()
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.loginFragment, true)
+                    .build()
+                this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment, bundle, navOptions)
             }
 
             override fun onFailure(error: CredentialsManagerException?) {
