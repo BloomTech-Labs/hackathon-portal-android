@@ -1,20 +1,18 @@
 package com.lambdaschool.hackathon_portal.fragments.login
 
-import android.app.Application
-import com.auth0.android.Auth0
 import com.auth0.android.provider.WebAuthProvider
+import com.lambdaschool.hackathon_portal.App
 import dagger.Module
 import dagger.Provides
 
 @Module
 object LoginModule {
 
-    const val auth0Domain = "hackathonportal.auth0.com"
-
     @Provides
     @JvmStatic
-    fun provideWebAuthProviderLogin(application: Application) =
-        WebAuthProvider.login(Auth0(application))
+    fun provideWebAuthProviderLogin() =
+        WebAuthProvider.login(App.auth0)
             .withScheme("demo")
-            .withAudience(String.format("https://%s/userinfo", auth0Domain))
+            .withAudience("https://hackathon-portal.herokuapp.com/")
+            .withScope("openid offline_access")
 }
