@@ -1,4 +1,4 @@
-package com.lambdaschool.hackathon_portal.fragments.login
+package com.lambdaschool.hackathon_portal.ui.fragments.login
 
 import android.app.Dialog
 import android.os.Bundle

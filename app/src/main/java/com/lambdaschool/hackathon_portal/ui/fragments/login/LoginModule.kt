@@ -1,4 +1,4 @@
-package com.lambdaschool.hackathon_portal.fragments.login
+package com.lambdaschool.hackathon_portal.ui.fragments.login
 
 import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.App

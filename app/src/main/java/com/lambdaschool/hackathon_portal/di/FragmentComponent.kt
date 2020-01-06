@@ -1,8 +1,8 @@
 package com.lambdaschool.hackathon_portal.di
 
 import androidx.fragment.app.Fragment
-import com.lambdaschool.hackathon_portal.fragments.login.LoginFragment
-import com.lambdaschool.hackathon_portal.fragments.login.LoginModule
+import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
 import dagger.BindsInstance
 import dagger.Subcomponent
 

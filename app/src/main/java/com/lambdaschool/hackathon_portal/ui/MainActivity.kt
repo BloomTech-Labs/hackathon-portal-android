@@ -1,4 +1,4 @@
-package com.lambdaschool.hackathon_portal
+package com.lambdaschool.hackathon_portal.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.auth0.android.provider.WebAuthProvider
+import com.lambdaschool.hackathon_portal.App
+import com.lambdaschool.hackathon_portal.R
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import javax.inject.Inject
