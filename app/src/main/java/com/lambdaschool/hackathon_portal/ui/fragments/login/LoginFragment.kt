@@ -24,6 +24,9 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.NavDrawerInterface
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
@@ -119,6 +122,7 @@ class LoginFragment : Fragment() {
         App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
             override fun onSuccess(credentials: Credentials) {
+                GlobalScope.launch(Main) { setCurrentUser(credentials) }
                 setCurrentUser(credentials)
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()

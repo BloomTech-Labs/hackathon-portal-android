@@ -18,7 +18,11 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
+
 
 class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
@@ -59,11 +63,6 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
-
-        val navigationView = findViewById<NavigationView>(R.id.nav_view)
-        val headerView = navigationView.getHeaderView(0)
-        val textviewUser = headerView.findViewById<TextView>(R.id.nav_header_title)
-        textviewUser.text = "TEST"
 
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
@@ -110,15 +109,14 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
     }
 
     override fun setUserImage(imageUrl: String) {
-        Log.i("BIGBRAIN", imageUrl)
-        Picasso.get().load(imageUrl).into(imageviewHeader)
+        GlobalScope.launch(Main) { Picasso.get().load(imageUrl).into(imageviewHeader) }
     }
 
     override fun setUsername(username: String) {
-        textviewTitle.text = username
+        GlobalScope.launch(Main) { textviewTitle.text = username }
     }
 
     override fun setUserEmail(email: String) {
-        textviewSubtitle.text = email
+        GlobalScope.launch(Main) { textviewSubtitle.text = email }
     }
 }
