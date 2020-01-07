@@ -67,6 +67,7 @@ dependencies {
 
     //Auth0
     implementation 'com.auth0.android:auth0:1.19.1'
+    implementation 'com.auth0.android:jwtdecode:1.4.0'
 
     //Retrofit
     implementation 'com.squareup.retrofit2:retrofit:2.6.2'

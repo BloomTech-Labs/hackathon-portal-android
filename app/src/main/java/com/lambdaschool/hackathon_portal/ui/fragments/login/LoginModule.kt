@@ -16,5 +16,5 @@ object LoginModule {
         WebAuthProvider.login(App.auth0)
             .withScheme("demo")
             .withAudience("https://hackathon-portal.herokuapp.com/")
-            .withScope("openid offline_access")
+            .withScope("openid profile email offline_access")
 }
