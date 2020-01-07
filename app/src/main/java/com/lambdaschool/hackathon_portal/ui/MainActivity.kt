@@ -6,25 +6,22 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavOptions
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.setupWithNavController
 import com.auth0.android.Auth0Exception
 import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.activity_main.view.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
     @Inject
     lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
-    lateinit var drawerLayout: DrawerLayout
-    lateinit var toggle: ActionBarDrawerToggle
+
+    private lateinit var drawerLayout: DrawerLayout
+    private lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App)
@@ -43,10 +40,10 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
             when (menuItem.itemId) {
+
                 R.id.nav_drawer_logout -> {
                     webAuthProviderLogout.start(this, object : VoidCallback {
                         override fun onSuccess(payload: Void?) {
@@ -60,10 +57,12 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
                         }
                     })
                 }
+
                 R.id.nav_drawer_account -> {
                     nav_host_fragment.findNavController().navigate(R.id.accountFragment)
                     title = "Account Details"
                 }
+
                 R.id.nav_drawer_settings -> {
                     nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
                     title = "Settings"

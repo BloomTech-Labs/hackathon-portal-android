@@ -1,6 +1,5 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.login
 
-import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
