@@ -14,11 +14,14 @@ import androidx.navigation.fragment.findNavController
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.callback.BaseCallback
+import com.auth0.android.jwt.Claim
+import com.auth0.android.jwt.JWT
 import com.auth0.android.provider.AuthCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.NavDrawerInterface
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
@@ -63,7 +66,7 @@ class LoginFragment : Fragment() {
         }
 
         if (App.credentialsManager.hasValidCredentials()) {
-            Log.i("Login Fragment", "Sending to Dashboard")
+            Log.i(TAG, "Sending to Dashboard")
             showNextFragment()
         }
     }
@@ -115,6 +118,7 @@ class LoginFragment : Fragment() {
         App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
             override fun onSuccess(credentials: Credentials) {
+                setUserInfo(credentials)
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(R.id.loginFragment, true)
@@ -128,5 +132,26 @@ class LoginFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun setUserInfo(credentials: Credentials) {
+        val jwt = JWT(credentials.idToken!!)
+        val claims: Map<String, Claim> = jwt.claims
+
+        claims.get("sub")?.asString()?.let {
+            CurrentUser.currentUser.id = it.split("|")[1]
+        }
+
+        claims.get("name")?.asString()?.let {
+            CurrentUser.currentUser.name = it
+        }
+
+        claims.get("pictureURL")?.asString()?.let {
+            CurrentUser.currentUser.pictureURL = it
+        }
+
+        claims.get("email")?.asString()?.let {
+            CurrentUser.currentUser.email = it
+        }
     }
 }
