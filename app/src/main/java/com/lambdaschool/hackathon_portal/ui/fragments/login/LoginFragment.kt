@@ -69,6 +69,7 @@ class LoginFragment : Fragment() {
             Log.i(TAG, "Sending to Dashboard")
             showNextFragment()
         }
+
     }
 
     override fun onDestroyView() {
@@ -144,14 +145,17 @@ class LoginFragment : Fragment() {
 
         claims.get("name")?.asString()?.let {
             CurrentUser.currentUser.name = it
+            navDrawerInterface?.setUsername(it)
         }
 
-        claims.get("pictureURL")?.asString()?.let {
+        claims.get("picture")?.asString()?.let {
             CurrentUser.currentUser.pictureURL = it
+            navDrawerInterface?.setUserImage(it)
         }
 
         claims.get("email")?.asString()?.let {
             CurrentUser.currentUser.email = it
+            navDrawerInterface?.setUserEmail(it)
         }
     }
 }

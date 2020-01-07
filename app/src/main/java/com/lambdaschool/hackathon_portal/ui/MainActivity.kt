@@ -2,6 +2,8 @@ package com.lambdaschool.hackathon_portal.ui
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -10,9 +12,11 @@ import androidx.navigation.fragment.findNavController
 import com.auth0.android.Auth0Exception
 import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
+import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -23,6 +27,21 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+    val navigationView by lazy {
+        findViewById<NavigationView>(R.id.nav_view)
+    }
+    val headerView by lazy {
+        navigationView.getHeaderView(0)
+    }
+    val textviewTitle by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_title)
+    }
+    val textviewSubtitle by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle)
+    }
+    val imageviewHeader by lazy {
+        headerView.findViewById<ImageView>(R.id.nav_header_image)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App)
@@ -40,6 +59,11 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        val navigationView = findViewById<NavigationView>(R.id.nav_view)
+        val headerView = navigationView.getHeaderView(0)
+        val textviewUser = headerView.findViewById<TextView>(R.id.nav_header_title)
+        textviewUser.text = "TEST"
 
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
@@ -83,5 +107,18 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
     override fun unlockDrawer() {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         toggle.isDrawerIndicatorEnabled = true
+    }
+
+    override fun setUserImage(imageUrl: String) {
+        Log.i("BIGBRAIN", imageUrl)
+        Picasso.get().load(imageUrl).into(imageviewHeader)
+    }
+
+    override fun setUsername(username: String) {
+        textviewTitle.text = username
+    }
+
+    override fun setUserEmail(email: String) {
+        textviewSubtitle.text = email
     }
 }
