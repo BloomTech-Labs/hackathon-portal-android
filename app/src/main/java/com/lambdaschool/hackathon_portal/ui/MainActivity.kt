@@ -12,6 +12,7 @@ import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -49,6 +50,7 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
                         override fun onSuccess(payload: Void?) {
                             Log.i("Nav Drawer", "Success")
                             App.credentialsManager.clearCredentials()
+                            wipeCurrentUser()
                             nav_host_fragment.findNavController().navigate(R.id.loginFragment)
                         }
 
