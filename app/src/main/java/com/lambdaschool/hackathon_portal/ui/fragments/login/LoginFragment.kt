@@ -118,7 +118,7 @@ class LoginFragment : Fragment() {
         App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
             override fun onSuccess(credentials: Credentials) {
-                setUserInfo(credentials)
+                setCurrentUser(credentials)
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(R.id.loginFragment, true)
@@ -134,7 +134,7 @@ class LoginFragment : Fragment() {
         })
     }
 
-    private fun setUserInfo(credentials: Credentials) {
+    private fun setCurrentUser(credentials: Credentials) {
         val jwt = JWT(credentials.idToken!!)
         val claims: Map<String, Claim> = jwt.claims
 
