@@ -19,10 +19,12 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.activity_main.view.*
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
     @Inject
     lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var toggle: ActionBarDrawerToggle
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (application as App)
@@ -35,11 +37,12 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         toolbar.title = title
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
-        val toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
+        drawerLayout = findViewById(R.id.drawer_layout)
+        toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
 
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true
@@ -69,5 +72,15 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+    }
+
+    override fun lockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toggle.isDrawerIndicatorEnabled = false
+    }
+
+    override fun unlockDrawer() {
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        toggle.isDrawerIndicatorEnabled = true
     }
 }

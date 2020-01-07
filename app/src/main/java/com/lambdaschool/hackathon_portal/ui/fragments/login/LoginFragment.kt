@@ -1,6 +1,8 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.login
 
+import android.app.Activity
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,14 +20,25 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.ui.NavDrawerInterface
 import kotlinx.android.synthetic.main.fragment_login.*
 import javax.inject.Inject
+
+
 class LoginFragment : Fragment() {
 
     val TAG = "LOGIN FRAGMENT"
 
     @Inject
     lateinit var webAuthProviderLogin: WebAuthProvider.Builder
+    private var navDrawerInterface: NavDrawerInterface? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is NavDrawerInterface) {
+            navDrawerInterface = context
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         (activity?.application as App)
@@ -39,6 +52,7 @@ class LoginFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
+        navDrawerInterface?.lockDrawer()
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -53,6 +67,16 @@ class LoginFragment : Fragment() {
             Log.i("Login Fragment", "Sending to Dashboard")
             showNextFragment()
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        navDrawerInterface?.unlockDrawer()
+    }
+
+    override fun onDetach() {
+        super.onDetach()
+        navDrawerInterface = null
     }
 
     private fun login() {
