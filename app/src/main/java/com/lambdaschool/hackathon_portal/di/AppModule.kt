@@ -41,6 +41,15 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
+    fun provideSecureCredentialsManager(application: Application, auth0: Auth0) =
+        SecureCredentialsManager(
+            application.applicationContext,
+            AuthenticationAPIClient(auth0),
+            SharedPreferencesStorage(application.applicationContext))
+
+    @Singleton
+    @Provides
+    @JvmStatic
     fun provideWebAuthProviderLogoutBuilder(auth0: Auth0): WebAuthProvider.LogoutBuilder =
         WebAuthProvider.logout(auth0)
             .withScheme("demo")

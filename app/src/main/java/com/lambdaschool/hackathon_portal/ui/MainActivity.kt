@@ -8,12 +8,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.auth0.android.Auth0Exception
+import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.google.android.material.navigation.NavigationView
@@ -27,11 +26,12 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-
 class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
     @Inject
     lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
+    @Inject
+    lateinit var credentialsManager: SecureCredentialsManager
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
                     webAuthProviderLogout.start(this, object : VoidCallback {
                         override fun onSuccess(payload: Void?) {
                             Log.i("Nav Drawer", "Success")
-                            App.credentialsManager.clearCredentials()
+                            credentialsManager.clearCredentials()
                             wipeCurrentUser()
                             nav_host_fragment.findNavController().navigate(R.id.loginFragment)
                         }
