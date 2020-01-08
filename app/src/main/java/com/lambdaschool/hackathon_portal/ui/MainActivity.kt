@@ -8,7 +8,11 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import com.auth0.android.Auth0Exception
 import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
@@ -31,6 +35,9 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toggle: ActionBarDrawerToggle
+    val navController by lazy {
+        Navigation.findNavController(this, R.id.nav_host_fragment)
+    }
     val navigationView by lazy {
         findViewById<NavigationView>(R.id.nav_view)
     }
@@ -56,13 +63,14 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
-        toolbar.title = title
 
         drawerLayout = findViewById(R.id.drawer_layout)
         toggle = ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer)
 
         drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
+
+        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
         nav_view.setNavigationItemSelectedListener { menuItem ->
             menuItem.isChecked = true

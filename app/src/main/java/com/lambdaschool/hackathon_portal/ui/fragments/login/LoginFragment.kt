@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
@@ -121,6 +122,9 @@ class LoginFragment : Fragment() {
     private fun showNextFragment() {
         App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
+            //Using coroutines to run saving current user and navigating with nav controller on main
+            //thread because the onSuccess call back runs on a background thread
+
             override fun onSuccess(credentials: Credentials) {
                 GlobalScope.launch(Main) { setCurrentUser(credentials) }
                 setCurrentUser(credentials)
@@ -128,7 +132,9 @@ class LoginFragment : Fragment() {
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(R.id.loginFragment, true)
                     .build()
-                this@LoginFragment.findNavController().navigate(R.id.action_loginFragment_to_dashboardFragment, bundle, navOptions)
+                GlobalScope.launch(Main) { findNavController()
+                    .navigate(R.id.action_loginFragment_to_dashboardFragment, bundle, navOptions)
+                }
             }
 
             override fun onFailure(error: CredentialsManagerException?) {
