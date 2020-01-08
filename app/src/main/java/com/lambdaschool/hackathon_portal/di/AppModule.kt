@@ -16,7 +16,7 @@ import javax.inject.Singleton
 @Module
 object AppModule {
 
-    private const val BASE_URL = "https://www.hackathon-portal.tech/"
+    private const val BASE_URL = "https://hackathon-portal.herokuapp.com/api/"
 
     @Singleton
     @Provides
