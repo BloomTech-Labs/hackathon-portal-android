@@ -10,10 +10,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
+import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.callback.BaseCallback
 import com.auth0.android.jwt.Claim
 import com.auth0.android.jwt.JWT
@@ -37,6 +37,9 @@ class LoginFragment : Fragment() {
 
     @Inject
     lateinit var webAuthProviderLogin: WebAuthProvider.Builder
+    @Inject
+    lateinit var credentialsManager: SecureCredentialsManager
+
     private var navDrawerInterface: NavDrawerInterface? = null
 
     override fun onAttach(context: Context) {
@@ -69,7 +72,7 @@ class LoginFragment : Fragment() {
             login()
         }
 
-        if (App.credentialsManager.hasValidCredentials()) {
+        if (credentialsManager.hasValidCredentials()) {
             Log.i(TAG, "Sending to Dashboard")
             showNextFragment()
         }
@@ -112,7 +115,7 @@ class LoginFragment : Fragment() {
                 override fun onSuccess(credentials: Credentials) {
                     Log.i(TAG, "Login Successful")
                     Log.i(TAG, credentials.accessToken)
-                    App.credentialsManager.saveCredentials(credentials)
+                    credentialsManager.saveCredentials(credentials)
                     showNextFragment()
                 }
             })
@@ -120,7 +123,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun showNextFragment() {
-        App.credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
+        credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
             //Using coroutines to run saving current user and navigating with nav controller on main
             //thread because the onSuccess call back runs on a background thread
