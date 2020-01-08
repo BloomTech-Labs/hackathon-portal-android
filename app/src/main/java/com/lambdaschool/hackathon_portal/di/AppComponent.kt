@@ -1,7 +1,8 @@
 package com.lambdaschool.hackathon_portal.di
 
 import android.app.Application
-import com.lambdaschool.hackathon_portal.fragments.dashboard.DashboardFragment
+import com.lambdaschool.hackathon_portal.ui.MainActivity
+import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -20,6 +21,8 @@ interface AppComponent {
 
         fun build(): AppComponent
     }
+
+    fun injectMainActivity(activity: MainActivity)
 
     fun injectDashboardFragment(fragment: DashboardFragment)
 }

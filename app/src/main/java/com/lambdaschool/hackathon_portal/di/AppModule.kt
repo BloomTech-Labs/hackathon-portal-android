@@ -23,6 +23,7 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Singleton
     @Provides
     @JvmStatic
     fun provideWebAuthProviderLogout() =
