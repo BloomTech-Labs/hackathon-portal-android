@@ -7,6 +7,7 @@ import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.Prefs
+import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -28,6 +29,11 @@ object AppModule {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideHackathonService(retrofit: Retrofit) =
+        retrofit.create(HackathonApiInterface::class.java)
 
     @Singleton
     @Provides
