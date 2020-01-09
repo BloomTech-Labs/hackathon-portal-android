@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -59,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                             Log.i("Nav Drawer", "Success")
                             credentialsManager.clearCredentials()
                             wipeCurrentUser()
-                            nav_host_fragment.findNavController().navigate(R.id.loginFragment)
+                            navController.navigate(R.id.loginFragment)
                         }
 
                         override fun onFailure(error: Auth0Exception?) {
@@ -69,13 +68,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_drawer_account -> {
-                    nav_host_fragment.findNavController().navigate(R.id.accountFragment)
-                    title = "Account Details"
+                    navController.navigate(R.id.accountFragment)
                 }
 
                 R.id.nav_drawer_settings -> {
-                    nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
-                    title = "Settings"
+                    navController.navigate(R.id.settingsFragment)
+                }
+
+                R.id.nav_drawer_create_hackathon -> {
+                    navController.navigate(R.id.addHackathonFragment)
                 }
             }
             drawerLayout.closeDrawers()

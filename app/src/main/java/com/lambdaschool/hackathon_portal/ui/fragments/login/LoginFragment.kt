@@ -185,5 +185,7 @@ class LoginFragment : Fragment() {
                 Picasso.get().load(it).into(navHeaderImageView)
             }
         }
+
+        CurrentUser.currentUser.accessToken = credentials.accessToken
     }
 }

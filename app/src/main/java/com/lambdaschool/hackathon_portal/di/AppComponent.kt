@@ -6,7 +6,7 @@ import dagger.Component
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, ViewModelsModule::class])
 interface AppComponent {
 
     fun getActivityComponentBuilder(): ActivityComponent.Builder
