@@ -1,13 +1,16 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.login
 
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
@@ -20,10 +23,10 @@ import com.auth0.android.jwt.JWT
 import com.auth0.android.provider.AuthCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
-import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
-import com.lambdaschool.hackathon_portal.ui.NavDrawerInterface
+import com.lambdaschool.hackathon_portal.ui.MainActivity
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
@@ -33,35 +36,45 @@ import javax.inject.Inject
 
 class LoginFragment : Fragment() {
 
-    val TAG = "LOGIN FRAGMENT"
+    private val fragmentComponent by lazy {
+        (activity as MainActivity)
+            .activityComponent
+            .getFragmentComponentBuilder()
+            .bindFragment(this)
+            .build()
+    }
 
     @Inject
     lateinit var webAuthProviderLogin: WebAuthProvider.Builder
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
+    @Inject
+    lateinit var drawerLayout: DrawerLayout
+    @Inject
+    lateinit var toggle: ActionBarDrawerToggle
+    @Inject
+    lateinit var headerView: View
 
-    private var navDrawerInterface: NavDrawerInterface? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is NavDrawerInterface) {
-            navDrawerInterface = context
-        }
+    private val navHeaderTitleTextView by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_title)
+    }
+    private val navHeaderSubtitleTextView by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle)
+    }
+    private val navHeaderImageView by lazy {
+        headerView.findViewById<ImageView>(R.id.nav_header_image)
     }
 
+    private val TAG = "LOGIN FRAGMENT"
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (activity?.application as App)
-            .appComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-            .injectLoginFragment(this)
+        fragmentComponent.injectLoginFragment(this)
         super.onCreate(savedInstanceState)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        navDrawerInterface?.lockDrawer()
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toggle.isDrawerIndicatorEnabled = false
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -81,12 +94,8 @@ class LoginFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        navDrawerInterface?.unlockDrawer()
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        navDrawerInterface = null
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        toggle.isDrawerIndicatorEnabled = true
     }
 
     private fun login() {
@@ -114,7 +123,7 @@ class LoginFragment : Fragment() {
 
                 override fun onSuccess(credentials: Credentials) {
                     Log.i(TAG, "Login Successful")
-                    Log.i(TAG, credentials.accessToken)
+                    Log.i(TAG, credentials.accessToken ?: "AccessToken is null")
                     credentialsManager.saveCredentials(credentials)
                     showNextFragment()
                 }
@@ -158,17 +167,23 @@ class LoginFragment : Fragment() {
 
         claims.get("name")?.asString()?.let {
             CurrentUser.currentUser.name = it
-            navDrawerInterface?.setUsername(it)
-        }
-
-        claims.get("picture")?.asString()?.let {
-            CurrentUser.currentUser.pictureURL = it
-            navDrawerInterface?.setUserImage(it)
+            GlobalScope.launch(Main) {
+                navHeaderTitleTextView.text = it
+            }
         }
 
         claims.get("email")?.asString()?.let {
             CurrentUser.currentUser.email = it
-            navDrawerInterface?.setUserEmail(it)
+            GlobalScope.launch(Main) {
+                navHeaderSubtitleTextView.text = it
+            }
+        }
+
+        claims.get("picture")?.asString()?.let {
+            CurrentUser.currentUser.pictureURL = it
+            GlobalScope.launch(Main) {
+                Picasso.get().load(it).into(navHeaderImageView)
+            }
         }
     }
 }
