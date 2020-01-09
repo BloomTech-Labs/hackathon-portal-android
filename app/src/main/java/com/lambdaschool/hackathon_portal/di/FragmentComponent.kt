@@ -1,8 +1,11 @@
 package com.lambdaschool.hackathon_portal.di
 
 import androidx.fragment.app.Fragment
+import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
+import com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 
@@ -20,4 +23,7 @@ interface FragmentComponent {
     }
 
     fun injectLoginFragment(fragment: LoginFragment)
+    fun injectDashboardFragment(fragment: DashboardFragment)
+    fun injectAccountFragment(fragment: AccountFragment)
+    fun injectSettingsFragment(fragment: SettingsFragment)
 }
