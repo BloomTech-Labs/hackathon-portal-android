@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                             Log.i("Nav Drawer", "Success")
                             credentialsManager.clearCredentials()
                             wipeCurrentUser()
-                            nav_host_fragment.findNavController().navigate(R.id.loginFragment)
+                            navController.navigate(R.id.loginFragment)
                         }
 
                         override fun onFailure(error: Auth0Exception?) {
@@ -69,17 +69,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_drawer_account -> {
-                    nav_host_fragment.findNavController().navigate(R.id.accountFragment)
-                    title = "Account Details"
+                    navController.navigate(R.id.accountFragment)
                 }
 
                 R.id.nav_drawer_settings -> {
-                    nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
-                    title = "Settings"
+                    navController.navigate(R.id.settingsFragment)
                 }
 
                 R.id.nav_drawer_add_hackathon -> {
-                    nav_host_fragment.findNavController().navigate(R.id.addHackathonFragment)
+                    navController.navigate(R.id.addHackathonFragment)
                 }
             }
             drawerLayout.closeDrawers()
