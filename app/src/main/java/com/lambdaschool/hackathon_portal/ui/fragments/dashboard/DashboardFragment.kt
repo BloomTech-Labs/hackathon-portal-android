@@ -6,16 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.lambdaschool.hackathon_portal.App
 
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.ui.MainActivity
 
 class DashboardFragment : Fragment() {
 
+    private val fragmentComponent by lazy {
+        (activity as MainActivity)
+            .activityComponent
+            .getFragmentComponentBuilder()
+            .bindFragment(this)
+            .build()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
-        (activity?.application as App)
-            .appComponent
-            .injectDashboardFragment(this)
+        fragmentComponent.injectDashboardFragment(this)
         super.onCreate(savedInstanceState)
     }
 
