@@ -1,23 +1,23 @@
 package com.lambdaschool.hackathon_portal.di
 
-import androidx.fragment.app.Fragment
-import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
-import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
+import com.lambdaschool.hackathon_portal.ui.MainActivity
 import dagger.BindsInstance
 import dagger.Subcomponent
 
-@FragmentScope
-@Subcomponent(modules = [LoginModule::class])
+@ActivityScope
+@Subcomponent(modules = [NavDrawerModule::class])
 interface ActivityComponent {
+
+    fun getFragmentComponentBuilder(): FragmentComponent.Builder
 
     @Subcomponent.Builder
     interface Builder {
 
         @BindsInstance
-        fun bindFragment(fragment: Fragment): Builder
+        fun bindActivity(activity: MainActivity): Builder
 
         fun build(): ActivityComponent
     }
 
-    fun injectLoginFragment(fragment: LoginFragment)
+    fun injectMainActivity(activity: MainActivity)
 }
