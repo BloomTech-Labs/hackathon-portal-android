@@ -18,31 +18,14 @@ import javax.inject.Singleton
 @Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface, private val credentialsManager: SecureCredentialsManager) {
 
-    private var accessToken: String? = null
     val addHackathonResponse = MutableLiveData<String>()
 
     companion object {
         const val REPO_TAG = "REPOSITORY"
     }
 
-    init {
-        refreshToken()
-    }
-
-    fun refreshToken() {
-        credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
-            override fun onSuccess(payload: Credentials?) {
-                accessToken = payload?.accessToken
-            }
-
-            override fun onFailure(error: CredentialsManagerException?) {
-                accessToken = null
-            }
-        })
-    }
-
     fun postHackathon(hackathon: Hackathon): LiveData<String> {
-        val bearerToken = "Bearer $accessToken"
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
         hackathonService.postHackathon(CurrentUser.currentUser.id?.toInt(), bearerToken, hackathon)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
