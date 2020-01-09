@@ -45,8 +45,12 @@ class CreateHackathonFragment : Fragment() {
 
         var switchState = false
 
-        switch_is_open.setOnCheckedChangeListener { button, b ->
+        switch_is_hackathon_open.setOnCheckedChangeListener { _, b ->
             switchState = b
+            when (b) {
+                true -> text_view_is_hackathon_open_yes_or_no.text = getString(R.string.yes)
+                false -> text_view_is_hackathon_open_yes_or_no.text = getString(R.string.no)
+            }
         }
 
         fab_save_hackathon.setOnClickListener {

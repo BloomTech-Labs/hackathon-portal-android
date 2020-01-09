@@ -75,7 +75,7 @@
             android:text="@string/is_this_hackathon_open"/>
 
         <Switch
-            android:id="@+id/switch_is_open"
+            android:id="@+id/switch_is_hackathon_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_end_date"
@@ -83,7 +83,7 @@
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/text_view_yesno"
+            android:id="@+id/text_view_is_hackathon_open_yes_or_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no"/>
