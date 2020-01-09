@@ -100,6 +100,10 @@ class MainActivity : AppCompatActivity(), NavDrawerInterface {
                     nav_host_fragment.findNavController().navigate(R.id.settingsFragment)
                     title = "Settings"
                 }
+
+                R.id.nav_drawer_add_hackathon -> {
+                    nav_host_fragment.findNavController().navigate(R.id.addHackathonFragment)
+                }
             }
             drawerLayout.closeDrawers()
             true
