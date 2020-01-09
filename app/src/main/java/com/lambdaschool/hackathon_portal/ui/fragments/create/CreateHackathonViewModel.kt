@@ -2,7 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.create
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.lambdaschool.hackathon_portal.HackathonRepository
+import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import javax.inject.Inject
 

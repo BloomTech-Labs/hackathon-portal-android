@@ -1,12 +1,8 @@
-package com.lambdaschool.hackathon_portal
+package com.lambdaschool.hackathon_portal.repository
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.auth0.android.authentication.storage.CredentialsManagerException
-import com.auth0.android.authentication.storage.SecureCredentialsManager
-import com.auth0.android.callback.BaseCallback
-import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
@@ -16,7 +12,7 @@ import retrofit2.Response
 import javax.inject.Singleton
 
 @Singleton
-class HackathonRepository (private val hackathonService: HackathonApiInterface, private val credentialsManager: SecureCredentialsManager) {
+class HackathonRepository (private val hackathonService: HackathonApiInterface) {
 
     companion object {
         const val REPO_TAG = "REPOSITORY"

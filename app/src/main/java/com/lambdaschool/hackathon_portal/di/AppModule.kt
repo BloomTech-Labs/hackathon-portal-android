@@ -6,8 +6,7 @@ import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
 import com.auth0.android.provider.WebAuthProvider
-import com.lambdaschool.hackathon_portal.HackathonRepository
-import com.lambdaschool.hackathon_portal.Prefs
+import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import dagger.Module
 import dagger.Provides
@@ -33,7 +32,7 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideHackathonService(retrofit: Retrofit) =
+    fun provideHackathonService(retrofit: Retrofit): HackathonApiInterface =
         retrofit.create(HackathonApiInterface::class.java)
 
     @Singleton
@@ -64,6 +63,6 @@ object AppModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun providesHackathonRepository(hackathonApiInterface: HackathonApiInterface, secureCredentialsManager: SecureCredentialsManager) =
-        HackathonRepository(hackathonApiInterface, secureCredentialsManager)
+    fun providesHackathonRepository(hackathonApiInterface: HackathonApiInterface) =
+        HackathonRepository(hackathonApiInterface)
 }
