@@ -9,10 +9,9 @@
     <TextView
         android:id="@+id/text_view_dashboard_my_hackathons"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="this is the dashboard"
+        android:layout_height="wrap_content"
+        android:text="@string/my_hackathons"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 
