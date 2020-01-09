@@ -50,27 +50,53 @@ class CreateHackathonFragment : Fragment() {
         }
 
         fab_save_hackathon.setOnClickListener {
-            val newHackathon = Hackathon(edit_text_hackathon_name.text.toString(),
-                edit_text_hackathon_description.text.toString(),
-                edit_text_hackathon_url.text.toString(),
-                edit_text_hackathon_start_date.text.toString(),
-                edit_text_hackathon_end_date.text.toString(),
-                edit_text_hackathon_location.text.toString(),
-                switchState)
 
-            createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
-                if (it != null) {
-                    if (it) {
-                        activity?.apply {
-                            Toast.makeText(this, "Successfully created Hackathon", Toast.LENGTH_LONG).show()
+            if (!checkIfRequiredFieldsEmpty()) {
+                val newHackathon =
+                    Hackathon(edit_text_hackathon_name.text.toString(),
+                        edit_text_hackathon_description.text.toString(),
+                        edit_text_hackathon_url.text.toString(),
+                        edit_text_hackathon_start_date.text.toString(),
+                        edit_text_hackathon_end_date.text.toString(),
+                        edit_text_hackathon_location.text.toString(),
+                        switchState)
+
+                createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
+                    if (it != null) {
+                        if (it) {
+                            activity?.apply {
+                                Toast.makeText(this,
+                                    "Successfully created Hackathon",
+                                    Toast.LENGTH_LONG).show()
+                            }
                         }
-                    } else {
-                        activity?.apply {
-                            Toast.makeText(this, "Failed to create Hackathon", Toast.LENGTH_LONG).show()
+                        else {
+                            activity?.apply {
+                                Toast.makeText(this,
+                                    "Failed to create Hackathon",
+                                    Toast.LENGTH_LONG).show()
+                            }
                         }
                     }
-                }
-            })
+                })
+            }
         }
+    }
+
+    private fun checkIfRequiredFieldsEmpty(): Boolean {
+        var requiredFieldsEmpty = false
+        if (edit_text_hackathon_name.text.toString().isEmpty()) {
+            edit_text_hackathon_name.error = "Name is required"
+            requiredFieldsEmpty = true
+        }
+        if (edit_text_hackathon_start_date.text.toString().isEmpty()) {
+            edit_text_hackathon_start_date.error = "Start Date is required"
+            requiredFieldsEmpty = true
+        }
+        if (edit_text_hackathon_end_date.text.toString().isEmpty()) {
+            edit_text_hackathon_end_date.error = "End Date is required"
+            requiredFieldsEmpty = true
+        }
+        return requiredFieldsEmpty
     }
 }
