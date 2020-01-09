@@ -27,5 +27,5 @@ interface FragmentComponent {
     fun injectDashboardFragment(fragment: DashboardFragment)
     fun injectAccountFragment(fragment: AccountFragment)
     fun injectSettingsFragment(fragment: SettingsFragment)
-    fun injectAddHackathonFragment(fragmen: AddHackathonFragment)
+    fun injectAddHackathonFragment(fragment: AddHackathonFragment)
 }
