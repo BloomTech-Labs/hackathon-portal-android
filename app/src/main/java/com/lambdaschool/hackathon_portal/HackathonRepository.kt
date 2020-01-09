@@ -18,28 +18,27 @@ import javax.inject.Singleton
 @Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface, private val credentialsManager: SecureCredentialsManager) {
 
-    val addHackathonResponse = MutableLiveData<String>()
-
     companion object {
         const val REPO_TAG = "REPOSITORY"
     }
 
-    fun postHackathon(hackathon: Hackathon): LiveData<String> {
+    fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
+        val addHackathonResponse = MutableLiveData<Boolean>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
         hackathonService.postHackathon(CurrentUser.currentUser.id?.toInt(), bearerToken, hackathon)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
-                    addHackathonResponse.value = "Failed to connect to API"
+                    addHackathonResponse.value = false
                     Log.i(REPO_TAG, "Failed to connect to API")
                     Log.i(REPO_TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
-                        addHackathonResponse.value = "Successfully added hackathon"
+                        addHackathonResponse.value = true
                         Log.i(REPO_TAG, "Successfully posted hackathon")
                     } else {
-                        addHackathonResponse.value = "Failed to add hackathon"
+                        addHackathonResponse.value = false
                         Log.i(REPO_TAG, "Failed to post hackathon")
                         Log.i(REPO_TAG, response.code().toString())
                         Log.i(REPO_TAG, response.message().toString())

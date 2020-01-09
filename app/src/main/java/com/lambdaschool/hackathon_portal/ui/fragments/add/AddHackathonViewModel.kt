@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class AddHackathonViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
 
-    fun postHackathon(hackathon: Hackathon): LiveData<String> {
+    fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         return repo.postHackathon(hackathon)
     }
 }
