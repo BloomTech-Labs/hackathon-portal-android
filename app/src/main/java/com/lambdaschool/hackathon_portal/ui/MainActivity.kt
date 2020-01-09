@@ -6,7 +6,6 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -76,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.settingsFragment)
                 }
 
-                R.id.nav_drawer_add_hackathon -> {
+                R.id.nav_drawer_create_hackathon -> {
                     navController.navigate(R.id.addHackathonFragment)
                 }
             }

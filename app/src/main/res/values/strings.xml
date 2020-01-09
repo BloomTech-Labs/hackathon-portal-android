@@ -27,4 +27,5 @@
     <string name="end_date">End Date</string>
     <string name="is_this_hackathon_open">Is this hackathon open?</string>
     <string name="no">No</string>
+    <string name="create_hackathon">Create Hackathon</string>
 </resources>

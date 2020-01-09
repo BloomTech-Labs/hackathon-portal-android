@@ -2,7 +2,7 @@ package com.lambdaschool.hackathon_portal.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.lambdaschool.hackathon_portal.ui.fragments.add.AddHackathonViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonViewModel
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import dagger.Binds
 import dagger.Module
@@ -19,6 +19,6 @@ abstract class ViewModelsModule {
     @Singleton
     @Binds
     @IntoMap
-    @ViewModelKey(AddHackathonViewModel::class)
-    abstract fun bindsAddHackathonViewModel(viewModel: AddHackathonViewModel): ViewModel
+    @ViewModelKey(CreateHackathonViewModel::class)
+    abstract fun bindsCreateHackathonViewModel(viewModel: CreateHackathonViewModel): ViewModel
 }

@@ -1,4 +1,4 @@
-package com.lambdaschool.hackathon_portal.ui.fragments.add
+package com.lambdaschool.hackathon_portal.ui.fragments.create
 
 
 import android.os.Bundle
@@ -13,10 +13,10 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
-import kotlinx.android.synthetic.main.fragment_add_hackathon.*
+import kotlinx.android.synthetic.main.fragment_create_hackathon.*
 import javax.inject.Inject
 
-class AddHackathonFragment : Fragment() {
+class CreateHackathonFragment : Fragment() {
 
     private val fragmentComponent by lazy {
         (activity as MainActivity)
@@ -28,16 +28,16 @@ class AddHackathonFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    lateinit var addHackathonViewModel: AddHackathonViewModel
+    lateinit var createHackathonViewModel: CreateHackathonViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectAddHackathonFragment(this)
+        fragmentComponent.injectCreateHackathonFragment(this)
         super.onCreate(savedInstanceState)
-        addHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(AddHackathonViewModel::class.java)
+        createHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(CreateHackathonViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_add_hackathon, container, false)
+        return inflater.inflate(R.layout.fragment_create_hackathon, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -58,7 +58,7 @@ class AddHackathonFragment : Fragment() {
                 edit_text_hackathon_location.text.toString(),
                 switchState)
 
-            addHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
+            createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
                 if (it != null) {
                     if (it) {
                         activity?.apply {
