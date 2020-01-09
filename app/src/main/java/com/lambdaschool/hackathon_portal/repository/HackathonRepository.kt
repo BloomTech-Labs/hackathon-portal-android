@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.Hackathon
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,5 +44,30 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 }
             })
         return addHackathonResponse
+    }
+
+    fun getUser(id: Int): LiveData<User> {
+        val getUserResponse = MutableLiveData<User>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        hackathonService.getUser(id, bearerToken).enqueue(object: Callback<User> {
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                getUserResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                if (response.isSuccessful) {
+                    getUserResponse.value = response.body()
+                    Log.i(REPO_TAG, "Successfully get user")
+                } else {
+                    getUserResponse.value = null
+                    Log.i(REPO_TAG, "Failed to get user")
+                    Log.i(REPO_TAG, response.code().toString())
+                    Log.i(REPO_TAG, response.message().toString())
+                }
+            }
+        })
+        return getUserResponse
     }
 }
