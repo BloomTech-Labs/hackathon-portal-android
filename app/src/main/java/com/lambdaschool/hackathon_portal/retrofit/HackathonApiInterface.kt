@@ -1,6 +1,5 @@
 package com.lambdaschool.hackathon_portal.retrofit
 
-import androidx.lifecycle.LiveData
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import retrofit2.Call
 import retrofit2.http.Body
