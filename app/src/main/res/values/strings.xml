@@ -30,4 +30,7 @@
     <string name="create_hackathon">Create Hackathon</string>
     <string name="yes">Yes</string>
     <string name="my_hackathons">My Hackathons</string>
+    <string name="first_name">First Name</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
 </resources>
