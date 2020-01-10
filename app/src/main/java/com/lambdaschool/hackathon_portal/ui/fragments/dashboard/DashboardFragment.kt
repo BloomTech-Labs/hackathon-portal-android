@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -89,6 +90,11 @@ class DashboardFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = userHackathons[position]
             holder.nameView.text = data.hackathon_name
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putInt("hackathon_id", data.hackathon_id)
+                findNavController().navigate(R.id.detailsFragment, bundle)
+            }
         }
     }
 }
