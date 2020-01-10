@@ -52,7 +52,11 @@ class MainActivity : AppCompatActivity() {
             when (menuItem.itemId) {
 
                 R.id.nav_drawer_dashboard -> {
+                    //TODO: Add logic to only execute if the current fragment is NOT the one
+                    // being selected
+                    //if (navController.currentDestination != DashboardFragment) {
                     navController.navigate(R.id.dashboardFragment)
+                    //}
                 }
 
                 R.id.nav_drawer_logout -> {
@@ -71,15 +75,27 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_drawer_account -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != AccountFragment) {
                     navController.navigate(R.id.accountFragment)
+                    //}
                 }
 
                 /*R.id.nav_drawer_settings -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != SettingsFragment) {
                     navController.navigate(R.id.settingsFragment)
+                    //}
                 }*/
 
                 R.id.nav_drawer_create_hackathon -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != CreateHackathonFragment) {
                     navController.navigate(R.id.addHackathonFragment)
+                    //}
                 }
             }
             drawerLayout.closeDrawers()
