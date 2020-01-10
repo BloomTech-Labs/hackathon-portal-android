@@ -91,7 +91,14 @@ class MainActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(nav_view)) {
             drawerLayout.closeDrawers()
-        } else {
+
+            //TODO: Need to figure out logic to determine if the current fragment is the
+            // DashboardFragment such that when the back button is pressed we can call finish()
+            // to close out the application instead of the typical super.onBackPressed() call which
+            // does not play well with the Auth0 rigmarole.
+/*        } else if (navController.currentDestination = DashboardFragment) {
+            finish()
+        */} else {
             super.onBackPressed()
         }
     }
