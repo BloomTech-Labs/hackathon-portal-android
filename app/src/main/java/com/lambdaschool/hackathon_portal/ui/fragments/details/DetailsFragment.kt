@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_details.*
@@ -58,16 +60,56 @@ class DetailsFragment : Fragment() {
         if (hackathonId != null) {
             detailsViewModel.getHackathon(hackathonId).observe(this, Observer {
                 if (it != null) {
-                    fragment_details_edit_text_hackathon_name.setText(it.name)
-                    fragment_details_edit_text_hackathon_description.setText(it.description)
-                    fragment_details_edit_text_hackathon_url.setText(it.url)
-                    fragment_details_edit_text_hackathon_location.setText(it.location)
-                    fragment_details_edit_text_hackathon_start_date.setText(it.start_date)
-                    fragment_details_edit_text_hackathon_end_date.setText(it.end_date)
-                    fragment_details_switch_is_hackathon_open.isChecked = it.is_open
+                    updateHackathonViews(it)
+                } else {
+                    activity?.apply {
+                        Toast.makeText(this,
+                            "Failed to get Hackathon",
+                            Toast.LENGTH_LONG).show()
+                    }
                 }
             })
         }
 
+        fragment_details_fab_save_hackathon.setOnClickListener {
+            val newHackathon =
+                Hackathon(fragment_details_edit_text_hackathon_name.text.toString(),
+                    fragment_details_edit_text_hackathon_description.text.toString(),
+                    fragment_details_edit_text_hackathon_url.text.toString(),
+                    fragment_details_edit_text_hackathon_start_date.text.toString(),
+                    fragment_details_edit_text_hackathon_end_date.text.toString(),
+                    fragment_details_edit_text_hackathon_location.text.toString(),
+                    switchState)
+
+            if (hackathonId != null) {
+                detailsViewModel.updateHackathon(hackathonId, newHackathon)
+                    .observe(this, Observer {
+                    if (it != null) {
+                        updateHackathonViews(it)
+                        activity?.apply {
+                            Toast.makeText(this,
+                                "Successfully updated Hackathon",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    } else {
+                        activity?.apply {
+                            Toast.makeText(this,
+                                "Failed to update Hackathon",
+                                Toast.LENGTH_LONG).show()
+                        }
+                    }
+                })
+            }
+        }
+    }
+
+    private fun updateHackathonViews(hackathon: Hackathon) {
+        fragment_details_edit_text_hackathon_name.setText(hackathon.name)
+        fragment_details_edit_text_hackathon_description.setText(hackathon.description)
+        fragment_details_edit_text_hackathon_url.setText(hackathon.url)
+        fragment_details_edit_text_hackathon_location.setText(hackathon.location)
+        fragment_details_edit_text_hackathon_start_date.setText(hackathon.start_date)
+        fragment_details_edit_text_hackathon_end_date.setText(hackathon.end_date)
+        fragment_details_switch_is_hackathon_open.isChecked = hackathon.is_open
     }
 }
