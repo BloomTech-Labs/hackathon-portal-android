@@ -6,9 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
@@ -30,6 +32,17 @@ class AccountFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var navController: NavController
+    @Inject
+    lateinit var headerView: View
+
+    private val navHeaderTitleTextView by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_title)
+    }
+    private val navHeaderSubtitleTextView by lazy {
+        headerView.findViewById<TextView>(R.id.nav_header_subtitle)
+    }
 
     lateinit var accountViewModel: AccountViewModel
 
@@ -57,6 +70,9 @@ class AccountFragment : Fragment() {
                             activity?.apply {
                                 Toast.makeText(this, "Successfully updated account info", Toast.LENGTH_LONG).show()
                             }
+                            navHeaderTitleTextView.text = edit_text_username.text.toString()
+                            navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
+                            navController.popBackStack()
                         }
                         else {
                             activity?.apply {
