@@ -70,9 +70,9 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.accountFragment)
                 }
 
-                R.id.nav_drawer_settings -> {
+                /*R.id.nav_drawer_settings -> {
                     navController.navigate(R.id.settingsFragment)
-                }
+                }*/
 
                 R.id.nav_drawer_create_hackathon -> {
                     navController.navigate(R.id.addHackathonFragment)

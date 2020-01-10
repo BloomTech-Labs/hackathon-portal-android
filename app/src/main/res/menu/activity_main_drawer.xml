@@ -13,9 +13,9 @@
             android:id="@+id/nav_drawer_account"
             android:title="@string/manage_account" />
 
-        <item
+        <!--<item
             android:id="@+id/nav_drawer_settings"
-            android:title="@string/settings" />
+            android:title="@string/settings" />-->
 
         <item
             android:id="@+id/nav_drawer_logout"
