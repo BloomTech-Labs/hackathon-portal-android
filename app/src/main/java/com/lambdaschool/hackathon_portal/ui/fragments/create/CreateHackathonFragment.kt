@@ -77,7 +77,7 @@ class CreateHackathonFragment : Fragment() {
                                     "Successfully created Hackathon",
                                     Toast.LENGTH_LONG).show()
                             }
-                            navController.popBackStack()
+                            navController.popBackStack(R.id.dashboardFragment, true)
                         }
                         else {
                             activity?.apply {
