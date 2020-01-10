@@ -26,4 +26,18 @@ interface HackathonApiInterface {
     @DELETE("users/{id}")
     fun deleteUser(@Path("id") id: Int?,
                    @Header("Authorization") bearerToken: String): Call<Deletion>
+
+    @GET("hackathons/{id}")
+    fun getHackathon(@Path("id") id: Int,
+                     @Header("Authorization") bearerToken: String): Call<Hackathon>
+
+    @PUT("hackathons/{hack_id}/u/{org_id}")
+    fun updateHackathon(@Path("hack_id") hack_id: Int,
+                        @Path("org_id") org_id: Int,
+                        @Header("Authorization") bearerToken: String,
+                        @Body hackathon: Hackathon): Call<Hackathon>
+
+    @DELETE("hackathons/{hack_id}/u/{org_id}")
+    fun deleteHackathon(@Path("hack_id") hack_id: Int,
+                        @Path("org_id") org_id: Int): Call<Void>
 }
