@@ -45,6 +45,88 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         return addHackathonResponse
     }
 
+    fun getHackathon(id: Int): LiveData<Hackathon> {
+        val getHackathonResponse = MutableLiveData<Hackathon>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        hackathonService.getHackathon(id, bearerToken).enqueue(object: Callback<Hackathon> {
+            override fun onFailure(call: Call<Hackathon>, t: Throwable) {
+                getHackathonResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
+                if (response.isSuccessful) {
+                    getHackathonResponse.value = response.body()
+                    Log.i(REPO_TAG, "Successfully get hackathon")
+                } else {
+                    getHackathonResponse.value = null
+                    Log.i(REPO_TAG, "Failed to get hackathon")
+                    Log.i(REPO_TAG, response.code().toString())
+                    Log.i(REPO_TAG, response.message().toString())
+
+                }
+            }
+        })
+        return getHackathonResponse
+    }
+
+    fun updateHackathon(hackathonId: Int, hackathon: Hackathon): LiveData<Hackathon> {
+        val updateHackathonResponse = MutableLiveData<Hackathon>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        val currentUserId = LoggedInUser.user.id
+        hackathonService.updateHackathon(hackathonId, currentUserId, bearerToken, hackathon)
+            .enqueue(object: Callback<Hackathon> {
+                override fun onFailure(call: Call<Hackathon>, t: Throwable) {
+                    updateHackathonResponse.value = null
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
+                    if (response.isSuccessful) {
+                        updateHackathonResponse.value = response.body()
+                        Log.i(REPO_TAG, "Successfully get hackathon")
+                    }
+                    else {
+                        updateHackathonResponse.value = null
+                        Log.i(REPO_TAG, "Failed to get hackathon")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+                    }
+                }
+            })
+        return updateHackathonResponse
+    }
+
+    fun deleteHackathon(hackathonId: Int): LiveData<Boolean> {
+        val deleteHackathonResponse = MutableLiveData<Boolean>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        val currentUserId = LoggedInUser.user.id
+        hackathonService.deleteHackathon(hackathonId, currentUserId)
+            .enqueue(object: Callback<Void> {
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    deleteHackathonResponse.value = false
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    if (response.isSuccessful) {
+                        deleteHackathonResponse.value = true
+                        Log.i(REPO_TAG, "Successfully deleted Hackathon")
+                    } else {
+                        deleteHackathonResponse.value = false
+                        Log.i(REPO_TAG, "Failed to delete hackathon")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+                    }
+                }
+
+            })
+        return deleteHackathonResponse
+    }
+
     fun getUser(id: Int): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
