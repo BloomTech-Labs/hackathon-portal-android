@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.Hackathon
+import com.lambdaschool.hackathon_portal.model.LoggedInUser
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import retrofit2.Call
@@ -49,7 +50,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
     fun getUser(id: Int): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.getUser(id, bearerToken).enqueue(object: Callback<User> {
+        hackathonService.getUser(id, bearerToken).enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
                 Log.i(REPO_TAG, "Failed to connect to API")
@@ -60,7 +61,26 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 if (response.isSuccessful) {
                     getUserResponse.value = response.body()
                     Log.i(REPO_TAG, "Successfully get user")
-                } else {
+                    response.body()?.id?.let {
+                        LoggedInUser.user.id = it
+                    }
+                    response.body()?.username?.let {
+                        LoggedInUser.user.username = it
+                    }
+                    response.body()?.first_name?.let {
+                        LoggedInUser.user.first_name = it
+                    }
+                    response.body()?.last_name?.let {
+                        LoggedInUser.user.last_name = it
+                    }
+                    response.body()?.email?.let {
+                        LoggedInUser.user.email = it
+                    }
+                    response.body()?.hackathons?.let {
+                        LoggedInUser.user.hackathons = it
+                    }
+                }
+                else {
                     getUserResponse.value = null
                     Log.i(REPO_TAG, "Failed to get user")
                     Log.i(REPO_TAG, response.code().toString())
