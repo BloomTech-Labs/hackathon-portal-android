@@ -138,9 +138,6 @@ class LoginFragment : Fragment() {
     private fun showNextFragment() {
         credentialsManager.getCredentials(object : BaseCallback<Credentials, CredentialsManagerException?> {
 
-            //Using coroutines to run saving current user and navigating with nav controller on main
-            //thread because the onSuccess call back runs on a background thread
-
             override fun onSuccess(credentials: Credentials) {
                 setCurrentUser(credentials)
 
