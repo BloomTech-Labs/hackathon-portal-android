@@ -4,10 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
-import com.lambdaschool.hackathon_portal.model.CurrentUser
-import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.model.LoggedInUser
-import com.lambdaschool.hackathon_portal.model.User
+import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import retrofit2.Call
 import retrofit2.Callback
@@ -131,5 +128,32 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 }
             })
         return updateUserResponse
+    }
+
+    fun deleteUser(): LiveData<Boolean> {
+        val deleteUserResponse = MutableLiveData<Boolean>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        hackathonService.deleteUser(CurrentUser.currentUser.id?.toInt(), bearerToken)
+            .enqueue(object: Callback<Deletion> {
+                override fun onFailure(call: Call<Deletion>, t: Throwable) {
+                    deleteUserResponse.value = false
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<Deletion>, response: Response<Deletion>) {
+                    if (response.isSuccessful) {
+                        deleteUserResponse.value = true
+                        Log.i(REPO_TAG, "Successfully deleted User")
+                    } else {
+                        deleteUserResponse.value = false
+                        Log.i(REPO_TAG, "Failed to delete User")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+
+                    }
+                }
+            })
+        return deleteUserResponse
     }
 }

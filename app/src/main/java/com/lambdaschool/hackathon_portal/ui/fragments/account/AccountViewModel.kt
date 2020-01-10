@@ -11,4 +11,8 @@ class AccountViewModel @Inject constructor(private val repo: HackathonRepository
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> {
         return repo.updateUser(jsonObject)
     }
+
+    fun deleteUser(): LiveData<Boolean> {
+        return repo.deleteUser()
+    }
 }

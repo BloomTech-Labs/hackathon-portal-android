@@ -2,19 +2,26 @@ package com.lambdaschool.hackathon_portal.ui.fragments.account
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import com.auth0.android.Auth0Exception
+import com.auth0.android.authentication.storage.SecureCredentialsManager
+import com.auth0.android.provider.VoidCallback
+import com.auth0.android.provider.WebAuthProvider
 import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.LoggedInUser
+import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -32,6 +39,10 @@ class AccountFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
+    @Inject
+    lateinit var credentialsManager: SecureCredentialsManager
     @Inject
     lateinit var navController: NavController
     @Inject
@@ -82,6 +93,42 @@ class AccountFragment : Fragment() {
                     }
                 })
             }
+        }
+
+        fab_delete_user.setOnClickListener {
+            val title = "Delete User?"
+            val msg = "Are you sure you would like to delete this account?"
+
+            AlertDialog.Builder(context!!)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("Yes") { dialog, which ->
+
+                    accountViewModel.deleteUser().observe(this, Observer {
+                        if (it != null) {
+                            if (it) {
+                                activity?.apply {
+                                    webAuthProviderLogout.start(this, object : VoidCallback {
+                                        override fun onSuccess(payload: Void?) {
+                                            Log.i("Account Fragment", "Successful logout")
+                                            credentialsManager.clearCredentials()
+                                            wipeCurrentUser()
+                                            navController.navigate(R.id.loginFragment)
+                                        }
+
+                                        override fun onFailure(error: Auth0Exception?) {
+                                            Log.i("Account Fragment", "Failure ${error?.message}")
+                                        }
+                                    })
+                                }
+                            }
+                        }
+                    })
+                }
+
+                .setNegativeButton("No") { _, _ -> }
+                .create()
+                .show()
         }
     }
 
