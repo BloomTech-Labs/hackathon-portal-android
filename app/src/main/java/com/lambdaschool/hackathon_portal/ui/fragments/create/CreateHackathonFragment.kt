@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavController
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
@@ -28,6 +29,9 @@ class CreateHackathonFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var navController: NavController
+
     lateinit var createHackathonViewModel: CreateHackathonViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -73,6 +77,7 @@ class CreateHackathonFragment : Fragment() {
                                     "Successfully created Hackathon",
                                     Toast.LENGTH_LONG).show()
                             }
+                            navController.popBackStack(R.id.dashboardFragment, true)
                         }
                         else {
                             activity?.apply {
