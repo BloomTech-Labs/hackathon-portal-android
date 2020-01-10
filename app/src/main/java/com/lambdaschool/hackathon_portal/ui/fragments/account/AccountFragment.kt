@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.google.gson.JsonObject
 
@@ -46,6 +47,26 @@ class AccountFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         loadUserInfoToEditTextFields()
+
+        fab_save_user.setOnClickListener {
+            val jsonObject = buildJsonObject()
+            if (jsonObject != null) {
+                accountViewModel.updateUser(jsonObject).observe(this, Observer {
+                    if (it != null) {
+                        if (it) {
+                            activity?.apply {
+                                Toast.makeText(this, "Successfully updated account info", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        else {
+                            activity?.apply {
+                                Toast.makeText(this, "Failed to update account info", Toast.LENGTH_LONG).show()
+                            }
+                        }
+                    }
+                })
+            }
+        }
     }
 
     private fun loadUserInfoToEditTextFields() {
