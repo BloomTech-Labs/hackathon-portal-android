@@ -59,19 +59,12 @@ class MainActivity : AppCompatActivity() {
                     //}
                 }
 
-                R.id.nav_drawer_logout -> {
-                    webAuthProviderLogout.start(this, object : VoidCallback {
-                        override fun onSuccess(payload: Void?) {
-                            Log.i("Nav Drawer", "Success")
-                            credentialsManager.clearCredentials()
-                            wipeCurrentUser()
-                            navController.navigate(R.id.loginFragment)
-                        }
-
-                        override fun onFailure(error: Auth0Exception?) {
-                            Log.i("Nav Drawer", "Failure ${error?.message}")
-                        }
-                    })
+                R.id.nav_drawer_create_hackathon -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != CreateHackathonFragment) {
+                    navController.navigate(R.id.addHackathonFragment)
+                    //}
                 }
 
                 R.id.nav_drawer_account -> {
@@ -89,14 +82,22 @@ class MainActivity : AppCompatActivity() {
                     navController.navigate(R.id.settingsFragment)
                     //}
                 }*/
+                
+                R.id.nav_drawer_logout -> {
+                    webAuthProviderLogout.start(this, object : VoidCallback {
+                        override fun onSuccess(payload: Void?) {
+                            Log.i("Nav Drawer", "Success")
+                            credentialsManager.clearCredentials()
+                            wipeCurrentUser()
+                            navController.navigate(R.id.loginFragment)
+                        }
 
-                R.id.nav_drawer_create_hackathon -> {
-                    //TODO: Add logic to only execute if the current fragment is not the one
-                    // being selected
-                    //if (navController.currentDestination != CreateHackathonFragment) {
-                    navController.navigate(R.id.addHackathonFragment)
-                    //}
+                        override fun onFailure(error: Auth0Exception?) {
+                            Log.i("Nav Drawer", "Failure ${error?.message}")
+                        }
+                    })
                 }
+
             }
             drawerLayout.closeDrawers()
             true
