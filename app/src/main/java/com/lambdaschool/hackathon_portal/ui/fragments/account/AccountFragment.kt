@@ -121,6 +121,10 @@ class AccountFragment : Fragment() {
                                         }
                                     })
                                 }
+                            } else {
+                                activity?.apply {
+                                    Toast.makeText(this, "Failed to delete your account", Toast.LENGTH_LONG).show()
+                                }
                             }
                         }
                     })
