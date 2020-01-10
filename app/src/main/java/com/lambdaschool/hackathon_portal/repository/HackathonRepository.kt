@@ -103,7 +103,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         val deleteHackathonResponse = MutableLiveData<Boolean>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
         val currentUserId = LoggedInUser.user.id
-        hackathonService.deleteHackathon(hackathonId, currentUserId)
+        hackathonService.deleteHackathon(hackathonId, currentUserId, bearerToken)
             .enqueue(object: Callback<Void> {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     deleteHackathonResponse.value = false

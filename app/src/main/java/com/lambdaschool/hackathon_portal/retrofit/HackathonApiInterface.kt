@@ -39,5 +39,6 @@ interface HackathonApiInterface {
 
     @DELETE("hackathons/{hack_id}/u/{org_id}")
     fun deleteHackathon(@Path("hack_id") hack_id: Int,
-                        @Path("org_id") org_id: Int): Call<Void>
+                        @Path("org_id") org_id: Int,
+                        @Header("Authorization") bearerToken: String): Call<Void>
 }

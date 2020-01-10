@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
@@ -100,6 +102,43 @@ class DetailsFragment : Fragment() {
                     }
                 })
             }
+        }
+
+        fragment_details_fab_delete_hackathon.setOnClickListener {
+            val title = "Delete Hackathon?"
+            val msg = "Are you sure you want to delete this Hackathon?"
+
+            AlertDialog.Builder(context!!)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton("Yes") { _, _ ->
+                    if (hackathonId != null) {
+                        detailsViewModel.deleteHackathon(hackathonId)
+                            .observe(this, Observer {
+                                if (it != null) {
+                                    if (it) {
+                                        activity?.apply {
+                                            Toast.makeText(this,
+                                                "Successfully deleted Hackathon",
+                                                Toast.LENGTH_LONG).show()
+                                            findNavController().navigateUp()
+                                        }
+                                    } else {
+                                        activity?.apply {
+                                            Toast.makeText(this,
+                                                "Failed to delete Hackathon",
+                                                Toast.LENGTH_LONG).show()
+                                        }
+                                    }
+                                }
+                            })
+                    }
+                }
+
+                .setNegativeButton("No") { _, _ -> }
+                .create()
+                .show()
+
         }
     }
 
