@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         activityComponent.injectMainActivity(this)
 
         drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
@@ -52,6 +51,38 @@ class MainActivity : AppCompatActivity() {
             menuItem.isChecked = true
             when (menuItem.itemId) {
 
+                R.id.nav_drawer_dashboard -> {
+                    //TODO: Add logic to only execute if the current fragment is NOT the one
+                    // being selected
+                    //if (navController.currentDestination != DashboardFragment) {
+                    navController.navigate(R.id.dashboardFragment)
+                    //}
+                }
+
+                R.id.nav_drawer_create_hackathon -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != CreateHackathonFragment) {
+                    navController.navigate(R.id.addHackathonFragment)
+                    //}
+                }
+
+                R.id.nav_drawer_account -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != AccountFragment) {
+                    navController.navigate(R.id.accountFragment)
+                    //}
+                }
+
+                /*R.id.nav_drawer_settings -> {
+                    //TODO: Add logic to only execute if the current fragment is not the one
+                    // being selected
+                    //if (navController.currentDestination != SettingsFragment) {
+                    navController.navigate(R.id.settingsFragment)
+                    //}
+                }*/
+                
                 R.id.nav_drawer_logout -> {
                     webAuthProviderLogout.start(this, object : VoidCallback {
                         override fun onSuccess(payload: Void?) {
@@ -67,20 +98,29 @@ class MainActivity : AppCompatActivity() {
                     })
                 }
 
-                R.id.nav_drawer_account -> {
-                    navController.navigate(R.id.accountFragment)
-                }
-
-                R.id.nav_drawer_settings -> {
-                    navController.navigate(R.id.settingsFragment)
-                }
-
-                R.id.nav_drawer_create_hackathon -> {
-                    navController.navigate(R.id.addHackathonFragment)
-                }
             }
             drawerLayout.closeDrawers()
             true
+        }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(nav_view)) {
+            drawerLayout.closeDrawers()
+
+            //TODO: Need to figure out logic to determine if the current fragment is the
+            // DashboardFragment such that when the back button is pressed we can call finish()
+            // to close out the application instead of the typical super.onBackPressed() call which
+            // does not play well with the Auth0 rigmarole.
+/*        } else if (navController.currentDestination = DashboardFragment) {
+            finish()
+        */} else {
+            super.onBackPressed()
         }
     }
 }

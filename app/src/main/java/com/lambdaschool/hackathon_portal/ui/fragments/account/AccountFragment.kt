@@ -83,7 +83,7 @@ class AccountFragment : Fragment() {
                             }
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navController.popBackStack()
+                            navController.popBackStack(R.id.dashboardFragment, true)
                         }
                         else {
                             activity?.apply {
@@ -102,7 +102,7 @@ class AccountFragment : Fragment() {
             AlertDialog.Builder(context!!)
                 .setTitle(title)
                 .setMessage(msg)
-                .setPositiveButton("Yes") { dialog, which ->
+                .setPositiveButton("Yes") { _, _ ->
 
                     accountViewModel.deleteUser().observe(this, Observer {
                         if (it != null) {
