@@ -44,7 +44,6 @@ class MainActivity : AppCompatActivity() {
         activityComponent.injectMainActivity(this)
 
         drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
 
         NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
@@ -82,5 +81,10 @@ class MainActivity : AppCompatActivity() {
             drawerLayout.closeDrawers()
             true
         }
+    }
+
+    override fun onPostCreate(savedInstanceState: Bundle?) {
+        super.onPostCreate(savedInstanceState)
+        toggle.syncState()
     }
 }
