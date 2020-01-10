@@ -51,6 +51,10 @@ class MainActivity : AppCompatActivity() {
             menuItem.isChecked = true
             when (menuItem.itemId) {
 
+                R.id.nav_drawer_dashboard -> {
+                    navController.navigate(R.id.dashboardFragment)
+                }
+
                 R.id.nav_drawer_logout -> {
                     webAuthProviderLogout.start(this, object : VoidCallback {
                         override fun onSuccess(payload: Void?) {
