@@ -87,4 +87,12 @@ class MainActivity : AppCompatActivity() {
         super.onPostCreate(savedInstanceState)
         toggle.syncState()
     }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(nav_view)) {
+            drawerLayout.closeDrawers()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }
