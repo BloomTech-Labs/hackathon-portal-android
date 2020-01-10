@@ -1,11 +1,9 @@
 package com.lambdaschool.hackathon_portal.retrofit
 
 import com.lambdaschool.hackathon_portal.model.Hackathon
+import com.lambdaschool.hackathon_portal.model.User
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.POST
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface HackathonApiInterface {
 
@@ -14,4 +12,7 @@ interface HackathonApiInterface {
                       @Header("Authorization") bearerToken: String,
                       @Body hackathon: Hackathon): Call<Hackathon>
 
+    @GET("users/{id}")
+    fun getUser(@Path("id") id: Int,
+                @Header("Authorization") bearerToken: String): Call<User>
 }

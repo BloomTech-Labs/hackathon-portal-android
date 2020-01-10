@@ -29,4 +29,5 @@
     <string name="no">No</string>
     <string name="create_hackathon">Create Hackathon</string>
     <string name="yes">Yes</string>
+    <string name="my_hackathons">My Hackathons</string>
 </resources>
