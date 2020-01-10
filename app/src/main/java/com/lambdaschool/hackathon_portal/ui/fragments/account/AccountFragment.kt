@@ -102,7 +102,7 @@ class AccountFragment : Fragment() {
             AlertDialog.Builder(context!!)
                 .setTitle(title)
                 .setMessage(msg)
-                .setPositiveButton("Yes") { dialog, which ->
+                .setPositiveButton("Yes") { _, _ ->
 
                     accountViewModel.deleteUser().observe(this, Observer {
                         if (it != null) {
