@@ -12,8 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import androidx.navigation.NavOptions
-import androidx.navigation.fragment.findNavController
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -48,6 +48,8 @@ class LoginFragment : Fragment() {
     lateinit var webAuthProviderLogin: WebAuthProvider.Builder
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
+    @Inject
+    lateinit var navController: NavController
     @Inject
     lateinit var drawerLayout: DrawerLayout
     @Inject
@@ -125,7 +127,9 @@ class LoginFragment : Fragment() {
                     Log.i(TAG, "Login Successful")
                     Log.i(TAG, credentials.accessToken ?: "AccessToken is null")
                     credentialsManager.saveCredentials(credentials)
-                    showNextFragment()
+                    GlobalScope.launch(Main) {
+                        showNextFragment()
+                    }
                 }
             })
         }
@@ -138,15 +142,17 @@ class LoginFragment : Fragment() {
             //thread because the onSuccess call back runs on a background thread
 
             override fun onSuccess(credentials: Credentials) {
-                GlobalScope.launch(Main) { setCurrentUser(credentials) }
                 setCurrentUser(credentials)
+
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()
                     .setPopUpTo(R.id.loginFragment, true)
                     .build()
-                GlobalScope.launch(Main) { findNavController()
-                    .navigate(R.id.action_loginFragment_to_dashboardFragment, bundle, navOptions)
-                }
+
+                navController.navigate(
+                    R.id.action_loginFragment_to_dashboardFragment,
+                    bundle,
+                    navOptions)
             }
 
             override fun onFailure(error: CredentialsManagerException?) {
@@ -167,23 +173,17 @@ class LoginFragment : Fragment() {
 
         claims.get("name")?.asString()?.let {
             CurrentUser.currentUser.name = it
-            GlobalScope.launch(Main) {
-                navHeaderTitleTextView.text = it
-            }
+            navHeaderTitleTextView.text = it
         }
 
         claims.get("email")?.asString()?.let {
             CurrentUser.currentUser.email = it
-            GlobalScope.launch(Main) {
-                navHeaderSubtitleTextView.text = it
-            }
+            navHeaderSubtitleTextView.text = it
         }
 
         claims.get("picture")?.asString()?.let {
             CurrentUser.currentUser.pictureURL = it
-            GlobalScope.launch(Main) {
-                Picasso.get().load(it).into(navHeaderImageView)
-            }
+            Picasso.get().load(it).into(navHeaderImageView)
         }
 
         CurrentUser.currentUser.accessToken = credentials.accessToken
