@@ -18,6 +18,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         const val REPO_TAG = "REPOSITORY"
     }
 
+    private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
+
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
@@ -33,12 +35,15 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                     if (response.isSuccessful) {
                         addHackathonResponse.value = true
                         Log.i(REPO_TAG, "Successfully posted hackathon")
+                        val newList = copyUserHackathonList()
+                        val newUserHackathon = mapPostedHackathonToUserHackathon(response.body())
+                        newList?.add(newUserHackathon)
+                        userHackathonList.value = newList
                     } else {
                         addHackathonResponse.value = false
                         Log.i(REPO_TAG, "Failed to post hackathon")
                         Log.i(REPO_TAG, response.code().toString())
                         Log.i(REPO_TAG, response.message().toString())
-
                     }
                 }
             })
@@ -58,10 +63,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
             override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                 if (response.isSuccessful) {
                     getHackathonResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully get hackathon")
+                    Log.i(REPO_TAG, "Successfully got hackathon")
                 } else {
                     getHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get hackathon")
+                    Log.i(REPO_TAG, "Failed to got hackathon")
                     Log.i(REPO_TAG, response.code().toString())
                     Log.i(REPO_TAG, response.message().toString())
 
@@ -86,11 +91,35 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
                         updateHackathonResponse.value = response.body()
-                        Log.i(REPO_TAG, "Successfully get hackathon")
+                        Log.i(REPO_TAG, "Successfully updated hackathon")
+                        val index = getUserHackathonIndexFromListById(hackathonId)
+                        if (index != null && index != -1) {
+                            var updateHackathon = userHackathonList.value!![index]
+                            response.body()?.name?.let {
+                                updateHackathon.hackathon_name = it
+                            }
+                            response.body()?.description?.let {
+                                updateHackathon.hackathon_description = it
+                            }
+                            response.body()?.id?.let {
+                                updateHackathon.hackathon_id = it
+                            }
+                            response.body()?.start_date?.let {
+                                updateHackathon.start_date = it
+                            }
+                            response.body()?.end_date?.let {
+                                updateHackathon.end_date = it
+                            }
+                            val newList = copyUserHackathonList()
+                            if (newList != null) {
+                                newList[index] = updateHackathon
+                                userHackathonList.value = newList
+                            }
+                        }
                     }
                     else {
                         updateHackathonResponse.value = null
-                        Log.i(REPO_TAG, "Failed to get hackathon")
+                        Log.i(REPO_TAG, "Failed to updated hackathon")
                         Log.i(REPO_TAG, response.code().toString())
                         Log.i(REPO_TAG, response.message().toString())
                     }
@@ -114,6 +143,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         deleteHackathonResponse.value = true
+                        removeUserHackathonFromListById(hackathonId)
                         Log.i(REPO_TAG, "Successfully deleted Hackathon")
                     } else {
                         deleteHackathonResponse.value = false
@@ -158,6 +188,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                     }
                     response.body()?.hackathons?.let {
                         LoggedInUser.user.hackathons = it
+                        userHackathonList.value = it
                     }
                 }
                 else {
@@ -237,5 +268,66 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 }
             })
         return deleteUserResponse
+    }
+
+    fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
+        return userHackathonList
+    }
+
+    private fun removeUserHackathonFromListById(id: Int) {
+        val oldList: MutableList<UserHackathon>? = userHackathonList.value
+        val newList = oldList?.toMutableList()
+        userHackathonList.value = newList?.filter { it.hackathon_id != id }?.toMutableList()
+    }
+
+    private fun getUserHackathonIndexFromListById(id: Int): Int? {
+        val oldList = userHackathonList.value
+        var newList = oldList?.toMutableList()
+        newList = newList?.filter { it.hackathon_id == id }?.toMutableList()
+        return if (newList != null) {
+            oldList?.indexOf(newList[0])
+        } else {
+            null
+        }
+    }
+
+    private fun copyUserHackathonList(): MutableList<UserHackathon>? {
+        val oldList = userHackathonList.value
+        return oldList?.toMutableList()
+    }
+
+    private fun mapPostedHackathonToUserHackathon(hackathon: Hackathon?): UserHackathon {
+        //this will need to be refactored one judges and hackers are added
+        var hackathonName = ""
+        var username = ""
+        var userHackathonRole = "organizer"
+        var developerRole = ""
+        var teamId = -1
+        var teamName = ""
+        var userId = -1
+        var hackathonId = -1
+        var startDate = ""
+        var endDate = ""
+        var hackathonDescription = ""
+
+        hackathon?.name?.let { hackathonName = it }
+        LoggedInUser.user.username?.let { username = it }
+        LoggedInUser.user.id?.let { userId = it }
+        hackathon?.id?.let { hackathonId = it }
+        hackathon?.start_date?.let { startDate = it }
+        hackathon?.end_date?.let { endDate = it }
+        hackathon?.description?.let { hackathonDescription = it }
+
+        return UserHackathon(hackathonName,
+            username,
+            userHackathonRole,
+            developerRole,
+            teamId,
+            teamName,
+            userId,
+            hackathonId,
+            startDate,
+            endDate,
+            hackathonDescription)
     }
 }

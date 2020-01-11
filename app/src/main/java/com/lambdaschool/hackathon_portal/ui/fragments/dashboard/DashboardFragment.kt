@@ -41,6 +41,9 @@ class DashboardFragment : Fragment() {
         fragmentComponent.injectDashboardFragment(this)
         super.onCreate(savedInstanceState)
         dashboardViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(DashboardViewModel::class.java)
+        CurrentUser.currentUser.id?.toInt()?.let {
+            dashboardViewModel.getUser(it)
+        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,17 +59,11 @@ class DashboardFragment : Fragment() {
             adapter = UserHackathonListAdapter(mutableListOf<UserHackathon>())
         }
 
-        val currentUserId = CurrentUser.currentUser.id?.toInt()
-
-        currentUserId?.let {
-            dashboardViewModel.getUser(currentUserId).observe(this, Observer {
-                if (it != null) {
-                    if (!it.hackathons.isNullOrEmpty()) {
-                        recycler_view_dashboard_my_hackathons.adapter = UserHackathonListAdapter(it.hackathons)
-                    }
-                }
-            })
-        }
+        dashboardViewModel.getUserHackathonList().observe(this, Observer {
+            if (it != null) {
+                recycler_view_dashboard_my_hackathons.adapter = UserHackathonListAdapter(it)
+            }
+        })
     }
 
     inner class UserHackathonListAdapter(private val userHackathons: MutableList<UserHackathon>):
