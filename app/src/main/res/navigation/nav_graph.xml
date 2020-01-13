@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
+        android:label="Login"
+        tools:layout="@layout/fragment_login">
         <action
             android:id="@+id/action_loginFragment_to_dashboardFragment"
             app:destination="@id/dashboardFragment" />
@@ -17,8 +17,8 @@
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
-        tools:layout="@layout/fragment_dashboard" >
+        android:label="Dashboard"
+        tools:layout="@layout/fragment_dashboard">
         <action
             android:id="@+id/action_dashboardFragment_to_loginFragment"
             app:destination="@id/loginFragment" />
@@ -26,22 +26,22 @@
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment"
-        android:label="fragment_settings"
+        android:label="Settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/accountFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.account.AccountFragment"
-        android:label="fragment_account"
+        android:label="Manage Account"
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/addHackathonFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonFragment"
-        android:label="fragment_add_hackathon"
+        android:label="Create Hackathon"
         tools:layout="@layout/fragment_create_hackathon" />
     <fragment
         android:id="@+id/editHackathonFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment"
-        android:label="fragment_details"
+        android:label="Edit Hackathon"
         tools:layout="@layout/fragment_edit_hackathon" />
     <fragment
         android:id="@+id/userHackathonsFragment"
