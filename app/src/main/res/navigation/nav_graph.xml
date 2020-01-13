@@ -39,8 +39,18 @@
         android:label="fragment_add_hackathon"
         tools:layout="@layout/fragment_create_hackathon" />
     <fragment
-        android:id="@+id/detailsFragment"
-        android:name="com.lambdaschool.hackathon_portal.ui.fragments.details.DetailsFragment"
+        android:id="@+id/editHackathonFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment"
         android:label="fragment_details"
-        tools:layout="@layout/fragment_details" />
+        tools:layout="@layout/fragment_edit_hackathon" />
+    <fragment
+        android:id="@+id/userHackathonsFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment"
+        android:label="fragment_user_hackathons"
+        tools:layout="@layout/fragment_user_hackathons" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

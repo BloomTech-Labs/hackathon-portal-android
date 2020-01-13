@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.details.DetailsFragment">
+    tools:context=".ui.fragments.edit.EditHackathonFragment">
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_name"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
@@ -16,46 +16,46 @@
         android:hint="@string/name"/>
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_description"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_name"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/description"/>
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_url"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_description"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/url"/>
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_location"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_url"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="Location"/>
+        android:hint="@string/location"/>
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_start_date"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_start_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_location"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/start_date"/>
 
     <EditText
-        android:id="@+id/fragment_details_edit_text_hackathon_end_date"
+        android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_end_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_start_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:hint="@string/end_date"/>
@@ -64,26 +64,26 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_end_date"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_end_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <TextView
-            android:id="@+id/fragment_details_text_view_is_open"
+            android:id="@+id/fragment_edit_hackathon_text_view_is_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/is_this_hackathon_open"/>
 
         <Switch
-            android:id="@+id/fragment_details_switch_is_hackathon_open"
+            android:id="@+id/fragment_edit_hackathon_switch_is_hackathon_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_details_edit_text_hackathon_end_date"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_edit_text_hackathon_end_date"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
-            android:id="@+id/fragment_details_text_view_is_hackathon_open_yes_or_no"
+            android:id="@+id/fragment_edit_hackathon_text_view_is_hackathon_open_yes_or_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/no"/>
@@ -91,18 +91,18 @@
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_details_fab_save_hackathon"
+        android:id="@+id/fragment_edit_hackathon_fab_save_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="@android:color/holo_green_dark"
         android:src="@android:drawable/ic_menu_save"
-        app:layout_constraintBottom_toTopOf="@id/fragment_details_fab_delete_hackathon"
+        app:layout_constraintBottom_toTopOf="@id/fragment_edit_hackathon_fab_delete_hackathon"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragment_details_fab_delete_hackathon"
+        android:id="@+id/fragment_edit_hackathon_fab_delete_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"

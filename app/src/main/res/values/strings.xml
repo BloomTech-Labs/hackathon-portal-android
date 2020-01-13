@@ -34,4 +34,7 @@
     <string name="email">Email</string>
     <string name="last_name">Last Name</string>
     <string name="dashboard">Dashboard</string>
+    <string name="location">Location</string>
+    <string name="hackathon_is_open">This hackathon is open</string>
+    <string name="hackathon_is_closed">This hackathon is closed</string>
 </resources>
