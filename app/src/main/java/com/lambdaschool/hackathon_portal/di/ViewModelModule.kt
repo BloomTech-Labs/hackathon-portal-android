@@ -6,6 +6,7 @@ import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragmentViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsViewModel
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import dagger.Binds
 import dagger.Module
@@ -42,4 +43,10 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(EditHackathonFragmentViewModel::class)
     abstract fun bindsEditHackathonViewModel(viewModel: EditHackathonFragmentViewModel): ViewModel
+
+    @Singleton
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserHackathonsViewModel::class)
+    abstract fun bindsUserHackathonsViewModel(viewModel: UserHackathonsViewModel): ViewModel
 }

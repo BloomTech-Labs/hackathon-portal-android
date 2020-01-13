@@ -8,6 +8,7 @@ import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
 import com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment
 import dagger.BindsInstance
 import dagger.Subcomponent
 
@@ -30,4 +31,5 @@ interface FragmentComponent {
     fun injectSettingsFragment(fragment: SettingsFragment)
     fun injectCreateHackathonFragment(fragment: CreateHackathonFragment)
     fun injectEditHackathonFragment(fragment: EditHackathonFragment)
+    fun injectUserHackathonsFragment(fragment: UserHackathonsFragment)
 }
