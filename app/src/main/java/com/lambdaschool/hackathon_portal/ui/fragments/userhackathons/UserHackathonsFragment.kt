@@ -19,7 +19,7 @@ import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
-import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 import javax.inject.Inject
 
@@ -57,7 +57,7 @@ class UserHackathonsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        recycler_view_dashboard_my_hackathons.apply {
+        fragment_user_hackathons_recycler_view_my_hackathons.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
             adapter = UserHackathonListAdapter(mutableListOf<UserHackathon>())
@@ -65,7 +65,7 @@ class UserHackathonsFragment : Fragment() {
 
         userHackathonsViewModel.getUserHackathonList().observe(this, Observer {
             if (it != null) {
-                recycler_view_dashboard_my_hackathons.adapter = UserHackathonListAdapter(it)
+                fragment_user_hackathons_recycler_view_my_hackathons.adapter = UserHackathonListAdapter(it)
             }
         })
     }

@@ -75,6 +75,10 @@ class MainActivity : AppCompatActivity() {
                     //}
                 }
 
+                R.id.nav_drawer_my_hackathons -> {
+                    navController.navigate(R.id.userHackathonsFragment)
+                }
+
                 /*R.id.nav_drawer_settings -> {
                     //TODO: Add logic to only execute if the current fragment is not the one
                     // being selected
