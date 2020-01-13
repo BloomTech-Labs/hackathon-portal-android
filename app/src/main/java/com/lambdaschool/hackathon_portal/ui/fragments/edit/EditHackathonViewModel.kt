@@ -6,7 +6,7 @@ import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import javax.inject.Inject
 
-class EditHackathonFragmentViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
+class EditHackathonViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
 
     fun getHackathon(hackathonId: Int): LiveData<Hackathon> {
         return repo.getHackathon(hackathonId)

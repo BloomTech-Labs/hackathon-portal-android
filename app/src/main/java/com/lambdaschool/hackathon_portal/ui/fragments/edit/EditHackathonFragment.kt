@@ -33,12 +33,12 @@ class EditHackathonFragment : Fragment() {
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
     @Inject
     lateinit var navController: NavController
-    lateinit var editHackathonFragmentViewModel: EditHackathonFragmentViewModel
+    lateinit var editHackathonViewModel: EditHackathonViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectEditHackathonFragment(this)
         super.onCreate(savedInstanceState)
-        editHackathonFragmentViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(EditHackathonFragmentViewModel::class.java)
+        editHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(EditHackathonViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,7 +61,7 @@ class EditHackathonFragment : Fragment() {
         }
 
         if (hackathonId != null) {
-            editHackathonFragmentViewModel.getHackathon(hackathonId).observe(this, Observer {
+            editHackathonViewModel.getHackathon(hackathonId).observe(this, Observer {
                 if (it != null) {
                     updateHackathonViews(it)
                 } else {
@@ -85,7 +85,7 @@ class EditHackathonFragment : Fragment() {
                     switchState)
 
             if (hackathonId != null) {
-                editHackathonFragmentViewModel.updateHackathon(hackathonId, newHackathon)
+                editHackathonViewModel.updateHackathon(hackathonId, newHackathon)
                     .observe(this, Observer {
                     if (it != null) {
                         updateHackathonViews(it)
@@ -114,7 +114,7 @@ class EditHackathonFragment : Fragment() {
                 .setMessage(msg)
                 .setPositiveButton("Yes") { _, _ ->
                     if (hackathonId != null) {
-                        editHackathonFragmentViewModel.deleteHackathon(hackathonId)
+                        editHackathonViewModel.deleteHackathon(hackathonId)
                             .observe(this, Observer {
                                 if (it != null) {
                                     if (it) {
