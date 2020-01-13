@@ -48,4 +48,9 @@
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment"
         android:label="fragment_user_hackathons"
         tools:layout="@layout/fragment_user_hackathons" />
+    <fragment
+        android:id="@+id/detailFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment"
+        android:label="fragment_detail"
+        tools:layout="@layout/fragment_detail" />
 </navigation>

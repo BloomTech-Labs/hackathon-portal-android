@@ -89,13 +89,13 @@ class DashboardFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = hackathons[position]
             holder.nameView.text = data.name
-//            holder.itemView.setOnClickListener {
-//                val bundle = Bundle()
-//                data.id?.let {
-//                    bundle.putInt("hackathon_id", it)
-//                }
-//                navController.navigate(R.id.editHackathonFragment, bundle)
-//            }
+            holder.itemView.setOnClickListener {
+                val bundle = Bundle()
+                data.id?.let {
+                    bundle.putInt("hackathon_id", it)
+                }
+                navController.navigate(R.id.detailFragment, bundle)
+            }
         }
     }
 }
