@@ -66,7 +66,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                     Log.i(REPO_TAG, "Successfully got hackathon")
                 } else {
                     getHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to got hackathon")
+                    Log.i(REPO_TAG, "Failed to get hackathon")
                     Log.i(REPO_TAG, response.code().toString())
                     Log.i(REPO_TAG, response.message().toString())
 
@@ -74,6 +74,32 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
             }
         })
         return getHackathonResponse
+    }
+
+    fun getAllHackathons(): LiveData<MutableList<Hackathon>> {
+        val getAllHackathonsResponse = MutableLiveData<MutableList<Hackathon>>()
+        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+        hackathonService.getAllHackathons(bearerToken).enqueue(object : Callback<MutableList<Hackathon>> {
+            override fun onFailure(call: Call<MutableList<Hackathon>>, t: Throwable) {
+                getAllHackathonsResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<MutableList<Hackathon>>, response: Response<MutableList<Hackathon>>) {
+                if (response.isSuccessful) {
+                    getAllHackathonsResponse.value = response.body()
+                    Log.i(REPO_TAG, "Successfully got hackathons")
+                } else {
+                    getAllHackathonsResponse.value = null
+                    Log.i(REPO_TAG, "Failed to get hackathons")
+                    Log.i(REPO_TAG, response.code().toString())
+                    Log.i(REPO_TAG, response.message().toString())
+                }
+            }
+
+        })
+        return getAllHackathonsResponse
     }
 
     fun updateHackathon(hackathonId: Int, hackathon: Hackathon): LiveData<Hackathon> {
