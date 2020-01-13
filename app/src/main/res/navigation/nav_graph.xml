@@ -40,7 +40,7 @@
         tools:layout="@layout/fragment_create_hackathon" />
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.lambdaschool.hackathon_portal.ui.fragments.details.EditHackathonFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment"
         android:label="fragment_details"
         tools:layout="@layout/fragment_edit_hackathon" />
 </navigation>

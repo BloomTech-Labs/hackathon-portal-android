@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardViewModel
-import com.lambdaschool.hackathon_portal.ui.fragments.details.EditHackathonFragmentViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragmentViewModel
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import dagger.Binds
 import dagger.Module
