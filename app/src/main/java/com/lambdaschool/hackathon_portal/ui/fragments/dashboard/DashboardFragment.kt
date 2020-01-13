@@ -10,7 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -35,6 +35,8 @@ class DashboardFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var navController: NavController
     lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,7 +92,7 @@ class DashboardFragment : Fragment() {
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-                findNavController().navigate(R.id.detailsFragment, bundle)
+                navController.navigate(R.id.detailsFragment, bundle)
             }
         }
     }

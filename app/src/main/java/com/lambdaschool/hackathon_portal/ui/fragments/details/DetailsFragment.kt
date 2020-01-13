@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.NavController
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
@@ -31,6 +31,8 @@ class DetailsFragment : Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var navController: NavController
     lateinit var detailsViewModel: DetailsViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,7 +50,6 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val hackathonId = arguments?.getInt("hackathon_id")
-
         var switchState = false
 
         fragment_details_switch_is_hackathon_open.setOnCheckedChangeListener { _, b ->
@@ -121,7 +122,7 @@ class DetailsFragment : Fragment() {
                                             Toast.makeText(this,
                                                 "Successfully deleted Hackathon",
                                                 Toast.LENGTH_LONG).show()
-                                            findNavController().navigateUp()
+                                            navController.navigateUp()
                                         }
                                     } else {
                                         activity?.apply {
@@ -134,11 +135,9 @@ class DetailsFragment : Fragment() {
                             })
                     }
                 }
-
                 .setNegativeButton("No") { _, _ -> }
                 .create()
                 .show()
-
         }
     }
 
