@@ -31,6 +31,7 @@ interface HackathonApiInterface {
     fun getHackathon(@Path("id") id: Int,
                      @Header("Authorization") bearerToken: String): Call<Hackathon>
 
+    //TODO possibly change to use JSONObject that only sends fields that need to be updated
     @PUT("hackathons/{hack_id}/u/{org_id}")
     fun updateHackathon(@Path("hack_id") hack_id: Int,
                         @Path("org_id") org_id: Int,
