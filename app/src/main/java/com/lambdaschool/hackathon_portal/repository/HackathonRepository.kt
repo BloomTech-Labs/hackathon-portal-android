@@ -19,6 +19,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
     }
 
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
+    private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
 
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
@@ -90,6 +91,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                 if (response.isSuccessful) {
                     getAllHackathonsResponse.value = response.body()
                     Log.i(REPO_TAG, "Successfully got hackathons")
+                    response.body()?.let {
+                        allHackathonList.value = it
+                    }
                 } else {
                     getAllHackathonsResponse.value = null
                     Log.i(REPO_TAG, "Failed to get hackathons")
@@ -298,6 +302,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
         return userHackathonList
+    }
+
+    fun getAllHackathonList(): LiveData<MutableList<Hackathon>> {
+        return allHackathonList
     }
 
     private fun removeUserHackathonFromListById(id: Int) {

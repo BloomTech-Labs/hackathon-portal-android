@@ -14,12 +14,10 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_dashboard.*
-import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 import javax.inject.Inject
 
@@ -43,9 +41,7 @@ class DashboardFragment : Fragment() {
         fragmentComponent.injectDashboardFragment(this)
         super.onCreate(savedInstanceState)
         dashboardViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(DashboardViewModel::class.java)
-        CurrentUser.currentUser.id?.toInt()?.let {
-            dashboardViewModel.getUser(it)
-        }
+        dashboardViewModel.getAllHackthons()
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -61,7 +57,7 @@ class DashboardFragment : Fragment() {
             adapter = HackathonListAdapter(mutableListOf<Hackathon>())
         }
 
-        dashboardViewModel.getAllHackthons().observe(this, Observer {
+        dashboardViewModel.getAllHackathonsList().observe(this, Observer {
             if (it != null) {
                 fragment_dashboard_recycler_view_all_hackathons.adapter = HackathonListAdapter(it)
             }
