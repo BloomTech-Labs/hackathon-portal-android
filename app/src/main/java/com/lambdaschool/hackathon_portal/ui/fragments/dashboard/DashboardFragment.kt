@@ -1,17 +1,26 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.dashboard
 
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
+import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import kotlinx.android.synthetic.main.fragment_dashboard.*
+import kotlinx.android.synthetic.main.fragment_user_hackathons.*
+import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 import javax.inject.Inject
 
 class DashboardFragment : Fragment() {
@@ -45,5 +54,48 @@ class DashboardFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        fragment_dashboard_recycler_view_all_hackathons.apply {
+            setHasFixedSize(false)
+            layoutManager = LinearLayoutManager(context)
+            adapter = HackathonListAdapter(mutableListOf<Hackathon>())
+        }
+
+        dashboardViewModel.getAllHackthons().observe(this, Observer {
+            if (it != null) {
+                fragment_dashboard_recycler_view_all_hackathons.adapter = HackathonListAdapter(it)
+            }
+        })
+    }
+
+    inner class HackathonListAdapter(private val hackathons: MutableList<Hackathon>):
+        RecyclerView.Adapter<HackathonListAdapter.ViewHolder>() {
+
+        lateinit var context: Context
+
+        inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+            val nameView: TextView = view.text_view_hackathon_name
+        }
+
+        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+            context = parent.context
+            val view = LayoutInflater.from(parent.context)
+                .inflate(R.layout.hackathon_list_item_view, parent, false)
+            return ViewHolder(view)
+        }
+
+        override fun getItemCount(): Int = hackathons.size
+
+        override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+            val data = hackathons[position]
+            holder.nameView.text = data.name
+//            holder.itemView.setOnClickListener {
+//                val bundle = Bundle()
+//                data.id?.let {
+//                    bundle.putInt("hackathon_id", it)
+//                }
+//                navController.navigate(R.id.editHackathonFragment, bundle)
+//            }
+        }
     }
 }
