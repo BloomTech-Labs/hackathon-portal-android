@@ -1,69 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    android:padding="@dimen/activity_vertical_margin"
     tools:context=".ui.fragments.create.CreateHackathonFragment">
+
+    <TextView
+        android:id="@+id/tv_hackathon_name"
+        android:text="@string/hackathon_name"
+        style="@style/TextViewStyle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <EditText
         android:id="@+id/edit_text_hackathon_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_hackathon_name"
+        style="@style/EditTextStyle"
+        android:lines="1"
+        android:inputType="textCapWords" />
+
+    <TextView
+        android:id="@+id/text_view_hackathon_description"
+        android:text="@string/description"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/name"/>
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_name" />
 
     <EditText
         android:id="@+id/edit_text_hackathon_description"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_name"
+        android:layout_height="128dp"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_hackathon_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/description"/>
+        style="@style/EditTextStyle"
+        android:gravity="top"
+        android:lines="6"
+        android:inputType="textMultiLine|textCapSentences" />
+
+    <TextView
+        android:id="@+id/text_view_url"
+        android:text="@string/url"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_hackathon_description" />
 
     <EditText
         android:id="@+id/edit_text_hackathon_url"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_description"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_url"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/url"/>
+        style="@style/EditTextStyle"
+        android:lines="1"
+        android:inputType="textUri" />
+
+    <TextView
+        android:id="@+id/text_view_location"
+        android:text="@string/location"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_hackathon_url" />
 
     <EditText
         android:id="@+id/edit_text_hackathon_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_url"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_location"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="Location"/>
+        style="@style/EditTextStyle"
+        android:lines="1"
+        android:inputType="textCapWords" />
+
+    <TextView
+        android:id="@+id/text_view_hackathon_start_date"
+        android:text="@string/start_date"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_hackathon_location" />
 
     <EditText
         android:id="@+id/edit_text_hackathon_start_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_location"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_hackathon_start_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/start_date"/>
+        style="@style/EditTextStyle"
+        android:lines="1"
+        android:inputType="date" />
+
+    <TextView
+        android:id="@+id/text_view_hackathon_end_date"
+        android:text="@string/end_date"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/edit_text_hackathon_start_date" />
 
     <EditText
         android:id="@+id/edit_text_hackathon_end_date"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_start_date"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_hackathon_end_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:hint="@string/end_date"/>
+        style="@style/EditTextStyle"
+        android:lines="1"
+        android:inputType="date" />
 
     <LinearLayout
+        android:id="@+id/hackathon_status"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_constraintTop_toBottomOf="@+id/edit_text_hackathon_end_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -72,7 +135,8 @@
             android:id="@+id/text_view_is_open"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/is_this_hackathon_open"/>
+            android:text="@string/is_this_hackathon_open"
+            android:textColor="@color/colorAccentLight"/>
 
         <Switch
             android:id="@+id/switch_is_hackathon_open"
@@ -86,18 +150,20 @@
             android:id="@+id/text_view_is_hackathon_open_yes_or_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/no"/>
+            android:text="@string/no"
+            android:textColor="@color/colorAccent"/>
 
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <Button
         android:id="@+id/fab_save_hackathon"
+        android:text="@string/create"
+        android:textColor="@color/colorAccent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        app:layout_constraintTop_toBottomOf="@+id/hackathon_status"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/rounded_corner_button"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
