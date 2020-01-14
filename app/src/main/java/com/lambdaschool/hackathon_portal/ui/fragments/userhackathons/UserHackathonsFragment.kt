@@ -13,7 +13,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.UserHackathon
@@ -77,6 +76,9 @@ class UserHackathonsFragment : Fragment() {
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nameView: TextView = view.text_view_hackathon_name
+            val locationView: TextView = view.text_view_hackathon_location
+            val startView: TextView = view.text_view_start_date
+            val statusView: TextView = view.text_view_status
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -91,6 +93,9 @@ class UserHackathonsFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = userHackathons[position]
             holder.nameView.text = data.hackathon_name
+            //TODO: bind locationView
+            holder.startView.text = "Start Date: ${data.start_date}"
+            //TODO: bind statusView
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
