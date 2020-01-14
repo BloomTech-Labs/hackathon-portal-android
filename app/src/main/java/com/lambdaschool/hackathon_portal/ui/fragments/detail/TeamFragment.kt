@@ -1,12 +1,8 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 
-import android.animation.LayoutTransition
 import android.content.Context
 import android.os.Bundle
-import android.transition.Fade
-import android.transition.TransitionManager
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,25 +10,20 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.SimpleItemAnimator
-
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Dev
 import com.lambdaschool.hackathon_portal.model.Team
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import kotlinx.android.synthetic.main.fragment_team.*
-import kotlinx.android.synthetic.main.team_list_item_view.*
 import kotlinx.android.synthetic.main.team_list_item_view.view.*
 import javax.inject.Inject
 
-/**
- * A simple [Fragment] subclass.
- */
 class TeamFragment : Fragment() {
 
     private val fragmentComponent by lazy {
@@ -130,12 +121,13 @@ class TeamFragment : Fragment() {
         val linearLayout = LinearLayout(this.context)
         val usernameTextView = TextView(this.context)
         val roleTextView = TextView(this.context)
+        val paddingAll = 8
         usernameTextView.text = dev.username
         roleTextView.text = dev.developer_role
         linearLayout.orientation = LinearLayout.VERTICAL
         linearLayout.addView(usernameTextView)
         linearLayout.addView(roleTextView)
-        linearLayout.setPadding(8, 8, 8, 8)
+        linearLayout.setPadding(paddingAll, paddingAll, paddingAll, paddingAll)
         return linearLayout
     }
 }
