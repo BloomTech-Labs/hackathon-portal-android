@@ -2,14 +2,17 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import com.google.android.material.tabs.TabLayout
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
@@ -35,6 +38,7 @@ class DetailFragment : Fragment() {
     @Inject
     lateinit var navController: NavController
     lateinit var detailViewModel: DetailViewModel
+    lateinit var pageAdapter: PageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectDetailFragment(this)
@@ -51,12 +55,14 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val hackathonId = arguments?.getInt("hackathon_id")
-
+        pageAdapter = PageAdapter(childFragmentManager, fragment_detail_tab_layout.tabCount)
+        view_pager.adapter = pageAdapter
 
         if (hackathonId != null) {
             detailViewModel.getHackathon(hackathonId).observe(this, Observer {
                 if (it != null) {
                     updateHackathonViews(it)
+                    detailViewModel.currentHackathon.value = it
                 } else {
                     activity?.apply {
                         Toast.makeText(this,
@@ -66,8 +72,21 @@ class DetailFragment : Fragment() {
                 }
             })
         }
-    }
 
+        fragment_detail_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
+            }
+
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.position?.let { position ->
+                    view_pager.currentItem = position
+                }
+            }
+        })
+    }
     private fun updateHackathonViews(hackathon: Hackathon) {
         fragment_detail_text_view_hackathon_name.text = hackathon.name
         fragment_detail_text_view_hackathon_description.text = hackathon.description
