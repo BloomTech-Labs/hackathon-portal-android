@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.core.graphics.toColorInt
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
@@ -95,6 +94,7 @@ class DashboardFragment : Fragment() {
                 getString(R.string.status_open)
             } else {
                 getString(R.string.status_closed)
+                // TODO: set text color
             }
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
