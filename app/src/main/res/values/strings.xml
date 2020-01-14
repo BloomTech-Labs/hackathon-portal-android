@@ -37,4 +37,5 @@
     <string name="location">Location</string>
     <string name="hackathon_is_open">This hackathon is open</string>
     <string name="hackathon_is_closed">This hackathon is closed</string>
+    <string name="members">Members:</string>
 </resources>
