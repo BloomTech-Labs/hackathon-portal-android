@@ -69,4 +69,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
 
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fragment_detail_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_is_open">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Description"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_admins"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Admins"/>
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_teams"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Teams"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@id/fragment_detail_tab_layout"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
