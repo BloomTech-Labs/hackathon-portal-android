@@ -40,4 +40,6 @@
     <string name="create">CREATE</string>
     <string name="save">SAVE</string>
     <string name="delete">DELETE</string>
+    <string name="status_open">OPEN</string>
+    <string name="status_closed">CLOSED</string>
 </resources>
