@@ -5,7 +5,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
+import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,41 +40,41 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         activityComponent.injectMainActivity(this)
 
-        drawerLayout.addDrawerListener(toggle)
+//        drawerLayout.addDrawerListener(toggle)
 
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
+//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
 
-        nav_view.setNavigationItemSelectedListener { menuItem ->
-            menuItem.isChecked = true
-            when (menuItem.itemId) {
+//        nav_view.setNavigationItemSelectedListener { menuItem ->
+//            menuItem.isChecked = true
+//            when (menuItem.itemId) {
 
-                R.id.nav_dashboard -> {
+//                R.id.nav_dashboard -> {
                     //TODO: Add logic to only execute if the current fragment is NOT the one
                     // being selected
                     //if (navController.currentDestination != DashboardFragment) {
-                    navController.navigate(R.id.nav_dashboard)
+//                    navController.navigate(R.id.nav_dashboard)
                     //}
-                }
+//                }
 
-                R.id.nav_create_hackathon -> {
+//                R.id.nav_create_hackathon -> {
                     //TODO: Add logic to only execute if the current fragment is not the one
                     // being selected
                     //if (navController.currentDestination != CreateHackathonFragment) {
-                    navController.navigate(R.id.nav_create_hackathon)
+//                    navController.navigate(R.id.nav_create_hackathon)
                     //}
-                }
+//                }
 
-                R.id.nav_account -> {
+//                R.id.nav_account -> {
                     //TODO: Add logic to only execute if the current fragment is not the one
                     // being selected
                     //if (navController.currentDestination != AccountFragment) {
-                    navController.navigate(R.id.nav_account)
+//                    navController.navigate(R.id.nav_account)
                     //}
-                }
+//                }
 
-                R.id.nav_user_hackathons -> {
-                    navController.navigate(R.id.nav_user_hackathons)
-                }
+//                R.id.nav_user_hackathons -> {
+//                    navController.navigate(R.id.nav_user_hackathons)
+//                }
 
                 /*R.id.nav_drawer_settings -> {
                     //TODO: Add logic to only execute if the current fragment is not the one
@@ -81,25 +84,25 @@ class MainActivity : AppCompatActivity() {
                     //}
                 }*/
                 
-                R.id.nav_logout -> {
+//                R.id.nav_logout -> {
 //                    webAuthProviderLogout.start(this, object : VoidCallback {
 //                        override fun onSuccess(payload: Void?) {
 //                            Log.i("Nav Drawer", "Success")
 //                            credentialsManager.clearCredentials()
 //                            wipeCurrentUser()
-                            navController.navigate(R.id.nav_logout)
+//                            navController.navigate(R.id.nav_logout)
 //                        }
 
 //                        override fun onFailure(error: Auth0Exception?) {
 //                            Log.i("Nav Drawer", "Failure ${error?.message}")
 //                        }
 //                    })
-                }
+//                }
 
-            }
-            drawerLayout.closeDrawers()
-            true
-        }
+//            }
+//            drawerLayout.closeDrawers()
+//            true
+//        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
