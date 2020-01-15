@@ -123,7 +123,9 @@ class TeamFragment : Fragment() {
         val roleTextView = TextView(this.context)
         val paddingAll = 8
         usernameTextView.text = dev.username
+        usernameTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
         roleTextView.text = dev.developer_role
+        roleTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
         linearLayout.orientation = LinearLayout.VERTICAL
         linearLayout.addView(usernameTextView)
         linearLayout.addView(roleTextView)
