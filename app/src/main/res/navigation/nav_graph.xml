@@ -9,20 +9,12 @@
         android:id="@+id/loginFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment"
         android:label="Login"
-        tools:layout="@layout/fragment_login">
-        <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_login"/>
     <fragment
         android:id="@+id/dashboardFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment"
         android:label="Dashboard"
-        tools:layout="@layout/fragment_dashboard">
-        <action
-            android:id="@+id/action_dashboardFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
-    </fragment>
+        tools:layout="@layout/fragment_dashboard"/>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment"

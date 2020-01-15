@@ -147,7 +147,7 @@ class LoginFragment : Fragment() {
                     .build()
 
                 navController.navigate(
-                    R.id.action_loginFragment_to_dashboardFragment,
+                    R.id.dashboardFragment,
                     bundle,
                     navOptions)
             }
