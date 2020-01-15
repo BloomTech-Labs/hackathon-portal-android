@@ -143,11 +143,11 @@ class LoginFragment : Fragment() {
 
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.loginFragment, true)
+                    .setPopUpTo(R.id.nav_login, true)
                     .build()
 
                 navController.navigate(
-                    R.id.dashboardFragment,
+                    R.id.nav_dashboard,
                     bundle,
                     navOptions)
             }

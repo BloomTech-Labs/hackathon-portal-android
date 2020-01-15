@@ -67,7 +67,7 @@ class LogoutFragment : Fragment() {
                     Log.i(TAG, "Failure ${error?.message}")
                     drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
 
-                    navController.popBackStack(R.id.dashboardFragment, true)
+                    navController.popBackStack(R.id.nav_dashboard, true)
 
                     activity?.apply {
                         Toast.makeText(this, "Logout Failed", Toast.LENGTH_SHORT).show()
@@ -84,7 +84,7 @@ class LogoutFragment : Fragment() {
             .build()
 
         navController.navigate(
-            R.id.loginFragment,
+            R.id.nav_login,
             bundle,
             navOptions)
     }

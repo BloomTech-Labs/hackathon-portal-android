@@ -99,7 +99,7 @@ class UserHackathonsFragment : Fragment() {
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-                navController.navigate(R.id.editHackathonFragment, bundle)
+                navController.navigate(R.id.nav_edit_hackathon, bundle)
             }
         }
     }

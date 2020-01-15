@@ -83,7 +83,7 @@ class AccountFragment : Fragment() {
                             }
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navController.popBackStack(R.id.dashboardFragment, true)
+                            navController.popBackStack(R.id.nav_dashboard, true)
                         }
                         else {
                             activity?.apply {
@@ -113,7 +113,7 @@ class AccountFragment : Fragment() {
                                             Log.i("Account Fragment", "Successful logout")
                                             credentialsManager.clearCredentials()
                                             wipeCurrentUser()
-                                            navController.navigate(R.id.loginFragment)
+                                            navController.navigate(R.id.nav_login)
                                         }
 
                                         override fun onFailure(error: Auth0Exception?) {
