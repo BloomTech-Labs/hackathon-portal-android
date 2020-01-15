@@ -11,6 +11,7 @@ import com.lambdaschool.hackathon_portal.ui.fragments.detail.TeamFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
+import com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment
 import dagger.BindsInstance
@@ -40,4 +41,6 @@ interface FragmentComponent {
     fun injectDescriptionFragment(fragment: DescriptionFragment)
     fun injectAdminFragment(fragment: AdminFragment)
     fun injectTeamFragment(fragment: TeamFragment)
+    fun injectLogoutFragment(fragment: LogoutFragment)
+
 }
