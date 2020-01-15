@@ -102,7 +102,7 @@ class DetailFragment : Fragment() {
     }
     private fun updateHackathonViews(hackathon: Hackathon) {
         fragment_detail_text_view_hackathon_name.text = hackathon.name
-        fragment_detail_text_view_hackathon_description.text = hackathon.description
+        //fragment_detail_text_view_hackathon_description.text = hackathon.description
         fragment_detail_text_view_hackathon_url.text = hackathon.url
         fragment_detail_text_view_hackathon_location.text = hackathon.location
         fragment_detail_text_view_hackathon_start_date.text = hackathon.start_date

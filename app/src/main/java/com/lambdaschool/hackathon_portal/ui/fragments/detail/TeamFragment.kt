@@ -92,7 +92,7 @@ class TeamFragment : Fragment() {
             val data = teams[position]
             var hasBeenExpanded = false
             holder.nameView.text = data.team_name
-            holder.participantsView.text = data.devs.size.toString()
+            holder.participantsView.text = " ${data.devs.size.toString()}"
             holder.linearLayout.visibility = View.GONE
             holder.parentView.setOnClickListener {
 

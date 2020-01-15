@@ -1,21 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_card_view"
     android:orientation="vertical"
-    android:layout_width="match_parent"
+    app:cardBackgroundColor="@android:color/transparent"
+    android:layout_width="160dp"
     android:layout_height="wrap_content"
+    app:cardElevation="0dp"
     android:layout_margin="8dp">
 
     <LinearLayout
         android:id="@+id/linear_layout_parent"
         android:orientation="vertical"
+        android:background="@drawable/cardview_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
         android:animateLayoutChanges="true">
 
         <TextView
             android:id="@+id/text_view_team_name"
+            android:textStyle="bold"
+            android:textColor="@color/colorAccentLight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
@@ -30,12 +40,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/members"
-                android:layout_marginEnd="8dp"/>
+                android:textColor="@color/colorAccentLight"
+                android:textSize="12sp"/>
 
             <TextView
                 android:id="@+id/text_view_team_participants"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:textColor="@color/colorAccentLight"
+                android:textSize="12sp"/>
 
         </LinearLayout>
 
@@ -43,8 +56,7 @@
             android:orientation="vertical"
             android:id="@+id/linear_layout_list_members"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            />
+            android:layout_height="wrap_content" />
 
     </LinearLayout>
 
