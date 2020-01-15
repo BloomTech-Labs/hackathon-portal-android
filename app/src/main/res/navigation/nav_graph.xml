@@ -8,46 +8,46 @@
     <fragment
         android:id="@+id/nav_login"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment"
-        android:label="Login"
+        android:label="@string/login"
         tools:layout="@layout/fragment_login"/>
     <fragment
         android:id="@+id/nav_dashboard"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment"
-        android:label="Dashboard"
+        android:label="@string/dashboard"
         tools:layout="@layout/fragment_dashboard"/>
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment"
-        android:label="Settings"
+        android:label="@string/settings"
         tools:layout="@layout/fragment_settings" />
     <fragment
         android:id="@+id/nav_account"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.account.AccountFragment"
-        android:label="Manage Account"
+        android:label="@string/manage_account"
         tools:layout="@layout/fragment_account" />
     <fragment
         android:id="@+id/nav_create_hackathon"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonFragment"
-        android:label="Create Hackathon"
+        android:label="@string/create_hackathon"
         tools:layout="@layout/fragment_create_hackathon" />
     <fragment
         android:id="@+id/nav_edit_hackathon"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment"
-        android:label="Edit Hackathon"
+        android:label="@string/edit_hackathon"
         tools:layout="@layout/fragment_edit_hackathon" />
     <fragment
         android:id="@+id/nav_user_hackathons"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment"
-        android:label="My Hackathons"
+        android:label="@string/my_hackathons"
         tools:layout="@layout/fragment_user_hackathons" />
     <fragment
         android:id="@+id/nav_hackathon_details"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment"
-        android:label="fragment_detail"
+        android:label="@string/hackathon_details"
         tools:layout="@layout/fragment_detail" />
     <fragment
         android:id="@+id/nav_logout"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutFragment"
-        android:label="fragment_logout"
+        android:label="@string/logout"
         tools:layout="@layout/fragment_logout" />
 </navigation>
