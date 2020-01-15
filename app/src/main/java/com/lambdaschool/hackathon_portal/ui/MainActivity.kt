@@ -9,7 +9,6 @@ import androidx.navigation.ui.*
 import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.App
 import com.lambdaschool.hackathon_portal.R
-import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
@@ -22,10 +21,6 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-//    @Inject
-//    lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
-//    @Inject
-//    lateinit var credentialsManager: SecureCredentialsManager
     @Inject
     lateinit var drawerLayout: DrawerLayout
     @Inject
@@ -58,70 +53,6 @@ class MainActivity : AppCompatActivity() {
 
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
-
-//        drawerLayout.addDrawerListener(toggle)
-
-//        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
-//        nav_view.setNavigationItemSelectedListener { menuItem ->
-//            menuItem.isChecked = true
-//            when (menuItem.itemId) {
-
-//                R.id.nav_dashboard -> {
-                    //TODO: Add logic to only execute if the current fragment is NOT the one
-                    // being selected
-                    //if (navController.currentDestination != DashboardFragment) {
-//                    navController.navigate(R.id.nav_dashboard)
-                    //}
-//                }
-
-//                R.id.nav_create_hackathon -> {
-                    //TODO: Add logic to only execute if the current fragment is not the one
-                    // being selected
-                    //if (navController.currentDestination != CreateHackathonFragment) {
-//                    navController.navigate(R.id.nav_create_hackathon)
-                    //}
-//                }
-
-//                R.id.nav_account -> {
-                    //TODO: Add logic to only execute if the current fragment is not the one
-                    // being selected
-                    //if (navController.currentDestination != AccountFragment) {
-//                    navController.navigate(R.id.nav_account)
-                    //}
-//                }
-
-//                R.id.nav_user_hackathons -> {
-//                    navController.navigate(R.id.nav_user_hackathons)
-//                }
-
-                /*R.id.nav_drawer_settings -> {
-                    //TODO: Add logic to only execute if the current fragment is not the one
-                    // being selected
-                    //if (navController.currentDestination != SettingsFragment) {
-                    navController.navigate(R.id.settingsFragment)
-                    //}
-                }*/
-                
-//                R.id.nav_logout -> {
-//                    webAuthProviderLogout.start(this, object : VoidCallback {
-//                        override fun onSuccess(payload: Void?) {
-//                            Log.i("Nav Drawer", "Success")
-//                            credentialsManager.clearCredentials()
-//                            wipeCurrentUser()
-//                            navController.navigate(R.id.nav_logout)
-//                        }
-
-//                        override fun onFailure(error: Auth0Exception?) {
-//                            Log.i("Nav Drawer", "Failure ${error?.message}")
-//                        }
-//                    })
-//                }
-
-//            }
-//            drawerLayout.closeDrawers()
-//            true
-//        }
     }
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
