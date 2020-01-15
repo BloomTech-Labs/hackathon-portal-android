@@ -27,10 +27,10 @@ class MainActivity : AppCompatActivity() {
             .build()
     }
 
-    @Inject
-    lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
-    @Inject
-    lateinit var credentialsManager: SecureCredentialsManager
+//    @Inject
+//    lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
+//    @Inject
+//    lateinit var credentialsManager: SecureCredentialsManager
     @Inject
     lateinit var drawerLayout: DrawerLayout
     @Inject
@@ -88,18 +88,18 @@ class MainActivity : AppCompatActivity() {
                 }*/
                 
                 R.id.nav_drawer_logout -> {
-                    webAuthProviderLogout.start(this, object : VoidCallback {
-                        override fun onSuccess(payload: Void?) {
-                            Log.i("Nav Drawer", "Success")
-                            credentialsManager.clearCredentials()
-                            wipeCurrentUser()
-                            navController.navigate(R.id.loginFragment)
-                        }
+//                    webAuthProviderLogout.start(this, object : VoidCallback {
+//                        override fun onSuccess(payload: Void?) {
+//                            Log.i("Nav Drawer", "Success")
+//                            credentialsManager.clearCredentials()
+//                            wipeCurrentUser()
+                            navController.navigate(R.id.logoutFragment)
+//                        }
 
-                        override fun onFailure(error: Auth0Exception?) {
-                            Log.i("Nav Drawer", "Failure ${error?.message}")
-                        }
-                    })
+//                        override fun onFailure(error: Auth0Exception?) {
+//                            Log.i("Nav Drawer", "Failure ${error?.message}")
+//                        }
+//                    })
                 }
 
             }
