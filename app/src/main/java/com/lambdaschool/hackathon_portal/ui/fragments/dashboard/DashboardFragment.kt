@@ -101,7 +101,7 @@ class DashboardFragment : Fragment() {
                 data.id?.let {
                     bundle.putInt("hackathon_id", it)
                 }
-                navController.navigate(R.id.detailFragment, bundle)
+                navController.navigate(R.id.nav_hackathon_details, bundle)
             }
         }
     }
