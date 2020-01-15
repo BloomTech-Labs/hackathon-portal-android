@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Hackathon Portal</string>
+    <string name="app_name">hackathon_portal</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">Username</string>
@@ -42,4 +42,5 @@
     <string name="delete">DELETE</string>
     <string name="status_open">OPEN</string>
     <string name="status_closed">CLOSED</string>
+    <string name="members">Members:</string>
 </resources>

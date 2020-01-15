@@ -4,7 +4,10 @@ import androidx.fragment.app.Fragment
 import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.detail.AdminFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.detail.DescriptionFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment
+import com.lambdaschool.hackathon_portal.ui.fragments.detail.TeamFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginModule
@@ -34,4 +37,7 @@ interface FragmentComponent {
     fun injectEditHackathonFragment(fragment: EditHackathonFragment)
     fun injectUserHackathonsFragment(fragment: UserHackathonsFragment)
     fun injectDetailFragment(fragment: DetailFragment)
+    fun injectDescriptionFragment(fragment: DescriptionFragment)
+    fun injectAdminFragment(fragment: AdminFragment)
+    fun injectTeamFragment(fragment: TeamFragment)
 }
