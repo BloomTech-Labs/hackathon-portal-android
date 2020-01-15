@@ -192,8 +192,6 @@
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingStart="92dp"
-        android:paddingEnd="92dp"
         app:layout_constraintTop_toBottomOf="@id/fragment_detail_tab_layout"
         app:layout_constraintBottom_toBottomOf="parent"/>
 
