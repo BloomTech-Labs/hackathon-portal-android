@@ -1,6 +1,5 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.logout
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -8,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.auth0.android.Auth0Exception
@@ -36,6 +36,8 @@ class LogoutFragment : Fragment() {
     lateinit var credentialsManager: SecureCredentialsManager
     @Inject
     lateinit var navController: NavController
+    @Inject
+    lateinit var drawerLayout: DrawerLayout
 
     private val TAG = "LOGOUT FRAGMENT"
 
@@ -50,6 +52,7 @@ class LogoutFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
 
         activity?.apply {
             webAuthProviderLogout.start(this, object : VoidCallback {
@@ -62,13 +65,13 @@ class LogoutFragment : Fragment() {
 
                 override fun onFailure(error: Auth0Exception?) {
                     Log.i(TAG, "Failure ${error?.message}")
+                    drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
 
                     navController.popBackStack(R.id.dashboardFragment, true)
 
                     activity?.apply {
                         Toast.makeText(this, "Logout Failed", Toast.LENGTH_SHORT).show()
                     }
-
                 }
             })
         }
