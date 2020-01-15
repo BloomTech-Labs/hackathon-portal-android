@@ -8,6 +8,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.provider.VoidCallback
@@ -32,6 +34,8 @@ class LogoutFragment : Fragment() {
     lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
+    @Inject
+    lateinit var navController: NavController
 
     private val TAG = "LOGOUT FRAGMENT"
 
@@ -53,10 +57,13 @@ class LogoutFragment : Fragment() {
                     Log.i(TAG, "Success")
                     credentialsManager.clearCredentials()
                     wipeCurrentUser()
+                    navigateToLoginFragment()
                 }
 
                 override fun onFailure(error: Auth0Exception?) {
                     Log.i(TAG, "Failure ${error?.message}")
+
+                    navController.popBackStack(R.id.dashboardFragment, true)
 
                     activity?.apply {
                         Toast.makeText(this, "Logout Failed", Toast.LENGTH_SHORT).show()
@@ -67,11 +74,15 @@ class LogoutFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-    }
+    private fun navigateToLoginFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_graph, true)
+            .build()
 
-    override fun onDetach() {
-        super.onDetach()
+        navController.navigate(
+            R.id.loginFragment,
+            bundle,
+            navOptions)
     }
 }
