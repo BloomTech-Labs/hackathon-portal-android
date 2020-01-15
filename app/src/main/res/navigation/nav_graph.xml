@@ -53,4 +53,9 @@
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment"
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/logoutFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutFragment"
+        android:label="fragment_logout"
+        tools:layout="@layout/fragment_logout" />
 </navigation>
