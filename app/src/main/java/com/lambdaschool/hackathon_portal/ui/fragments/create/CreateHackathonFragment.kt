@@ -13,6 +13,7 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -105,12 +106,12 @@ class CreateHackathonFragment : Fragment() {
                 createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
                     if (it != null) {
                         if (it) {
+                            navigateToUserHackathonsFragment()
                             activity?.apply {
                                 Toast.makeText(this,
                                     "Successfully created Hackathon",
                                     Toast.LENGTH_LONG).show()
                             }
-                            navController.popBackStack(R.id.nav_dashboard, true)
                         }
                         else {
                             activity?.apply {
@@ -123,6 +124,17 @@ class CreateHackathonFragment : Fragment() {
                 })
             }
         }
+    }
+
+    private fun navigateToUserHackathonsFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_user_hackathons, true)
+            .build()
+        navController.navigate(
+            R.id.nav_user_hackathons,
+            bundle,
+            navOptions)
     }
 
     private fun checkIfRequiredFieldsEmpty(): Boolean {
