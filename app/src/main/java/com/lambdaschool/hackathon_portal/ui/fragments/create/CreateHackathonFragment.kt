@@ -5,10 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -17,6 +15,8 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
+import com.lambdaschool.hackathon_portal.util._toast
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
 import java.util.*
 
@@ -69,7 +69,6 @@ class CreateHackathonFragment : BaseFragment() {
             }
         }
 
-
         fab_save_hackathon.setOnClickListener {
 
             if (!checkIfRequiredFieldsEmpty()) {
@@ -85,35 +84,20 @@ class CreateHackathonFragment : BaseFragment() {
                 createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
                     if (it != null) {
                         if (it) {
-                            navigateToUserHackathonsFragment()
-                            activity?.apply {
-                                Toast.makeText(this,
-                                    "Successfully created Hackathon",
-                                    Toast.LENGTH_LONG).show()
-                            }
+                            navController._navigateAndPopUpTo(
+                                Bundle(),
+                                R.id.nav_user_hackathons,
+                                true,
+                                R.id.nav_user_hackathons)
+                            activity?._toast("Successfully created Hackathon")
                         }
                         else {
-                            activity?.apply {
-                                Toast.makeText(this,
-                                    "Failed to create Hackathon",
-                                    Toast.LENGTH_LONG).show()
-                            }
+                            activity?._toast("Failed to create Hackathon")
                         }
                     }
                 })
             }
         }
-    }
-
-    private fun navigateToUserHackathonsFragment() {
-        val bundle = Bundle()
-        val navOptions = NavOptions.Builder()
-            .setPopUpTo(R.id.nav_user_hackathons, true)
-            .build()
-        navController.navigate(
-            R.id.nav_user_hackathons,
-            bundle,
-            navOptions)
     }
 
     private fun checkIfRequiredFieldsEmpty(): Boolean {
