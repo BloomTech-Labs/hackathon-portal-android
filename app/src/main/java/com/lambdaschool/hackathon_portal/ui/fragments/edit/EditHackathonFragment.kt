@@ -11,6 +11,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
+import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -117,6 +118,7 @@ class EditHackathonFragment : Fragment() {
                     .observe(this, Observer {
                     if (it != null) {
                         updateHackathonViews(it)
+                        navigateToUserHackathonsFragment()
                         activity?.apply {
                             Toast.makeText(this,
                                 "Successfully updated Hackathon",
@@ -146,11 +148,11 @@ class EditHackathonFragment : Fragment() {
                             .observe(this, Observer {
                                 if (it != null) {
                                     if (it) {
+                                        navigateToUserHackathonsFragment()
                                         activity?.apply {
                                             Toast.makeText(this,
                                                 "Successfully deleted Hackathon",
                                                 Toast.LENGTH_LONG).show()
-                                            navController.navigateUp()
                                         }
                                     } else {
                                         activity?.apply {
@@ -167,6 +169,17 @@ class EditHackathonFragment : Fragment() {
                 .create()
                 .show()
         }
+    }
+
+    private fun navigateToUserHackathonsFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_user_hackathons, true)
+            .build()
+        navController.navigate(
+            R.id.nav_user_hackathons,
+            bundle,
+            navOptions)
     }
 
     private fun updateHackathonViews(hackathon: Hackathon) {
