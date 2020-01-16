@@ -1,6 +1,5 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.activity.modules
 
-import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -8,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.di.activity.ActivityScope
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import dagger.Module
 import dagger.Provides
@@ -45,10 +45,4 @@ object NavDrawerModule {
     @JvmStatic
     fun provideNavigationView(activity: MainActivity): NavigationView =
         activity.findViewById(R.id.nav_view)
-
-    @ActivityScope
-    @Provides
-    @JvmStatic
-    fun provideHeaderView(navigationView: NavigationView): View =
-        navigationView.getHeaderView(0)
 }

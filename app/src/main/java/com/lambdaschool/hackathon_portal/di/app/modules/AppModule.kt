@@ -1,11 +1,10 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.app.modules
 
 import android.app.Application
 import com.auth0.android.Auth0
 import com.auth0.android.authentication.AuthenticationAPIClient
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.authentication.storage.SharedPreferencesStorage
-import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import dagger.Module

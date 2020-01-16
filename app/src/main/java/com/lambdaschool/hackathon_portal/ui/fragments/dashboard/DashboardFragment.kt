@@ -3,44 +3,28 @@ package com.lambdaschool.hackathon_portal.ui.fragments.dashboard
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
-import javax.inject.Inject
 
-class DashboardFragment : Fragment() {
+class DashboardFragment : BaseFragment() {
 
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    @Inject
-    lateinit var navController: NavController
-    lateinit var dashboardViewModel: DashboardViewModel
+    private lateinit var dashboardViewModel: DashboardViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectDashboardFragment(this)
         super.onCreate(savedInstanceState)
-        dashboardViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(DashboardViewModel::class.java)
+        dashboardViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(DashboardViewModel::class.java)
         dashboardViewModel.getAllHackthons()
     }
 

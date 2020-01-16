@@ -1,8 +1,8 @@
-package com.lambdaschool.hackathon_portal.ui.fragments.logout
+package com.lambdaschool.hackathon_portal.di.fragment.modules
 
 import com.auth0.android.Auth0
 import com.auth0.android.provider.WebAuthProvider
-import com.lambdaschool.hackathon_portal.di.FragmentScope
+import com.lambdaschool.hackathon_portal.di.fragment.FragmentScope
 import dagger.Module
 import dagger.Provides
 

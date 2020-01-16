@@ -6,15 +6,10 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
@@ -27,8 +22,7 @@ import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -36,43 +30,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class LoginFragment : Fragment() {
-
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
+class LoginFragment : NavDrawerFragment() {
 
     @Inject
     lateinit var webAuthProviderLogin: WebAuthProvider.Builder
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
-    @Inject
-    lateinit var navController: NavController
-    @Inject
-    lateinit var drawerLayout: DrawerLayout
-    @Inject
-    lateinit var toggle: ActionBarDrawerToggle
-    @Inject
-    lateinit var headerView: View
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
 
-    lateinit var loginViewModel: LoginViewModel
-
-    private val navHeaderTitleTextView by lazy {
-        headerView.findViewById<TextView>(R.id.nav_header_title)
-    }
-    private val navHeaderSubtitleTextView by lazy {
-        headerView.findViewById<TextView>(R.id.nav_header_subtitle)
-    }
-    private val navHeaderImageView by lazy {
-        headerView.findViewById<ImageView>(R.id.nav_header_image)
-    }
-
+    private lateinit var loginViewModel: LoginViewModel
     private val TAG = "LOGIN FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {

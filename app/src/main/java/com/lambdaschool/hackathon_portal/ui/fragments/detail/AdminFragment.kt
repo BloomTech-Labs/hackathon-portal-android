@@ -3,7 +3,6 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,31 +14,18 @@ import androidx.recyclerview.widget.RecyclerView
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Admin
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.admin_list_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_admin.*
-import kotlinx.android.synthetic.main.fragment_dashboard.*
-import javax.inject.Inject
 
-class AdminFragment : Fragment() {
+class AdminFragment : BaseFragment() {
 
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    lateinit var detailViewModel: DetailViewModel
+    private lateinit var detailViewModel: DetailViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectAdminFragment(this)
         super.onCreate(savedInstanceState)
-        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(DetailViewModel::class.java)
+        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(DetailViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
