@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 
-abstract class NavigationFragment: BaseFragment() {
+abstract class NavDrawerFragment: BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
