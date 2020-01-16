@@ -7,7 +7,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.R
 import javax.inject.Inject
@@ -18,8 +17,6 @@ abstract class NavDrawerFragment: BaseFragment() {
     lateinit var drawerLayout: DrawerLayout
     @Inject
     lateinit var toggle: ActionBarDrawerToggle
-    @Inject
-    lateinit var navController: NavController
     @Inject
     lateinit var navView: NavigationView
 

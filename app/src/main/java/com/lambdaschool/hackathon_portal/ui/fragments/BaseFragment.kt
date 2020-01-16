@@ -4,6 +4,7 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import javax.inject.Inject
@@ -20,6 +21,8 @@ abstract class BaseFragment: Fragment() {
 
     @Inject
     lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    @Inject
+    lateinit var navController: NavController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
