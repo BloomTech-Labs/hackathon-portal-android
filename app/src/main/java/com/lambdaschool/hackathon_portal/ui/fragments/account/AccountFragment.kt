@@ -12,8 +12,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
-import com.auth0.android.authentication.storage.SecureCredentialsManager
-import com.auth0.android.provider.WebAuthProvider
+import androidx.navigation.NavOptions
 import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
@@ -75,7 +74,7 @@ class AccountFragment : Fragment() {
                             }
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navController.popBackStack(R.id.nav_dashboard, true)
+                            navigateToDashboardFragment()
                         }
                         else {
                             activity?.apply {
@@ -113,6 +112,17 @@ class AccountFragment : Fragment() {
                 .create()
                 .show()
         }
+    }
+
+    private fun navigateToDashboardFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_dashboard, true)
+            .build()
+        navController.navigate(
+            R.id.nav_dashboard,
+            bundle,
+            navOptions)
     }
 
     private fun loadUserInfoToEditTextFields() {
