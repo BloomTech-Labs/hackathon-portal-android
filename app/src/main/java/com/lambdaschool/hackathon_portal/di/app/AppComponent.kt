@@ -1,6 +1,8 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.app
 
 import android.app.Application
+import com.lambdaschool.hackathon_portal.di.app.modules.AppModule
+import com.lambdaschool.hackathon_portal.di.activity.ActivityComponent
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

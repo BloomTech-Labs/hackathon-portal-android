@@ -1,7 +1,8 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.activity.modules
 
 import androidx.appcompat.widget.Toolbar
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.di.activity.ActivityScope
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import dagger.Module
 import dagger.Provides

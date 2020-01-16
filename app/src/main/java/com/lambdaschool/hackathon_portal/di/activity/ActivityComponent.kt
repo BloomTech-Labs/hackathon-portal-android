@@ -1,5 +1,7 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.activity
 
+import com.lambdaschool.hackathon_portal.di.fragment.FragmentComponent
+import com.lambdaschool.hackathon_portal.di.activity.modules.NavDrawerModule
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import dagger.BindsInstance
 import dagger.Subcomponent

@@ -1,4 +1,4 @@
-package com.lambdaschool.hackathon_portal.di
+package com.lambdaschool.hackathon_portal.di.app
 
 import androidx.lifecycle.ViewModel
 import dagger.MapKey
