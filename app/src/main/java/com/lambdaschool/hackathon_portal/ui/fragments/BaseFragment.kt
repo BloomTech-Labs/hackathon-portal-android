@@ -9,6 +9,10 @@ import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import javax.inject.Inject
 
+/**
+ * The BaseFragment incorporates core functions that most, if not all Fragments
+ * will need to utilize.
+ * */
 abstract class BaseFragment: Fragment() {
 
     val fragmentComponent by lazy {

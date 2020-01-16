@@ -11,6 +11,10 @@ import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.R
 import javax.inject.Inject
 
+/**
+ * This NavDrawerFragment extends the BaseFragment functionality for those fragments needing to
+ * access things for the Navigation Drawer.
+ * */
 abstract class NavDrawerFragment: BaseFragment() {
 
     @Inject
