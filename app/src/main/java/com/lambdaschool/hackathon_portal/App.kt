@@ -1,7 +1,7 @@
 package com.lambdaschool.hackathon_portal
 
 import android.app.Application
-import com.lambdaschool.hackathon_portal.di.DaggerAppComponent
+import com.lambdaschool.hackathon_portal.di.app.DaggerAppComponent
 
 class App : Application() {
 
