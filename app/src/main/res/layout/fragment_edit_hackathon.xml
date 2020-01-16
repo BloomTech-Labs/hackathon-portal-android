@@ -106,7 +106,9 @@
         app:layout_constraintStart_toStartOf="parent"
         style="@style/EditTextStyle"
         android:lines="1"
-        android:inputType="date" />
+        android:inputType="date"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
     <TextView
         android:id="@+id/fragment_edit_hackathon_text_view_hackathon_end_date"
@@ -125,7 +127,9 @@
         app:layout_constraintStart_toStartOf="parent"
         style="@style/EditTextStyle"
         android:lines="1"
-        android:inputType="date" />
+        android:inputType="date"
+        android:focusable="false"
+        android:focusableInTouchMode="false" />
 
     <LinearLayout
         android:id="@+id/fragment_edit_hackathon_status"

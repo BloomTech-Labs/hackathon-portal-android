@@ -81,4 +81,8 @@ dependencies {
 
     //Circle image
     implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    //Material Dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
+    implementation 'com.afollestad.material-dialogs:datetime:3.1.1'
 }
