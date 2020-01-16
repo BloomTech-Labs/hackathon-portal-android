@@ -8,7 +8,7 @@ import com.lambdaschool.hackathon_portal.ui.MainActivity
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import javax.inject.Inject
 
-abstract class BaseFragment: Fragment() {
+abstract class NavigationFragment: Fragment() {
 
     val fragmentComponent by lazy {
         (activity as MainActivity)
