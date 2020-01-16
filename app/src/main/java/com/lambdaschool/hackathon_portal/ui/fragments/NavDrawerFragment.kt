@@ -1,29 +1,25 @@
-package com.lambdaschool.hackathon_portal.ui.fragments.base
+package com.lambdaschool.hackathon_portal.ui.fragments
 
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import javax.inject.Inject
 
-abstract class BaseFragment: Fragment() {
-
-    val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
+abstract class NavDrawerFragment: BaseFragment() {
 
     @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
+    lateinit var drawerLayout: DrawerLayout
+    @Inject
+    lateinit var toggle: ActionBarDrawerToggle
+    @Inject
+    lateinit var navController: NavController
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentComponent.injectBaseFragment(this)
+        fragmentComponent.injectNavDrawerFragment(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
