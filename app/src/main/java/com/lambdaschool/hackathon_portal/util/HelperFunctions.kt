@@ -8,7 +8,8 @@ import com.lambdaschool.hackathon_portal.model.SelectiveJsonObjectBuilder
  * Builds a JsonObject of only fields that the user has changed, such that only those fields
  * are sent to the BE to be updated.
  *
- * Can also specify to check for empty strings such that
+ * Can also specify to check for empty strings such that an error can be displayed in that
+ * edit text field for the user.
  *
  * @param comparatorList : List<SelectiveJsonObjectBuilder>
  * @return JsonObject?
