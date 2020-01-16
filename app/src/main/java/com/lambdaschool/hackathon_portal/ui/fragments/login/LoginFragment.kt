@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.auth0.android.authentication.AuthenticationException
@@ -26,13 +28,13 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.MainActivity
+import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-
 
 class LoginFragment : Fragment() {
 
@@ -56,6 +58,10 @@ class LoginFragment : Fragment() {
     lateinit var toggle: ActionBarDrawerToggle
     @Inject
     lateinit var headerView: View
+    @Inject
+    lateinit var viewModelProviderFactory: ViewModelProviderFactory
+
+    lateinit var loginViewModel: LoginViewModel
 
     private val navHeaderTitleTextView by lazy {
         headerView.findViewById<TextView>(R.id.nav_header_title)
@@ -72,6 +78,8 @@ class LoginFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectLoginFragment(this)
         super.onCreate(savedInstanceState)
+        loginViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(LoginViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -143,11 +151,11 @@ class LoginFragment : Fragment() {
 
                 val bundle = Bundle()
                 val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.loginFragment, true)
+                    .setPopUpTo(R.id.nav_login, true)
                     .build()
 
                 navController.navigate(
-                    R.id.action_loginFragment_to_dashboardFragment,
+                    R.id.nav_dashboard,
                     bundle,
                     navOptions)
             }
@@ -164,25 +172,25 @@ class LoginFragment : Fragment() {
         val jwt = JWT(credentials.idToken!!)
         val claims: Map<String, Claim> = jwt.claims
 
+        CurrentUser.currentUser.accessToken = credentials.accessToken
+
         claims.get("sub")?.asString()?.let {
-            CurrentUser.currentUser.id = it.split("|")[1]
-        }
+            val userId = it.split("|")[1]
+            CurrentUser.currentUser.id = userId
 
-        claims.get("name")?.asString()?.let {
-            CurrentUser.currentUser.name = it
-            navHeaderTitleTextView.text = it
-        }
-
-        claims.get("email")?.asString()?.let {
-            CurrentUser.currentUser.email = it
-            navHeaderSubtitleTextView.text = it
+            activity?.apply {
+                loginViewModel.getUser(userId.toInt()).observe(this, Observer { response ->
+                    if (response != null) {
+                        navHeaderTitleTextView.text = response.username
+                        navHeaderSubtitleTextView.text = response.email
+                    }
+                })
+            }
         }
 
         claims.get("picture")?.asString()?.let {
             CurrentUser.currentUser.pictureURL = it
             Picasso.get().load(it).into(navHeaderImageView)
         }
-
-        CurrentUser.currentUser.accessToken = credentials.accessToken
     }
 }
