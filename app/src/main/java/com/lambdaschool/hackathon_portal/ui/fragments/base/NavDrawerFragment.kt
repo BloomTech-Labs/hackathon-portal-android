@@ -3,11 +3,23 @@ package com.lambdaschool.hackathon_portal.ui.fragments.base
 import android.content.Context
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
+import javax.inject.Inject
 
 abstract class NavDrawerFragment: BaseFragment() {
 
+    @Inject
+    lateinit var drawerLayout: DrawerLayout
+    @Inject
+    lateinit var toggle: ActionBarDrawerToggle
+    @Inject
+    lateinit var navController: NavController
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        fragmentComponent.injectNavDrawerFragment(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
