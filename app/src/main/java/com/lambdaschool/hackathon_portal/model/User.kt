@@ -17,3 +17,14 @@ object LoggedInUser{
         "",
         mutableListOf())
 }
+
+fun wipeLoggedInUser() {
+    LoggedInUser.user = User(
+        -1,
+        null,
+        null,
+        null,
+        "",
+        mutableListOf()
+    )
+}

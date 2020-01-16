@@ -17,6 +17,7 @@ import com.auth0.android.provider.WebAuthProvider
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
+import com.lambdaschool.hackathon_portal.model.wipeLoggedInUser
 import com.lambdaschool.hackathon_portal.ui.MainActivity
 import javax.inject.Inject
 
@@ -60,6 +61,7 @@ class LogoutFragment : Fragment() {
                     Log.i(TAG, "Success")
                     credentialsManager.clearCredentials()
                     wipeCurrentUser()
+                    wipeLoggedInUser()
                     navigateToLoginFragment()
                 }
 
