@@ -3,6 +3,7 @@ package com.lambdaschool.hackathon_portal.util
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 
 /**
  * Open the keyboard and focus on a specified view
@@ -16,3 +17,12 @@ fun Context._openSoftKeyboardAndFocus(view: View?) {
     inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
 }
 
+/**
+ * Make a toast
+ * @param message : String
+ *
+ * NOTE: Activity context must be used.
+ * */
+fun Context._toast(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
