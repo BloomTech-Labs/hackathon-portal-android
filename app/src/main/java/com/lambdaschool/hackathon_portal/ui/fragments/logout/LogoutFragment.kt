@@ -2,13 +2,11 @@ package com.lambdaschool.hackathon_portal.ui.fragments.logout
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -18,27 +16,15 @@ import com.auth0.android.provider.WebAuthProvider
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
 import com.lambdaschool.hackathon_portal.model.wipeLoggedInUser
-import com.lambdaschool.hackathon_portal.ui.MainActivity
+import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import javax.inject.Inject
 
-class LogoutFragment : Fragment() {
-
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
+class LogoutFragment : NavDrawerFragment() {
 
     @Inject
     lateinit var webAuthProviderLogout: WebAuthProvider.LogoutBuilder
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
-    @Inject
-    lateinit var navController: NavController
-    @Inject
-    lateinit var drawerLayout: DrawerLayout
 
     private val TAG = "LOGOUT FRAGMENT"
 

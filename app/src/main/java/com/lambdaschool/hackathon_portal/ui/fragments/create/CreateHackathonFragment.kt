@@ -1,54 +1,33 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.create
 
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.DatePicker
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onDismiss
 import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
 import java.util.*
-import javax.inject.Inject
 
-class CreateHackathonFragment : Fragment() {
+class CreateHackathonFragment : BaseFragment() {
 
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    @Inject
-    lateinit var navController: NavController
-
-    lateinit var createHackathonViewModel: CreateHackathonViewModel
+    private lateinit var createHackathonViewModel: CreateHackathonViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectCreateHackathonFragment(this)
         super.onCreate(savedInstanceState)
-        createHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(CreateHackathonViewModel::class.java)
+        createHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(CreateHackathonViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

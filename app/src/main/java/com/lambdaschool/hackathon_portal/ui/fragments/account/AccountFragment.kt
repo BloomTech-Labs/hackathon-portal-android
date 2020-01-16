@@ -2,54 +2,26 @@ package com.lambdaschool.hackathon_portal.ui.fragments.account
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.LoggedInUser
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import kotlinx.android.synthetic.main.fragment_account.*
-import javax.inject.Inject
 
-class AccountFragment : Fragment() {
+class AccountFragment : NavDrawerFragment() {
 
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    @Inject
-    lateinit var navController: NavController
-    @Inject
-    lateinit var headerView: View
-
-    private val navHeaderTitleTextView by lazy {
-        headerView.findViewById<TextView>(R.id.nav_header_title)
-    }
-    private val navHeaderSubtitleTextView by lazy {
-        headerView.findViewById<TextView>(R.id.nav_header_subtitle)
-    }
-
-    lateinit var accountViewModel: AccountViewModel
+    private lateinit var accountViewModel: AccountViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectAccountFragment(this)
         super.onCreate(savedInstanceState)
         accountViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
             .get(AccountViewModel::class.java)

@@ -2,50 +2,32 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavController
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
+import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_detail.*
-import javax.inject.Inject
 
-class DetailFragment : Fragment() {
+class DetailFragment : BaseFragment() {
 
-
-    private val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
-    @Inject
-    lateinit var navController: NavController
-    lateinit var detailViewModel: DetailViewModel
-    lateinit var detailPageAdapter: DetailPageAdapter
+    private lateinit var detailViewModel: DetailViewModel
+    private lateinit var detailPageAdapter: DetailPageAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        fragmentComponent.injectDetailFragment(this)
         super.onCreate(savedInstanceState)
-        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory).get(DetailViewModel::class.java)
+        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(DetailViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_detail, container, false)
     }
 
