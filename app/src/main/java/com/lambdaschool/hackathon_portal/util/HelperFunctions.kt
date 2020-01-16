@@ -18,14 +18,18 @@ fun _selectiveJsonObjectBuilder(comparatorList: List<SelectiveJsonObjectBuilder>
 
     var counter = 0
     comparatorList.forEach {
-        if (it.newString != it.oldString) {
+        val editTextString = it.editText.text.toString()
+
+        if (editTextString != it.oldString) {
             if (it.checkIfEmpty) {
-                if (it.newString.isNotEmpty()) {
-                    jsonObject.addProperty(it.jsonField, it.newString)
+                if (editTextString.isNotEmpty()) {
+                    jsonObject.addProperty(it.jsonField, editTextString)
                     counter++
+                } else {
+                    it.editText.error = "Field is Required"
                 }
             } else {
-                jsonObject.addProperty(it.jsonField, it.newString)
+                jsonObject.addProperty(it.jsonField, editTextString)
                 counter++
             }
         }

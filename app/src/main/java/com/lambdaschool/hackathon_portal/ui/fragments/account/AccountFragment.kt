@@ -43,25 +43,25 @@ class AccountFragment : NavDrawerFragment() {
                     SelectiveJsonObjectBuilder(
                         "first_name",
                         LoggedInUser.user.first_name,
-                        edit_text_user_first_name.text.toString(),
+                        edit_text_user_first_name,
                         false
                     ),
                     SelectiveJsonObjectBuilder(
                         "last_name",
                         LoggedInUser.user.last_name,
-                        edit_text_user_last_name.text.toString(),
+                        edit_text_user_last_name,
                         false
                     ),
                     SelectiveJsonObjectBuilder(
                         "username",
                         LoggedInUser.user.username,
-                        edit_text_username.text.toString(),
+                        edit_text_username,
                         true
                     ),
                     SelectiveJsonObjectBuilder(
                         "email",
                         LoggedInUser.user.email,
-                        edit_text_email_address.text.toString(),
+                        edit_text_email_address,
                         true
                     )
                 )
