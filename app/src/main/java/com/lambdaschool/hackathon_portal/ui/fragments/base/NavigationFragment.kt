@@ -3,27 +3,11 @@ package com.lambdaschool.hackathon_portal.ui.fragments.base
 import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.fragment.app.Fragment
-import com.lambdaschool.hackathon_portal.ui.MainActivity
-import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
-import javax.inject.Inject
 
-abstract class NavigationFragment: Fragment() {
-
-    val fragmentComponent by lazy {
-        (activity as MainActivity)
-            .activityComponent
-            .getFragmentComponentBuilder()
-            .bindFragment(this)
-            .build()
-    }
-
-    @Inject
-    lateinit var viewModelProviderFactory: ViewModelProviderFactory
+abstract class NavigationFragment: BaseFragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        fragmentComponent.injectBaseFragment(this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
