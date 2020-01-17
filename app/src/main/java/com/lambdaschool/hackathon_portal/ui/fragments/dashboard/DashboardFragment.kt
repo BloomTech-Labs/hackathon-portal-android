@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -41,9 +42,21 @@ class DashboardFragment : BaseFragment() {
             adapter = HackathonListAdapter(mutableListOf<Hackathon>())
         }
 
+        fragment_dashboard_swiperefresh.setOnRefreshListener {
+            dashboardViewModel.getAllHackthons()
+        }
+
         dashboardViewModel.getAllHackathonsList().observe(this, Observer {
             if (it != null) {
                 fragment_dashboard_recycler_view_all_hackathons.adapter = HackathonListAdapter(it)
+                fragment_dashboard_swiperefresh.isRefreshing = false
+                activity?.apply {
+                    Toast.makeText(this, "Successfully got Hackathons", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                activity?.apply {
+                    Toast.makeText(this, "Failed to get Hackathons", Toast.LENGTH_SHORT).show()
+                }
             }
         })
     }
