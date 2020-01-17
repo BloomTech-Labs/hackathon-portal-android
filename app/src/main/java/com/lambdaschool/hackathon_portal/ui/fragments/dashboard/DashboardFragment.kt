@@ -10,8 +10,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.lambdaschool.hackathon_portal.HackathonDiffCallback
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
@@ -36,10 +38,11 @@ class DashboardFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val hackathonListAdapter = HackathonListAdapter()
         fragment_dashboard_recycler_view_all_hackathons.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter = HackathonListAdapter(mutableListOf<Hackathon>())
+            adapter = hackathonListAdapter
         }
 
         fragment_dashboard_swiperefresh.setOnRefreshListener {
@@ -48,7 +51,7 @@ class DashboardFragment : BaseFragment() {
 
         dashboardViewModel.getAllHackathonsList().observe(this, Observer {
             if (it != null) {
-                fragment_dashboard_recycler_view_all_hackathons.adapter = HackathonListAdapter(it)
+                hackathonListAdapter.setHackathon(it)
                 fragment_dashboard_swiperefresh.isRefreshing = false
                 activity?.apply {
                     Toast.makeText(this, "Successfully got Hackathons", Toast.LENGTH_SHORT).show()
@@ -61,10 +64,11 @@ class DashboardFragment : BaseFragment() {
         })
     }
 
-    inner class HackathonListAdapter(private val hackathons: MutableList<Hackathon>):
+    inner class HackathonListAdapter():
         RecyclerView.Adapter<HackathonListAdapter.ViewHolder>() {
 
         lateinit var context: Context
+        private val hackathons = mutableListOf<Hackathon>()
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nameView: TextView = view.text_view_hackathon_name
@@ -100,6 +104,14 @@ class DashboardFragment : BaseFragment() {
                 }
                 navController.navigate(R.id.nav_hackathon_details, bundle)
             }
+        }
+
+        fun setHackathon(newHackathonList: MutableList<Hackathon>) {
+            val diffCallback = HackathonDiffCallback(hackathons, newHackathonList)
+            val diffResult = DiffUtil.calculateDiff(diffCallback)
+            hackathons.clear()
+            hackathons.addAll(newHackathonList)
+            diffResult.dispatchUpdatesTo(this)
         }
     }
 }
