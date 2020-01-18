@@ -9,8 +9,9 @@ private val TAG = "SELECTIVE_JSON_OBJECT"
 
 /**
  * Builds a gson.JsonObject of only fields that have been changed by a user instead of sending
- * an entire data class with information that doesn't need to be updated. Most useful when making
- * PUT requests to a Backend.
+ * an entire data class with information that doesn't need to be updated.
+ *
+ * Most useful when making PUT requests to a Backend.
  *
  * Example:
  *
@@ -59,7 +60,7 @@ sealed class SelectiveJsonObject {
          * gson.JsonObject property when built.
          *
          * NOTE: The input type of that EditText field will produce a gson.JsonObject field
-         * value that is a String
+         * value that is a String.
          *
          * @param jsonField: String
          * @param newValue: EditText
@@ -142,20 +143,36 @@ sealed class SelectiveJsonObject {
             return Builder()
         }
 
+        /**
+         * Builds the gson.GsonObject when called and clears the selectiveJsonObjectList variable.
+         *
+         * @return JsonObject
+         *   -OR-
+         * @return null
+         * */
+        fun build(): JsonObject? {
+            val jsonObject = buildJsonObject(selectiveJsonObjectList)
+            selectiveJsonObjectList.clear()
+            return jsonObject
+        }
+
+        /**
+         * Temporary solution until app wide logging can be incorporated.
+         * */
         private fun logDebug(message: String) {
             Log.d(TAG, message)
         }
 
         /**
-         * Builds a gson.JsonObject of only fields that the user has changed such that only those fields
+         * Builds a gson.JsonObject of only fields that the user has changed such that only those changes
          * are sent to the Backend.
          *
          * Can specify to check for empty values in some cases so that if there was a difference between
-         * the oldValue and the newValue, but that newValue is an empty string, it will not be added to the
+         * the oldValue and newValue, but that newValue is an empty string, it will not be added to the
          * gson.JsonObject if you don't want it to be (most useful when using with EditText fields).
          *
-         * If you elect to check for empty strings(when applicable) with an EditText view, it will automatically
-         * display an error in that EditText field and will return `null` instead of the gson.JsonObject.
+         * If you elect to check for empty strings with an EditText view, it will automatically
+         * display an error in that EditText view and return a `null` instead of the gson.JsonObject.
          *
          * @param selectiveJsonObjectList : MutableList<SelectiveJsonObject>
          * @return gson.JsonObject
@@ -269,19 +286,6 @@ sealed class SelectiveJsonObject {
                 (jsonObject.size() > 0) -> jsonObject
                 else -> null
             }
-        }
-
-        /**
-         * Builds the gson.GsonObject when called, and clears the selectiveJsonObjectList variable
-         *
-         * @return JsonObject
-         *   -OR-
-         * @return null
-         * */
-        fun build(): JsonObject? {
-            val jsonObject = buildJsonObject(selectiveJsonObjectList)
-            selectiveJsonObjectList.clear()
-            return jsonObject
         }
 
         override fun equals(other: Any?): Boolean {
