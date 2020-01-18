@@ -39,7 +39,7 @@ interface HackathonApiInterface {
     fun updateHackathon(@Path("hack_id") hack_id: Int,
                         @Path("org_id") org_id: Int,
                         @Header("Authorization") bearerToken: String,
-                        @Body hackathon: Hackathon): Call<Hackathon>
+                        @Body hackathon: JsonObject): Call<Hackathon>
 
     @DELETE("hackathons/{hack_id}/u/{org_id}")
     fun deleteHackathon(@Path("hack_id") hack_id: Int,
