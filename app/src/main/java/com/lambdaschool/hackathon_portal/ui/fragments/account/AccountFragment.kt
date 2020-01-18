@@ -14,7 +14,8 @@ import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._toast
+import com.lambdaschool.hackathon_portal.util._toastLong
+import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_account.*
 
 class AccountFragment : NavDrawerFragment() {
@@ -47,18 +48,18 @@ class AccountFragment : NavDrawerFragment() {
                 accountViewModel.updateUser(selectiveJsonObject).observe(this, Observer {
                     if (it != null) {
                         if (it) {
-                            activity?._toast("Successfully updated account info")
+                            activity?._toastLong("Successfully updated account info")
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
                             navController._navigateAndPopUpTo(Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard)
                         }
                         else {
-                            activity?._toast("Failed to update account info")
+                            activity?._toastShort("Failed to update account info")
                         }
                     }
                 })
             } else {
-                activity?._toast("Nothing to update")
+                activity?._toastShort("Nothing to update")
             }
         }
 
@@ -76,7 +77,7 @@ class AccountFragment : NavDrawerFragment() {
                             if (it) {
                                 navController.navigate(R.id.nav_logout)
                             } else {
-                                activity?._toast("Failed to delete your account")
+                                activity?._toastShort("Failed to delete your account")
                             }
                         }
                     })

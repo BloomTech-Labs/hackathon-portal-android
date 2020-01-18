@@ -14,10 +14,7 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
 import com.lambdaschool.hackathon_portal.model.wipeLoggedInUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
-import com.lambdaschool.hackathon_portal.util._lockDrawer
-import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._toast
-import com.lambdaschool.hackathon_portal.util._unlockDrawer
+import com.lambdaschool.hackathon_portal.util.*
 import javax.inject.Inject
 
 class LogoutFragment : NavDrawerFragment() {
@@ -56,7 +53,7 @@ class LogoutFragment : NavDrawerFragment() {
                     Log.i(TAG, "Failure ${error?.message}")
                     drawerLayout._unlockDrawer(null)
                     navController._navigateAndPopUpTo(Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard)
-                    activity?._toast("Logout Failed:\n${error?.message}")
+                    activity?._toastLong("Logout Failed:\n${error?.message}")
                 }
             })
         }

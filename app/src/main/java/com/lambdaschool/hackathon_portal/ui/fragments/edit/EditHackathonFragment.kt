@@ -19,7 +19,8 @@ import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._toast
+import com.lambdaschool.hackathon_portal.util._toastLong
+import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
 import java.util.*
 
@@ -58,7 +59,7 @@ class EditHackathonFragment : BaseFragment() {
                     updateHackathonViews(it)
                     updateRetrievedHackathon(it)
                 } else {
-                    activity?._toast("Failed to get Hackathon")
+                    activity?._toastShort("Failed to get Hackathon")
                 }
             })
         }
@@ -102,13 +103,13 @@ class EditHackathonFragment : BaseFragment() {
                         if (it != null) {
                             updateHackathonViews(it)
                             navController._navigateAndPopUpTo(Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons)
-                            activity?._toast("Successfully updated Hackathon")
+                            activity?._toastLong("Successfully updated Hackathon")
                         } else {
-                            activity?._toast("Failed to update Hackathon")
+                            activity?._toastShort("Failed to update Hackathon")
                         }
                     })
                 } else {
-                    activity?._toast("Nothing to update")
+                    activity?._toastShort("Nothing to update")
                 }
             }
         }
@@ -127,9 +128,9 @@ class EditHackathonFragment : BaseFragment() {
                                 if (it != null) {
                                     if (it) {
                                         navController._navigateAndPopUpTo(Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons)
-                                        activity?._toast("Successfully deleted Hackathon")
+                                        activity?._toastLong("Successfully deleted Hackathon")
                                     } else {
-                                        activity?._toast("Failed to delete Hackathon")
+                                        activity?._toastShort("Failed to delete Hackathon")
                                     }
                                 }
                             })

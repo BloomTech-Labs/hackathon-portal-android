@@ -16,7 +16,8 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._toast
+import com.lambdaschool.hackathon_portal.util._toastLong
+import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
 import java.util.*
 
@@ -89,10 +90,10 @@ class CreateHackathonFragment : BaseFragment() {
                                 R.id.nav_user_hackathons,
                                 true,
                                 R.id.nav_user_hackathons)
-                            activity?._toast("Successfully created Hackathon")
+                            activity?._toastLong("Successfully created Hackathon")
                         }
                         else {
-                            activity?._toast("Failed to create Hackathon")
+                            activity?._toastShort("Failed to create Hackathon")
                         }
                     }
                 })

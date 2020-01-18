@@ -20,10 +20,7 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
-import com.lambdaschool.hackathon_portal.util._lockDrawer
-import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._toast
-import com.lambdaschool.hackathon_portal.util._unlockDrawer
+import com.lambdaschool.hackathon_portal.util.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -80,13 +77,13 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
-                    activity?._toast("Login Failed - ${dialog.show()}")
+                    activity?._toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
-                    activity?._toast("Login Failed - Code: ${exception.code} Message: ${exception.message}")
+                    activity?._toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
                 override fun onSuccess(credentials: Credentials) {
@@ -111,7 +108,7 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onFailure(error: CredentialsManagerException?) {
                 error?.message?.let {
-                    activity?._toast(it)
+                    activity?._toastLong(it)
                 }
             }
         })

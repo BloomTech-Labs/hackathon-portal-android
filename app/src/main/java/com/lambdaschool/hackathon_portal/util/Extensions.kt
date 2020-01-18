@@ -25,14 +25,25 @@ fun Context._openSoftKeyboardAndFocus(view: View?) {
 }
 
 /**
- * Makes a toast.
+ * Makes a toast and display for LENGTH_LONG.
  *
  * @param message : String
  *
  * NOTE: **Activity** context must be used.
  * */
-fun Context._toast(message: String) {
+fun Context._toastShort(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+}
+
+/**
+ * Makes a toast and display for LENGTH_LONG.
+ *
+ * @param message : String
+ *
+ * NOTE: **Activity** context must be used.
+ * */
+fun Context._toastLong(message: String) {
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
 /**
