@@ -46,13 +46,17 @@ class LogoutFragment : NavDrawerFragment() {
                     credentialsManager.clearCredentials()
                     wipeCurrentUser()
                     wipeLoggedInUser()
-                    navController._navigateAndPopUpTo(Bundle(), R.id.nav_graph, true, R.id.nav_login)
+                    navController._navigateAndPopUpTo(
+                        Bundle(), R.id.nav_graph, true, R.id.nav_login
+                    )
                 }
 
                 override fun onFailure(error: Auth0Exception?) {
                     Log.i(TAG, "Failure ${error?.message}")
                     drawerLayout._unlockDrawer(null)
-                    navController._navigateAndPopUpTo(Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard)
+                    navController._navigateAndPopUpTo(
+                        Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
+                    )
                     activity?._toastLong("Logout Failed:\n${error?.message}")
                 }
             })

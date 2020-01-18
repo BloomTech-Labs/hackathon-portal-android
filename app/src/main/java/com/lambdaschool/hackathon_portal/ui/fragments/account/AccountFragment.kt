@@ -51,7 +51,9 @@ class AccountFragment : NavDrawerFragment() {
                             activity?._toastLong("Successfully updated account info")
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navController._navigateAndPopUpTo(Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard)
+                            navController._navigateAndPopUpTo(
+                                Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
+                            )
                         }
                         else {
                             activity?._toastShort("Failed to update account info")

@@ -102,7 +102,9 @@ class EditHackathonFragment : BaseFragment() {
                     editHackathonViewModel.updateHackathon(hackathonId, selectiveJsonObject).observe(this, Observer {
                         if (it != null) {
                             updateHackathonViews(it)
-                            navController._navigateAndPopUpTo(Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons)
+                            navController._navigateAndPopUpTo(
+                                Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
+                            )
                             activity?._toastLong("Successfully updated Hackathon")
                         } else {
                             activity?._toastShort("Failed to update Hackathon")
@@ -127,7 +129,9 @@ class EditHackathonFragment : BaseFragment() {
                             .observe(this, Observer {
                                 if (it != null) {
                                     if (it) {
-                                        navController._navigateAndPopUpTo(Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons)
+                                        navController._navigateAndPopUpTo(
+                                            Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
+                                        )
                                         activity?._toastLong("Successfully deleted Hackathon")
                                     } else {
                                         activity?._toastShort("Failed to delete Hackathon")

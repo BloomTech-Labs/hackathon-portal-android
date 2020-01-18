@@ -86,10 +86,8 @@ class CreateHackathonFragment : BaseFragment() {
                     if (it != null) {
                         if (it) {
                             navController._navigateAndPopUpTo(
-                                Bundle(),
-                                R.id.nav_user_hackathons,
-                                true,
-                                R.id.nav_user_hackathons)
+                                Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
+                            )
                             activity?._toastLong("Successfully created Hackathon")
                         }
                         else {
