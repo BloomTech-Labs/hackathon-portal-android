@@ -55,10 +55,10 @@ class AccountFragment : NavDrawerFragment() {
                         else {
                             activity?._toast("Failed to update account info")
                         }
-                    } else {
-                        activity?._toast("Nothing to update")
                     }
                 })
+            } else {
+                activity?._toast("Nothing to update")
             }
         }
 
