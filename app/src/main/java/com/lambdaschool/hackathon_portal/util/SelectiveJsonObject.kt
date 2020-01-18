@@ -263,7 +263,7 @@ sealed class SelectiveJsonObject {
 
             return when {
                 isEmpty -> null
-                (jsonObject.size() > 0) -> null //jsonObject
+                (jsonObject.size() > 0) -> jsonObject
                 else -> null
             }
         }
