@@ -10,11 +10,10 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.LoggedInUser
-import com.lambdaschool.hackathon_portal.model.SelectiveJsonObjectBuilder
+import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
+import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
-import com.lambdaschool.hackathon_portal.util._selectiveJsonObjectBuilder
 import com.lambdaschool.hackathon_portal.util._toast
 import kotlinx.android.synthetic.main.fragment_account.*
 
@@ -37,38 +36,15 @@ class AccountFragment : NavDrawerFragment() {
         loadUserInfoToEditTextFields()
 
         fab_save_user.setOnClickListener {
+            val selectiveJsonObject = SelectiveJsonObject.Builder()
+                .add("first_name", edit_text_user_first_name, LoggedInUser.user.first_name, false)
+                .add("last_name", edit_text_user_last_name, LoggedInUser.user.last_name, false)
+                .add("username", edit_text_username, LoggedInUser.user.username, true)
+                .add("email", edit_text_email_address, LoggedInUser.user.email, true)
+                .build()
 
-            val list: List<SelectiveJsonObjectBuilder> =
-                listOf(
-                    SelectiveJsonObjectBuilder(
-                        "first_name",
-                        LoggedInUser.user.first_name,
-                        edit_text_user_first_name,
-                        false
-                    ),
-                    SelectiveJsonObjectBuilder(
-                        "last_name",
-                        LoggedInUser.user.last_name,
-                        edit_text_user_last_name,
-                        false
-                    ),
-                    SelectiveJsonObjectBuilder(
-                        "username",
-                        LoggedInUser.user.username,
-                        edit_text_username,
-                        true
-                    ),
-                    SelectiveJsonObjectBuilder(
-                        "email",
-                        LoggedInUser.user.email,
-                        edit_text_email_address,
-                        true
-                    )
-                )
-            val jsonObject = _selectiveJsonObjectBuilder(list)
-
-            if (jsonObject != null) {
-                accountViewModel.updateUser(jsonObject).observe(this, Observer {
+            if (selectiveJsonObject != null) {
+                accountViewModel.updateUser(selectiveJsonObject).observe(this, Observer {
                     if (it != null) {
                         if (it) {
                             activity?._toast("Successfully updated account info")
