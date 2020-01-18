@@ -20,6 +20,8 @@ private val TAG = "SELECTIVE_JSON_OBJECT"
  *                                      .add("field_2", edit_text_view_2, 5, false)
  *                                      .add("field_3", edit_text_view_3, someObject.name, true)
  *                                      .add("field_4", edit_text_view_4, someObject.age, true)
+ *                                      .add("field_5", switchState, someObject.isEnabled)
+ *                                      .add("field_6", someObject.intValue, 4)
  *                                      .build()
  *
  *      if (selectiveJsonObject != null) {
@@ -122,8 +124,8 @@ sealed class SelectiveJsonObject {
         /**
          * COMPARE String against a String?:
          *
-         * Adds String values to the list to check for changes; if found, add the
-         * gson.JsonObject property
+         * Adds String values to the list to check for changes; if found, it will add the
+         * gson.JsonObject property when built.
          *
          * @param jsonField: String
          * @param newValue: String
@@ -199,6 +201,7 @@ sealed class SelectiveJsonObject {
                                 }
 
                             } // else do nothing
+
                         } else {
                             logDebug("jsonField is empty")
                         }
