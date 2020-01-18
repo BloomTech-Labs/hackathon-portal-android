@@ -50,19 +50,19 @@ fun Context._toastLong(message: String) {
  * Builds NavOptions to popUpTo and navigate to specified fragment.
  *
  * @param bundle: Bundle
- * @param destinationId : @IdRes Int
+ * @param popUpTo_ResId : @IdRes Int
  * @param popUpToInclusive : Boolean
- * @param resId : @IdRes Int
+ * @param navigateTo_ResId : @IdRes Int
  * */
 fun NavController._navigateAndPopUpTo(bundle: Bundle,
-                                      @IdRes destinationId: Int,
+                                      @IdRes popUpTo_ResId: Int,
                                       popUpToInclusive: Boolean,
-                                      @IdRes resId: Int) {
+                                      @IdRes navigateTo_ResId: Int) {
     val navOptions = NavOptions.Builder()
-        .setPopUpTo(destinationId, popUpToInclusive)
+        .setPopUpTo(popUpTo_ResId, popUpToInclusive)
         .build()
 
-    this.navigate(resId, bundle, navOptions)
+    this.navigate(navigateTo_ResId, bundle, navOptions)
 }
 
 /**
