@@ -25,7 +25,7 @@ fun Context._openSoftKeyboardAndFocus(view: View?) {
 }
 
 /**
- * Makes a toast and display for LENGTH_LONG.
+ * Make a toast and display for LENGTH_SORT.
  *
  * @param message : String
  *
@@ -36,7 +36,7 @@ fun Context._toastShort(message: String) {
 }
 
 /**
- * Makes a toast and display for LENGTH_LONG.
+ * Make a toast and display for LENGTH_LONG.
  *
  * @param message : String
  *
