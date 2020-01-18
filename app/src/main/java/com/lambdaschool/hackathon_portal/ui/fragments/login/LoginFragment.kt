@@ -23,6 +23,8 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
+import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
+import com.lambdaschool.hackathon_portal.util._toast
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -81,19 +83,13 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
-
-                    activity?.apply {
-                        Toast.makeText(this, "Login Failed - ${dialog.show()}", Toast.LENGTH_SHORT).show()
-                    }
+                    activity?._toast("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
-
-                    activity?.apply {
-                        Toast.makeText(this, "Login Failed - Code: ${exception.code} Message: ${exception.message}", Toast.LENGTH_SHORT).show()
-                    }
+                    activity?._toast("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
                 override fun onSuccess(credentials: Credentials) {
@@ -113,21 +109,12 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onSuccess(credentials: Credentials) {
                 setCurrentUser(credentials)
-
-                val bundle = Bundle()
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_login, true)
-                    .build()
-
-                navController.navigate(
-                    R.id.nav_dashboard,
-                    bundle,
-                    navOptions)
+                navController._navigateAndPopUpTo(Bundle(), R.id.nav_login, true, R.id.nav_dashboard)
             }
 
             override fun onFailure(error: CredentialsManagerException?) {
-                activity?.apply {
-                    Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
+                error?.message?.let {
+                    activity?._toast(it)
                 }
             }
         })
