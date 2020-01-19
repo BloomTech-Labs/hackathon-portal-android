@@ -53,19 +53,23 @@ class LoginFragment : NavDrawerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_login.setOnClickListener {
+            // TODO: Disable Button & show a progress bar
             login()
         }
 
         if (credentialsManager.hasValidCredentials()) {
             Log.i(TAG, "Sending to Dashboard")
+            // TODO: Disable Button & show a progress bar
             showNextFragment()
         }
 
     }
 
     override fun onDestroyView() {
-        super.onDestroyView()
         drawerLayout._unlockDrawer(toggle)
+        // TODO: Enable Button & disable progress bar
+        super.onDestroyView()
+
     }
 
     private fun login() {
@@ -76,12 +80,14 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
+                    // TODO: Enable Button & disable progress bar
                     activity?._toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
+                    // TODO: Enable Button & disable progress bar
                     activity?._toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
@@ -103,6 +109,9 @@ class LoginFragment : NavDrawerFragment() {
             override fun onSuccess(credentials: Credentials) {
                 if (setUserAuth0(credentials)) {
                     getUserData()
+                } else {
+                    Log.d(TAG, "Failed to set UserAuth0 credentials")
+                    // TODO: Enable Button & disable progress bar
                 }
             }
 
@@ -110,6 +119,7 @@ class LoginFragment : NavDrawerFragment() {
                 error?.message?.let {
                     activity?._toastLong(it)
                     Log.d(TAG, it)
+                    // TODO: Enable Button & disable progress bar
                 }
             }
         })
