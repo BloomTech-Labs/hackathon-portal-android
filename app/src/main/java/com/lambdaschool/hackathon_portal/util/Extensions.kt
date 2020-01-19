@@ -46,6 +46,7 @@ fun Context._toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
+// TODO: Move to BaseFragment
 /**
  * Builds NavOptions to popUpTo and navigate to specified fragment.
  *
