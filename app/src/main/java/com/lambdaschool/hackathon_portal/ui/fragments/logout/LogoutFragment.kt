@@ -5,14 +5,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProviders
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.provider.VoidCallback
 import com.auth0.android.provider.WebAuthProvider
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.wipeCurrentUser
-import com.lambdaschool.hackathon_portal.model.wipeLoggedInUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.*
 import javax.inject.Inject
@@ -24,11 +23,14 @@ class LogoutFragment : NavDrawerFragment() {
     @Inject
     lateinit var credentialsManager: SecureCredentialsManager
 
+    private lateinit var logoutViewModel: LogoutViewModel
     private val TAG = "LOGOUT FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectLogoutFragment(this)
         super.onCreate(savedInstanceState)
+        logoutViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+            .get(LogoutViewModel::class.java)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -44,8 +46,8 @@ class LogoutFragment : NavDrawerFragment() {
                 override fun onSuccess(payload: Void?) {
                     Log.i(TAG, "Logout Success")
                     credentialsManager.clearCredentials()
-                    wipeCurrentUser()
-                    wipeLoggedInUser()
+                    logoutViewModel.performLogout()
+                    resetNavDrawerHeader()
                     navController._navigateAndPopUpTo(
                         Bundle(), R.id.nav_graph, true, R.id.nav_login
                     )
