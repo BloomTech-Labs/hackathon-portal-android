@@ -9,6 +9,7 @@ import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardViewMod
 import com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsViewModel
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import dagger.Binds
@@ -28,6 +29,12 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(LoginViewModel::class)
     abstract fun bindsLoginViewModel(viewModel: LoginViewModel): ViewModel
+
+    @Singleton
+    @Binds
+    @IntoMap
+    @ViewModelKey(LogoutViewModel::class)
+    abstract fun bindsLogoutViewModel(viewModel: LogoutViewModel): ViewModel
 
     @Singleton
     @Binds
