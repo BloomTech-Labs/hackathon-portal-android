@@ -23,6 +23,39 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
     private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
 
+    fun setUserAuth0(id: Int, pictureUrl: String, accessToken: String) {
+        setUserAuth0Id(id)
+        setUserAuth0PictureUrl(pictureUrl)
+        setUserAuth0AccessToken(accessToken)
+    }
+
+    // Have to break these into individual fields because the Auth0 claims response
+    // requires us to use let since it is potentially nullable. Separate methods
+    // allow for setting right there in the let lambda instead of dealing with temporary
+    // variables then calling setUserAuth0.
+    fun setUserAuth0Id(id: Int) {
+        userAuth0.id = id
+        // Todo: Should we set user id here, too?
+    }
+
+    fun setUserAuth0PictureUrl(pictureUrl: String) {
+        userAuth0.pictureUrl = pictureUrl
+    }
+
+    fun setUserAuth0AccessToken(accessToken: String) {
+        userAuth0.accessToken = accessToken
+    }
+
+    fun wipeUserAuth0() {
+        userAuth0.id = -1
+        userAuth0.pictureUrl = ""
+        userAuth0.accessToken = ""
+    }
+
+    fun getUserAuth0Id(): Int = userAuth0.id
+    fun getUserAuth0PictureUrl(): String = userAuth0.pictureUrl
+    // AccessToken should ONLY be used here in the repo when coding up network calls.
+
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
