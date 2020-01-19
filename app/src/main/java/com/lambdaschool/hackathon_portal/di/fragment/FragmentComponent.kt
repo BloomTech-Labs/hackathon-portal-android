@@ -4,14 +4,13 @@ import androidx.fragment.app.Fragment
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment
-import com.lambdaschool.hackathon_portal.di.fragment.modules.LoginModule
+import com.lambdaschool.hackathon_portal.di.fragment.modules.WebAuthModule
 import com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutFragment
-import com.lambdaschool.hackathon_portal.di.fragment.modules.LogoutModule
 import dagger.BindsInstance
 import dagger.Subcomponent
 
 @FragmentScope
-@Subcomponent(modules = [LoginModule::class, LogoutModule::class])
+@Subcomponent(modules = [WebAuthModule::class])
 interface FragmentComponent {
 
     @Subcomponent.Builder
