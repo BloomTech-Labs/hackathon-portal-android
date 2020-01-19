@@ -19,7 +19,7 @@ object UserModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun provideUserData(): User {
+    fun provideUser(): User {
         return User(-1, null, null, "", "", mutableListOf())
     }
 }
