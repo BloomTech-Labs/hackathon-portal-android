@@ -11,7 +11,7 @@ data class Hackathon (var id: Int? = null,
                       var organizer_id: Int? = null,
                       var teams: MutableList<Team>? = null,
                       var admins: MutableList<Admin>? = null,
-                      var individual_devs: MutableList<User>? = null) {
+                      var individual_devs: MutableList<UserD.UserE>? = null) {
     constructor(
         name: String,
         description: String,
