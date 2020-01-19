@@ -104,11 +104,10 @@ class EditHackathonFragment : BaseFragment() {
                 if (selectiveJsonObject != null) {
                     editHackathonViewModel.updateHackathon(hackathonId, selectiveJsonObject).observe(this, Observer {
                         if (it != null) {
-                            updateHackathonViews(it)
+                            activity?._toastLong("Successfully updated Hackathon")
                             navController._navigateAndPopUpTo(
                                 Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
-                            activity?._toastLong("Successfully updated Hackathon")
                         } else {
                             // TODO: Enable Buttons & disable progress bar
                             activity?._toastShort("Failed to update Hackathon")
