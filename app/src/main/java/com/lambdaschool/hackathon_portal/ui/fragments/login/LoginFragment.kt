@@ -18,7 +18,7 @@ import com.auth0.android.provider.AuthCallback
 import com.auth0.android.provider.WebAuthProvider
 import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.UserD
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.*
 import kotlinx.android.synthetic.main.fragment_login.*
@@ -161,7 +161,7 @@ class LoginFragment : NavDrawerFragment() {
         }
     }
 
-    private fun setNavDrawerHeader(response: UserD.UserE) {
+    private fun setNavDrawerHeader(response: User.GetUser) {
         setNavDrawerHeaderTitle(response.username)
         setNavDrawerHeaderSubTitle(response.email)
         setNavDrawerHeaderImage(loginViewModel.getUserAuth0PictureUrl())

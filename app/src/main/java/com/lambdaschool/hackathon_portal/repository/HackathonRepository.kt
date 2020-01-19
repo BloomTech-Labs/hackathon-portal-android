@@ -13,8 +13,8 @@ import javax.inject.Singleton
 
 @Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface,
-                           private val userAuth0: UserD.Auth0,
-                           private val user: UserD.UserE) {
+                           private val userAuth0: User.Auth0,
+                           private val user: User.GetUser) {
 
     companion object {
         const val REPO_TAG = "REPOSITORY"
@@ -69,7 +69,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         // TODO: Should we also clear the mutable objects used in this file?
     }
 
-    fun getUserObject(): UserD.UserE {
+    fun getUserObject(): User.GetUser {
         return user
     }
 
@@ -239,17 +239,17 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return deleteHackathonResponse
     }
 
-    fun getUser(): LiveData<UserD.UserE> {
-        val getUserResponse = MutableLiveData<UserD.UserE>()
+    fun getUser(): LiveData<User.GetUser> {
+        val getUserResponse = MutableLiveData<User.GetUser>()
 
-        hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<UserD.UserE> {
-            override fun onFailure(call: Call<UserD.UserE>, t: Throwable) {
+        hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<User.GetUser> {
+            override fun onFailure(call: Call<User.GetUser>, t: Throwable) {
                 getUserResponse.value = null
                 Log.i(REPO_TAG, "Failed to connect to API")
                 Log.i(REPO_TAG, t.message.toString())
             }
 
-            override fun onResponse(call: Call<UserD.UserE>, response: Response<UserD.UserE>) {
+            override fun onResponse(call: Call<User.GetUser>, response: Response<User.GetUser>) {
                 if (response.isSuccessful) {
                     getUserResponse.value = response.body()
                     Log.i(REPO_TAG, "Successfully get user")
@@ -288,14 +288,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         val updateUserResponse = MutableLiveData<Boolean>()
 
         hackathonService.updateUser(userAuth0.id, bearerToken, jsonObject)
-            .enqueue(object: Callback<UserD.UserE> {
-                override fun onFailure(call: Call<UserD.UserE>, t: Throwable) {
+            .enqueue(object: Callback<User.GetUser> {
+                override fun onFailure(call: Call<User.GetUser>, t: Throwable) {
                     updateUserResponse.value = false
                     Log.i(REPO_TAG, "Failed to connect to API")
                     Log.i(REPO_TAG, t.message.toString())
                 }
 
-                override fun onResponse(call: Call<UserD.UserE>, response: Response<UserD.UserE>) {
+                override fun onResponse(call: Call<User.GetUser>, response: Response<User.GetUser>) {
                     if (response.isSuccessful) {
                         updateUserResponse.value = true
                         Log.i(REPO_TAG, "Successfully updated user")

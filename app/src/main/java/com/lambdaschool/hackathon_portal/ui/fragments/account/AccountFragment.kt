@@ -11,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.UserD
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
@@ -114,7 +114,7 @@ class AccountFragment : NavDrawerFragment() {
         super.onDestroyView()
     }
 
-    private fun loadUserInfoToEditTextFields(user: UserD.UserE) {
+    private fun loadUserInfoToEditTextFields(user: User.GetUser) {
         edit_text_user_first_name.setText(user.first_name)
         edit_text_user_last_name.setText(user.last_name)
         edit_text_username.setText(user.username)

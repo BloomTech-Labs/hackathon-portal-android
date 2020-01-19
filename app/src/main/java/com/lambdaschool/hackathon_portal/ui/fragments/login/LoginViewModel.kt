@@ -2,7 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.lambdaschool.hackathon_portal.model.UserD
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import javax.inject.Inject
 
@@ -17,7 +17,7 @@ class LoginViewModel @Inject constructor(private val repo: HackathonRepository):
     fun setUserAuth0AccessToken(accessToken: String) =
         repo.setUserAuth0AccessToken(accessToken)
 
-    fun getUser(): LiveData<UserD.UserE> =
+    fun getUser(): LiveData<User.GetUser> =
         repo.getUser()
 
     fun getUserAuth0PictureUrl() =

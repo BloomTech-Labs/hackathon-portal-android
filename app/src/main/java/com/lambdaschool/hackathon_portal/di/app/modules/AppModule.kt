@@ -1,6 +1,6 @@
 package com.lambdaschool.hackathon_portal.di.app.modules
 
-import com.lambdaschool.hackathon_portal.model.UserD
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import dagger.Module
@@ -34,7 +34,7 @@ object AppModule {
     @Provides
     @JvmStatic
     fun providesHackathonRepository(hackathonApiInterface: HackathonApiInterface,
-                                    userAuth0: UserD.Auth0,
-                                    user: UserD.UserE) =
+                                    userAuth0: User.Auth0,
+                                    user: User.GetUser) =
         HackathonRepository(hackathonApiInterface, userAuth0, user)
 }
