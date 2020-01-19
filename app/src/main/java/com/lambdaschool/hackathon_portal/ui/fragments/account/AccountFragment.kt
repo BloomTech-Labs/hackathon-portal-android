@@ -109,9 +109,9 @@ class AccountFragment : NavDrawerFragment() {
         }
     }
 
-    override fun onDestroy() {
+    override fun onDestroyView() {
         // TODO: Enable Buttons & disable progress bar
-        super.onDestroy()
+        super.onDestroyView()
     }
 
     private fun loadUserInfoToEditTextFields(user: UserD.UserE) {
