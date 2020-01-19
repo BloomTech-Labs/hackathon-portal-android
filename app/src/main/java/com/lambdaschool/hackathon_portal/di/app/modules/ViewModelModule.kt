@@ -1,7 +1,8 @@
-package com.lambdaschool.hackathon_portal.di.app
+package com.lambdaschool.hackathon_portal.di.app.modules
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.lambdaschool.hackathon_portal.di.app.ViewModelKey
 import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardViewModel
