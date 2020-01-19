@@ -49,10 +49,28 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         bearerToken = "Bearer $accessToken"
     }
 
-    fun wipeUserAuth0() {
+    fun performLogout() {
+        // Wipe userAuth0
         userAuth0.id = -1
         userAuth0.pictureUrl = ""
         userAuth0.accessToken = ""
+
+        // Wipe bearerToken
+        bearerToken = ""
+
+        // Wipe user
+        user.id = -1
+        user.first_name = null
+        user.last_name = null
+        user.username = ""
+        user.email = ""
+        user.hackathons = mutableListOf()
+
+        // TODO: Should we also clear the mutable objects used in this file?
+    }
+
+    fun getUserObject(): UserD.UserE {
+        return user
     }
 
     fun getUserAuth0PictureUrl(): String = userAuth0.pictureUrl
