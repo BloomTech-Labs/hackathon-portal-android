@@ -12,7 +12,9 @@ import retrofit2.Response
 import javax.inject.Singleton
 
 @Singleton
-class HackathonRepository (private val hackathonService: HackathonApiInterface) {
+class HackathonRepository (private val hackathonService: HackathonApiInterface,
+                           private val userAuth0: UserD.Auth0,
+                           private val user: UserD.UserE) {
 
     companion object {
         const val REPO_TAG = "REPOSITORY"
