@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.*
+import com.lambdaschool.hackathon_portal.model.UserD
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
@@ -34,14 +34,15 @@ class AccountFragment : NavDrawerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadUserInfoToEditTextFields()
+        val user = accountViewModel.getUserObjectFromRepository()
+        loadUserInfoToEditTextFields(user)
 
         fab_save_user.setOnClickListener {
             val selectiveJsonObject = SelectiveJsonObject.Builder()
-                .add("first_name", edit_text_user_first_name, LoggedInUser.user.first_name, false)
-                .add("last_name", edit_text_user_last_name, LoggedInUser.user.last_name, false)
-                .add("username", edit_text_username, LoggedInUser.user.username, true)
-                .add("email", edit_text_email_address, LoggedInUser.user.email, true)
+                .add("first_name", edit_text_user_first_name, user.first_name, false)
+                .add("last_name", edit_text_user_last_name, user.last_name, false)
+                .add("username", edit_text_username, user.username, true)
+                .add("email", edit_text_email_address, user.email, true)
                 .build()
 
             if (selectiveJsonObject != null) {
@@ -49,8 +50,12 @@ class AccountFragment : NavDrawerFragment() {
                     if (it != null) {
                         if (it) {
                             activity?._toastLong("Successfully updated account info")
-                            navHeaderTitleTextView.text = edit_text_username.text.toString()
-                            navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
+                            if (selectiveJsonObject.has("username")) {
+                                setNavDrawerHeaderTitle(edit_text_username.text.toString())
+                            }
+                            if (selectiveJsonObject.has("email")) {
+                                setNavDrawerHeaderSubTitle(edit_text_email_address.text.toString())
+                            }
                             navController._navigateAndPopUpTo(
                                 Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
                             )
@@ -91,10 +96,10 @@ class AccountFragment : NavDrawerFragment() {
         }
     }
 
-    private fun loadUserInfoToEditTextFields() {
-        edit_text_user_first_name.setText(LoggedInUser.user.first_name)
-        edit_text_user_last_name.setText(LoggedInUser.user.last_name)
-        edit_text_username.setText(LoggedInUser.user.username)
-        edit_text_email_address.setText(LoggedInUser.user.email)
+    private fun loadUserInfoToEditTextFields(user: UserD.UserE) {
+        edit_text_user_first_name.setText(user.first_name)
+        edit_text_user_last_name.setText(user.last_name)
+        edit_text_username.setText(user.username)
+        edit_text_email_address.setText(user.email)
     }
 }
