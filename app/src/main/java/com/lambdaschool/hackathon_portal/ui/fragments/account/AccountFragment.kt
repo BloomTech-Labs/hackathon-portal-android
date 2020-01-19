@@ -114,7 +114,7 @@ class AccountFragment : NavDrawerFragment() {
         super.onDestroyView()
     }
 
-    private fun loadUserInfoToEditTextFields(user: User.GetUser) {
+    private fun loadUserInfoToEditTextFields(user: User) {
         edit_text_user_first_name.setText(user.first_name)
         edit_text_user_last_name.setText(user.last_name)
         edit_text_username.setText(user.username)

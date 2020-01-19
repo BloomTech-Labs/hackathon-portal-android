@@ -11,12 +11,12 @@ interface HackathonApiInterface {
 
     @GET("users/{id}")
     fun getUser(@Path("id") id: Int,
-                @Header("Authorization") bearerToken: String): Call<User.GetUser>
+                @Header("Authorization") bearerToken: String): Call<User>
 
     @PUT("users/{id}")
     fun updateUser(@Path("id") id: Int,
                    @Header("Authorization") bearerToken: String,
-                   @Body user: JsonObject): Call<User.GetUser>
+                   @Body user: JsonObject): Call<User>
 
     @DELETE("users/{id}")
     fun deleteUser(@Path("id") id: Int,

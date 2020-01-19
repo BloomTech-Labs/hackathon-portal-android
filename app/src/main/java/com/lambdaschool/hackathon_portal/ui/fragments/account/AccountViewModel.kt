@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class AccountViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
 
-    fun getUserObjectFromRepository(): User.GetUser =
+    fun getUserObjectFromRepository(): User =
         repo.getUserObject()
 
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> =

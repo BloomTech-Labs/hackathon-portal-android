@@ -161,7 +161,7 @@ class LoginFragment : NavDrawerFragment() {
         }
     }
 
-    private fun setNavDrawerHeader(response: User.GetUser) {
+    private fun setNavDrawerHeader(response: User) {
         setNavDrawerHeaderTitle(response.username)
         setNavDrawerHeaderSubTitle(response.email)
         setNavDrawerHeaderImage(loginViewModel.getUserAuth0PictureUrl())

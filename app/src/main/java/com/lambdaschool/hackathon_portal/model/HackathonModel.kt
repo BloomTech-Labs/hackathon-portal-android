@@ -34,7 +34,7 @@ sealed class HackathonModel {
         var organizer_id: Int? = null,
         var teams: MutableList<Team>? = null,
         var admins: MutableList<Admin>? = null,
-        var individual_devs: MutableList<User.GetUser>? = null
+        var individual_devs: MutableList<User>? = null
     ): HackathonModel() {
 
         /**
