@@ -26,16 +26,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     // This will be set upon login and then wiped on logout
     private var bearerToken = ""
 
-    fun setUserAuth0(id: Int, pictureUrl: String, accessToken: String) {
-        setUserAuth0Id(id)
-        setUserAuth0PictureUrl(pictureUrl)
-        setUserAuth0AccessToken(accessToken)
-    }
-
     // Have to break these into individual fields because the Auth0 claims response
-    // requires us to use let since it is potentially nullable. Separate methods
-    // allow for setting right there in the let lambda instead of dealing with temporary
-    // variables then calling setUserAuth0.
+    // requires us to use `let` on each field since it is potentially nullable.
+    // Separate methods allows for setting right then and there, in the `let` lambda
+    // instead of dealing with temporary variables and calling a single method.
     fun setUserAuth0Id(id: Int) {
         userAuth0.id = id
     }
