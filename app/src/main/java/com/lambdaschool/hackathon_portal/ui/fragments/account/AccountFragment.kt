@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.account
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import kotlinx.android.synthetic.main.fragment_account.*
 class AccountFragment : NavDrawerFragment() {
 
     private lateinit var accountViewModel: AccountViewModel
+    private var TAG = "ACCOUNT FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +40,7 @@ class AccountFragment : NavDrawerFragment() {
         loadUserInfoToEditTextFields(user)
 
         fab_save_user.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val selectiveJsonObject = SelectiveJsonObject.Builder()
                 .add("first_name", edit_text_user_first_name, user.first_name, false)
                 .add("last_name", edit_text_user_last_name, user.last_name, false)
@@ -61,16 +64,22 @@ class AccountFragment : NavDrawerFragment() {
                             )
                         }
                         else {
+                            // TODO: Enable Buttons & disable progress bar
                             activity?._toastShort("Failed to update account info")
                         }
+                    } else {
+                        Log.d(TAG, "Update User came back null")
+                        // TODO: Enable Buttons & disable progress bar
                     }
                 })
             } else {
+                // TODO: Enable Buttons & disable progress bar
                 activity?._toastShort("Nothing to update")
             }
         }
 
         fab_delete_user.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val title = "Delete User?"
             val msg = "Are you sure you would like to delete this account?"
 
@@ -84,8 +93,12 @@ class AccountFragment : NavDrawerFragment() {
                             if (it) {
                                 navController.navigate(R.id.nav_logout)
                             } else {
+                                // TODO: Enable Buttons & disable progress bar
                                 activity?._toastShort("Failed to delete your account")
                             }
+                        } else {
+                            Log.d(TAG, "Delete User came back null")
+                            // TODO: Enable Buttons & disable progress bar
                         }
                     })
                 }
@@ -94,6 +107,11 @@ class AccountFragment : NavDrawerFragment() {
                 .create()
                 .show()
         }
+    }
+
+    override fun onDestroy() {
+        // TODO: Enable Buttons & disable progress bar
+        super.onDestroy()
     }
 
     private fun loadUserInfoToEditTextFields(user: UserD.UserE) {
