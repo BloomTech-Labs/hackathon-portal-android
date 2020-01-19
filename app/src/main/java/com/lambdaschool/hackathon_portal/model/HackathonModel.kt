@@ -1,9 +1,9 @@
 package com.lambdaschool.hackathon_portal.model
 
-typealias Hackathon = Hacks.Hackathon
-typealias UserHackathon = Hacks.UserHackathon
+typealias Hackathon = HackathonModel.Hackathon
+typealias UserHackathon = HackathonModel.UserHackathon
 
-sealed class Hacks {
+sealed class HackathonModel {
 
     /**
      * Endpoint GET /hackathons:
@@ -35,7 +35,7 @@ sealed class Hacks {
         var teams: MutableList<Team>? = null,
         var admins: MutableList<Admin>? = null,
         var individual_devs: MutableList<User.GetUser>? = null
-    ): Hacks() {
+    ): HackathonModel() {
 
         /**
          * Constructor for the POST request
@@ -69,5 +69,5 @@ sealed class Hacks {
         var start_date: String,
         var end_date: String,
         var hackathon_description: String
-    ): Hacks()
+    ): HackathonModel()
 }
