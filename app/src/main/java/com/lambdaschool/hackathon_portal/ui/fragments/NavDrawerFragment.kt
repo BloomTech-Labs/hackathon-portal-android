@@ -51,6 +51,12 @@ abstract class NavDrawerFragment: BaseFragment() {
         }
     }
 
+    fun resetNavDrawerHeader() {
+        navHeaderTitleTextView.text = getString(R.string.nav_header_title)
+        navHeaderSubtitleTextView.text = getString(R.string.nav_header_subtitle)
+        navHeaderImageView.setImageResource(R.drawable.ic_launcher_background)
+    }
+
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentComponent.injectNavDrawerFragment(this)
