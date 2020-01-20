@@ -20,29 +20,39 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                      private val user: User) {
 
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
-
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> =
         userHackathonList
+    fun setUserHackathonList(mutableList: MutableList<UserHackathon>?) {
+        userHackathonList.value = mutableList
+    }
 
-    // This will be set upon login and then wiped on logout
-    private var bearerToken = ""
-
-    // Have to break these into individual fields because the Auth0 claims response
-    // requires us to use `let` on each field since it is potentially nullable.
-    // Separate methods allows for setting right then and there, in the `let` lambda
-    // instead of dealing with temporary variables and calling a single method.
+    /**
+     * Have to break the setters for userAuth0 into individual fields because the Auth0
+     * claims response requires us to use `let` on each field since it is potentially nullable.
+     *
+     * Separate methods allows for setting right then and there, in the `let` lambda
+     * instead of dealing with temporary variables and calling a single method.
+     * */
     fun setUserAuth0Id(id: Int) {
         userAuth0.id = id
     }
+    fun getUserAuth0Id(): Int =
+        userAuth0.id
 
     fun setUserAuth0PictureUrl(pictureUrl: String) {
         userAuth0.pictureUrl = pictureUrl
     }
+    fun getUserAuth0PictureUrl(): String =
+        userAuth0.pictureUrl
 
+    // This will be set upon login and then wiped on logout
+    private var bearerToken = ""
     fun setUserAuth0AccessToken(accessToken: String) {
         userAuth0.accessToken = accessToken
         bearerToken = "Bearer $accessToken"
     }
+    fun getBearerToken(): String =
+        bearerToken
 
     fun performLogout() {
         // Wipe userAuth0
@@ -66,9 +76,6 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
 
     fun getUserObject(): User =
         user
-
-    fun getUserAuth0PictureUrl(): String =
-        userAuth0.pictureUrl
 
     fun getUser(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
