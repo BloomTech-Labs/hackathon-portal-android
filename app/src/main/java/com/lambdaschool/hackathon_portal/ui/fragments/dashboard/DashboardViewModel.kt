@@ -13,7 +13,7 @@ class DashboardViewModel @Inject constructor(private val hackathonRepo: Hackatho
                                              private val userRepo: UserRepository) : ViewModel() {
 
     fun getUser(): LiveData<User> {
-        return userRepo.getUser()
+        return userRepo.getUserById()
     }
 
     // Leaving this function because it might be necessary later

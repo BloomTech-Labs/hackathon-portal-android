@@ -13,8 +13,8 @@ class AccountViewModel @Inject constructor(private val userRepo: UserRepository)
         userRepo.getUserObject()
 
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> =
-        userRepo.updateUser(jsonObject)
+        userRepo.updateUserById(jsonObject)
 
     fun deleteUser(): LiveData<Boolean> =
-        userRepo.deleteUser()
+        userRepo.deleteUserById()
 }

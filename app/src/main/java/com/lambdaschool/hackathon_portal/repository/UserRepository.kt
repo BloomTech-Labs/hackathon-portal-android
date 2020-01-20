@@ -79,7 +79,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
     fun getUserObject(): User =
         user
 
-    fun getUser(): LiveData<User> {
+    fun getUserById(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
 
         hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<User> {
@@ -124,7 +124,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
         return getUserResponse
     }
 
-    fun updateUser(jsonObject: JsonObject): LiveData<Boolean> {
+    fun updateUserById(jsonObject: JsonObject): LiveData<Boolean> {
         val updateUserResponse = MutableLiveData<Boolean>()
 
         hackathonService.updateUser(userAuth0.id, bearerToken, jsonObject)
@@ -163,7 +163,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
         return updateUserResponse
     }
 
-    fun deleteUser(): LiveData<Boolean> {
+    fun deleteUserById(): LiveData<Boolean> {
         val deleteUserResponse = MutableLiveData<Boolean>()
 
         hackathonService.deleteUser(userAuth0.id, bearerToken)

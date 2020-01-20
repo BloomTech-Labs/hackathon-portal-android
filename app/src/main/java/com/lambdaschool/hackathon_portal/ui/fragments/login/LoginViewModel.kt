@@ -18,7 +18,7 @@ class LoginViewModel @Inject constructor(private val userRepo: UserRepository): 
         userRepo.setUserAuth0AccessToken(accessToken)
 
     fun getUser(): LiveData<User> =
-        userRepo.getUser()
+        userRepo.getUserById()
 
     fun getUserAuth0PictureUrl() =
         userRepo.getUserAuth0PictureUrl()
