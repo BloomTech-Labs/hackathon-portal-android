@@ -223,8 +223,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         var hackathonDescription = ""
 
         hackathon?.name?.let { hackathonName = it }
-        user.username?.let { username = it }
-        userId = user.id
+        userRepo.getUserObject().username?.let { username = it }
+        userId = userRepo.getUserObject().id
         hackathon?.id?.let { hackathonId = it }
         hackathon?.start_date?.let { startDate = it }
         hackathon?.end_date?.let { endDate = it }
