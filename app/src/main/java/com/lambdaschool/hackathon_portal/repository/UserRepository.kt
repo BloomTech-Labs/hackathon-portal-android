@@ -57,45 +57,32 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
     fun getUserById(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
 
-        hackathonService.getUserById(getUserAuth0Id(), getBearerToken()).enqueue(object : Callback<User> {
-            override fun onFailure(call: Call<User>, t: Throwable) {
+        hackathonService.getUserById(getUserAuth0Id(), getBearerToken())
+            .enqueue(object : Callback<User> { override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
                 Log.i(TAG, "Failed to connect to API")
                 Log.i(TAG, t.message.toString())
             }
 
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                if (response.isSuccessful) {
-                    getUserResponse.value = response.body()
-                    Log.i(TAG, "Successfully get user")
-                    response.body()?.id?.let {
-                        user.id = it
+                override fun onResponse(call: Call<User>, response: Response<User>) {
+                    if (response.isSuccessful) {
+                        getUserResponse.value = response.body()
+                        Log.i(TAG, "Successfully get user")
+
+                        repoObjs.setUser_ExceptHackathonsField(response)
+
+                        response.body()?.hackathons?.let {
+                            repoObjs.setUserHackathonsAndLiveList(it)
+                        }
                     }
-                    response.body()?.first_name?.let {
-                        user.first_name = it
-                    }
-                    response.body()?.last_name?.let {
-                        user.last_name = it
-                    }
-                    response.body()?.username?.let {
-                        user.username = it
-                    }
-                    response.body()?.email?.let {
-                        user.email = it
-                    }
-                    response.body()?.hackathons?.let {
-                        user.hackathons = it
-                        userHackathonLiveList.value = it
+                    else {
+                        getUserResponse.value = null
+                        Log.i(TAG, "Failed to get user")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
                     }
                 }
-                else {
-                    getUserResponse.value = null
-                    Log.i(TAG, "Failed to get user")
-                    Log.i(TAG, response.code().toString())
-                    Log.i(TAG, response.message().toString())
-                }
-            }
-        })
+            })
         return getUserResponse
     }
 
@@ -113,25 +100,13 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         updateUserResponse.value = true
+                        repoObjs.setUser_ExceptHackathonsField(response)
                         Log.i(TAG, "Successfully updated user")
-                        response.body()?.username?.let {
-                            user.username = it
-                        }
-                        response.body()?.first_name?.let {
-                            user.first_name = it
-                        }
-                        response.body()?.last_name?.let {
-                            user.last_name = it
-                        }
-                        response.body()?.email?.let {
-                            user.email = it
-                        }
                     } else {
                         updateUserResponse.value = false
                         Log.i(TAG, "Failed to update user")
                         Log.i(TAG, response.code().toString())
                         Log.i(TAG, response.message().toString())
-
                     }
                 }
             })
