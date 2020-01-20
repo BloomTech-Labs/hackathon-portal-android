@@ -1,15 +1,11 @@
 package com.lambdaschool.hackathon_portal.util
 
 import android.content.Context
-import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
-import androidx.annotation.IdRes
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
-import androidx.navigation.NavController
-import androidx.navigation.NavOptions
 
 /**
  * Open the keyboard and focus on a specified view.
@@ -44,25 +40,6 @@ fun Context._toastShort(message: String) {
  * */
 fun Context._toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
-}
-
-/**
- * Builds NavOptions to popUpTo and navigate to specified fragment.
- *
- * @param bundle: Bundle
- * @param popUpTo_ResId : @IdRes Int
- * @param popUpToInclusive : Boolean
- * @param navigateTo_ResId : @IdRes Int
- * */
-fun NavController._navigateAndPopUpTo(bundle: Bundle,
-                                      @IdRes popUpTo_ResId: Int,
-                                      popUpToInclusive: Boolean,
-                                      @IdRes navigateTo_ResId: Int) {
-    val navOptions = NavOptions.Builder()
-        .setPopUpTo(popUpTo_ResId, popUpToInclusive)
-        .build()
-
-    this.navigate(navigateTo_ResId, bundle, navOptions)
 }
 
 /**

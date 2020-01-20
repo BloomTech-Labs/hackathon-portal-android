@@ -103,7 +103,7 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onSuccess(credentials: Credentials) {
                 setCurrentUser(credentials)
-                navController._navigateAndPopUpTo(
+                navigateAndPopUpTo(
                     Bundle(), R.id.nav_login, true, R.id.nav_dashboard
                 )
             }

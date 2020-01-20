@@ -13,7 +13,6 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
-import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
 import com.lambdaschool.hackathon_portal.util._toastLong
 import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -51,7 +50,7 @@ class AccountFragment : NavDrawerFragment() {
                             activity?._toastLong("Successfully updated account info")
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navController._navigateAndPopUpTo(
+                            navigateAndPopUpTo(
                                 Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
                             )
                         }
