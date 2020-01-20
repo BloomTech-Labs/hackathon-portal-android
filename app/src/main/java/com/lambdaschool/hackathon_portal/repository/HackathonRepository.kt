@@ -15,9 +15,7 @@ import javax.inject.Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface,
                            private val userRepo: UserRepository) {
 
-    companion object {
-        const val REPO_TAG = "REPOSITORY"
-    }
+    private val TAG = "REPOSITORY"
 
     private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
 
@@ -28,23 +26,23 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     addHackathonResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Log.i(TAG, "Failed to connect to API")
+                    Log.i(TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
                         addHackathonResponse.value = true
-                        Log.i(REPO_TAG, "Successfully posted hackathon")
+                        Log.i(TAG, "Successfully posted hackathon")
                         val newList = copyUserHackathonList()
                         val newUserHackathon = mapPostedHackathonToUserHackathon(response.body())
                         newList?.add(newUserHackathon)
                         userHackathonList.value = newList
                     } else {
                         addHackathonResponse.value = false
-                        Log.i(REPO_TAG, "Failed to post hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Log.i(TAG, "Failed to post hackathon")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
                     }
                 }
             })
@@ -57,19 +55,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getHackathon(hackathonId, bearerToken).enqueue(object: Callback<Hackathon> {
             override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                 getHackathonResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Log.i(TAG, "Failed to connect to API")
+                Log.i(TAG, t.message.toString())
             }
 
             override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                 if (response.isSuccessful) {
                     getHackathonResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully got hackathon")
+                    Log.i(TAG, "Successfully got hackathon")
                 } else {
                     getHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get hackathon")
-                    Log.i(REPO_TAG, response.code().toString())
-                    Log.i(REPO_TAG, response.message().toString())
+                    Log.i(TAG, "Failed to get hackathon")
+                    Log.i(TAG, response.code().toString())
+                    Log.i(TAG, response.message().toString())
 
                 }
             }
@@ -83,22 +81,22 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getAllHackathons(bearerToken).enqueue(object : Callback<MutableList<Hackathon>> {
             override fun onFailure(call: Call<MutableList<Hackathon>>, t: Throwable) {
                 getAllHackathonsResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Log.i(TAG, "Failed to connect to API")
+                Log.i(TAG, t.message.toString())
             }
 
             override fun onResponse(call: Call<MutableList<Hackathon>>, response: Response<MutableList<Hackathon>>) {
                 if (response.isSuccessful) {
                     getAllHackathonsResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully got hackathons")
+                    Log.i(TAG, "Successfully got hackathons")
                     response.body()?.let {
                         allHackathonList.value = it
                     }
                 } else {
                     getAllHackathonsResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get hackathons")
-                    Log.i(REPO_TAG, response.code().toString())
-                    Log.i(REPO_TAG, response.message().toString())
+                    Log.i(TAG, "Failed to get hackathons")
+                    Log.i(TAG, response.code().toString())
+                    Log.i(TAG, response.message().toString())
                 }
             }
         })
@@ -112,14 +110,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     updateHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Log.i(TAG, "Failed to connect to API")
+                    Log.i(TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
                         updateHackathonResponse.value = response.body()
-                        Log.i(REPO_TAG, "Successfully updated hackathon")
+                        Log.i(TAG, "Successfully updated hackathon")
                         val index = getUserHackathonIndexFromListById(hackathonId)
                         if (index != null && index != -1) {
                             val updateHackathon = userHackathonList.value!![index]
@@ -147,9 +145,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                     }
                     else {
                         updateHackathonResponse.value = null
-                        Log.i(REPO_TAG, "Failed to updated hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Log.i(TAG, "Failed to updated hackathon")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
                     }
                 }
             })
@@ -163,20 +161,20 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Void> {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     deleteHackathonResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Log.i(TAG, "Failed to connect to API")
+                    Log.i(TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         deleteHackathonResponse.value = true
                         removeUserHackathonFromListById(hackathonId)
-                        Log.i(REPO_TAG, "Successfully deleted Hackathon")
+                        Log.i(TAG, "Successfully deleted Hackathon")
                     } else {
                         deleteHackathonResponse.value = false
-                        Log.i(REPO_TAG, "Failed to delete hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Log.i(TAG, "Failed to delete hackathon")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
                     }
                 }
 

@@ -19,6 +19,8 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                      private val userAuth0: UserAuth0,
                      private val user: User) {
 
+    private val TAG = "USER REPO"
+
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> =
         userHackathonList
@@ -83,14 +85,14 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
         hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
-                Log.i(HackathonRepository.REPO_TAG, "Failed to connect to API")
-                Log.i(HackathonRepository.REPO_TAG, t.message.toString())
+                Log.i(TAG, "Failed to connect to API")
+                Log.i(TAG, t.message.toString())
             }
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     getUserResponse.value = response.body()
-                    Log.i(HackathonRepository.REPO_TAG, "Successfully get user")
+                    Log.i(TAG, "Successfully get user")
                     response.body()?.id?.let {
                         user.id = it
                     }
@@ -113,9 +115,9 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                 }
                 else {
                     getUserResponse.value = null
-                    Log.i(HackathonRepository.REPO_TAG, "Failed to get user")
-                    Log.i(HackathonRepository.REPO_TAG, response.code().toString())
-                    Log.i(HackathonRepository.REPO_TAG, response.message().toString())
+                    Log.i(TAG, "Failed to get user")
+                    Log.i(TAG, response.code().toString())
+                    Log.i(TAG, response.message().toString())
                 }
             }
         })
@@ -129,14 +131,14 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     updateUserResponse.value = false
-                    Log.i(HackathonRepository.REPO_TAG, "Failed to connect to API")
-                    Log.i(HackathonRepository.REPO_TAG, t.message.toString())
+                    Log.i(TAG, "Failed to connect to API")
+                    Log.i(TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         updateUserResponse.value = true
-                        Log.i(HackathonRepository.REPO_TAG, "Successfully updated user")
+                        Log.i(TAG, "Successfully updated user")
                         response.body()?.username?.let {
                             user.username = it
                         }
@@ -151,9 +153,9 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                         }
                     } else {
                         updateUserResponse.value = false
-                        Log.i(HackathonRepository.REPO_TAG, "Failed to update user")
-                        Log.i(HackathonRepository.REPO_TAG, response.code().toString())
-                        Log.i(HackathonRepository.REPO_TAG, response.message().toString())
+                        Log.i(TAG, "Failed to update user")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
 
                     }
                 }
@@ -168,19 +170,19 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Deletion> {
                 override fun onFailure(call: Call<Deletion>, t: Throwable) {
                     deleteUserResponse.value = false
-                    Log.i(HackathonRepository.REPO_TAG, "Failed to connect to API")
-                    Log.i(HackathonRepository.REPO_TAG, t.message.toString())
+                    Log.i(TAG, "Failed to connect to API")
+                    Log.i(TAG, t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Deletion>, response: Response<Deletion>) {
                     if (response.isSuccessful) {
                         deleteUserResponse.value = true
-                        Log.i(HackathonRepository.REPO_TAG, "Successfully deleted User")
+                        Log.i(TAG, "Successfully deleted User")
                     } else {
                         deleteUserResponse.value = false
-                        Log.i(HackathonRepository.REPO_TAG, "Failed to delete User")
-                        Log.i(HackathonRepository.REPO_TAG, response.code().toString())
-                        Log.i(HackathonRepository.REPO_TAG, response.message().toString())
+                        Log.i(TAG, "Failed to delete User")
+                        Log.i(TAG, response.code().toString())
+                        Log.i(TAG, response.message().toString())
 
                     }
                 }
