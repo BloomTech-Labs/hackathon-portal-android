@@ -16,8 +16,7 @@ import javax.inject.Singleton
 
 @Singleton
 class UserRepository(private val hackathonService: HackathonApiInterface,
-                     private val userAuth0: UserAuth0,
-                     private val user: User) {
+                     private val repoObjs: RepositoryObjects) {
 
     private val TAG = "USER REPO"
 

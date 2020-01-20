@@ -5,6 +5,6 @@ import javax.inject.Singleton
 
 @Singleton
 class TeamRepository(private val hackathonService: HackathonApiInterface,
-                     private val userRepo: UserRepository) {
+                     private val repoObjs: RepositoryObjects) {
 
 }

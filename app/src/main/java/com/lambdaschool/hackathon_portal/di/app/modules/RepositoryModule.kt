@@ -25,21 +25,20 @@ object RepositoryModule {
     @Provides
     @JvmStatic
     fun providesUserRepository(hackathonApiInterface: HackathonApiInterface,
-                               userAuth0: UserAuth0,
-                               user: User) =
-        UserRepository(hackathonApiInterface, userAuth0, user)
+                               repositoryObjects: RepositoryObjects) =
+        UserRepository(hackathonApiInterface, repositoryObjects)
 
     @Singleton
     @Provides
     @JvmStatic
     fun providesHackathonRepository(hackathonApiInterface: HackathonApiInterface,
-                                    userRepository: UserRepository) =
-        HackathonRepository(hackathonApiInterface, userRepository)
+                                    repositoryObjects: RepositoryObjects) =
+        HackathonRepository(hackathonApiInterface, repositoryObjects)
 
     @Singleton
     @Provides
     @JvmStatic
     fun providesTeamRepository(hackathonApiInterface: HackathonApiInterface,
-                               userRepository: UserRepository) =
-        TeamRepository(hackathonApiInterface, userRepository)
+                               repositoryObjects: RepositoryObjects) =
+        TeamRepository(hackathonApiInterface, repositoryObjects)
 }
