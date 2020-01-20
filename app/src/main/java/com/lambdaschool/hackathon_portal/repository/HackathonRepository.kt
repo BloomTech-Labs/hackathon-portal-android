@@ -13,8 +13,7 @@ import javax.inject.Singleton
 
 @Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface,
-                           private val userAuth0: UserAuth0,
-                           private val user: User) {
+                           private val userRepo: UserRepository) {
 
     companion object {
         const val REPO_TAG = "REPOSITORY"
