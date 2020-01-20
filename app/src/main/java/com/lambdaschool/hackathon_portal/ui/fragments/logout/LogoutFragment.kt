@@ -37,7 +37,7 @@ class LogoutFragment : NavDrawerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        drawerLayout._lockDrawer(null)
+        lockDrawer(false)
 
         activity?.apply {
             webAuthProviderLogout.start(this, object : VoidCallback {
@@ -53,7 +53,7 @@ class LogoutFragment : NavDrawerFragment() {
 
                 override fun onFailure(error: Auth0Exception?) {
                     Log.i(TAG, "Failure ${error?.message}")
-                    drawerLayout._unlockDrawer(null)
+                    unlockDrawer(false)
                     navigateAndPopUpTo(
                         Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
                     )
