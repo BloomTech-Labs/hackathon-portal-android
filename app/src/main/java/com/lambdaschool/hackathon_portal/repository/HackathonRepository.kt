@@ -22,12 +22,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     private fun getBearerToken(): String =
         repoObjs.getBearerToken()
 
-    private var allHackathonLiveList = MutableLiveData<MutableList<Hackathon>>()
+
+    // allHackathonLiveList
     fun getAllHackathonLiveList(): LiveData<MutableList<Hackathon>> =
-        allHackathonLiveList
-//    fun setAllHackathonLiveList(mutableList: MutableList<Hackathon>) {
-//        allHackathonLiveList.value = mutableList
-//    }
+        repoObjs.getAllHackathonLiveList()
 
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
@@ -100,7 +98,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                     getAllHackathonsResponse.value = response.body()
                     Log.i(TAG, "Successfully got hackathons")
                     response.body()?.let {
-                        allHackathonLiveList.value = it
+                        repoObjs.setAllHackathonLiveList(it)
                     }
                 } else {
                     getAllHackathonsResponse.value = null

@@ -2,14 +2,15 @@ package com.lambdaschool.hackathon_portal.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.model.UserAuth0
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import retrofit2.Response
 
 /**
- * This is where all of the repository objects live, only accessible through methods for
- * better control over what is accessible to outside.
+ * This is where all of the repository objects live, only accessible through methods from
+ * the respective repositories.
  * */
 class RepositoryObjects(private val userAuth0: UserAuth0,
                         private val user: User) {
@@ -95,4 +96,17 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
 
         // TODO: Should we also clear the mutable objects used in this file?
     }
+
+
+    /**
+     * Hackathon
+     * */
+
+    // allHackathonLiveList
+    private var allHackathonLiveList = MutableLiveData<MutableList<Hackathon>>()
+    fun setAllHackathonLiveList(mutableList: MutableList<Hackathon>) {
+        allHackathonLiveList.value = mutableList
+    }
+    fun getAllHackathonLiveList(): LiveData<MutableList<Hackathon>> =
+        allHackathonLiveList
 }
