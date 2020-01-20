@@ -53,9 +53,6 @@ class DashboardFragment : BaseFragment() {
             if (it != null) {
                 hackathonListAdapter.setHackathon(it)
                 fragment_dashboard_swiperefresh.isRefreshing = false
-                activity?.apply {
-                    Toast.makeText(this, "Successfully got Hackathons", Toast.LENGTH_SHORT).show()
-                }
             } else {
                 activity?.apply {
                     Toast.makeText(this, "Failed to get Hackathons", Toast.LENGTH_SHORT).show()
