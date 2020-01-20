@@ -17,11 +17,11 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
 
     private val TAG = "REPOSITORY"
 
-    private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
-    fun getAllHackathonList(): LiveData<MutableList<Hackathon>> =
-        allHackathonList
-//    fun setAllHackathonList(mutableList: MutableList<Hackathon>) {
-//        allHackathonList.value = mutableList
+    private var allHackathonLiveList = MutableLiveData<MutableList<Hackathon>>()
+    fun getAllHackathonLiveList(): LiveData<MutableList<Hackathon>> =
+        allHackathonLiveList
+//    fun setAllHackathonLiveList(mutableList: MutableList<Hackathon>) {
+//        allHackathonLiveList.value = mutableList
 //    }
 
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
@@ -95,7 +95,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                     getAllHackathonsResponse.value = response.body()
                     Log.i(TAG, "Successfully got hackathons")
                     response.body()?.let {
-                        allHackathonList.value = it
+                        allHackathonLiveList.value = it
                     }
                 } else {
                     getAllHackathonsResponse.value = null

@@ -26,6 +26,6 @@ class DashboardViewModel @Inject constructor(private val hackathonRepo: Hackatho
     }
 
     fun getAllHackathonsList(): LiveData<MutableList<Hackathon>> {
-        return hackathonRepo.getAllHackathonList()
+        return hackathonRepo.getAllHackathonLiveList()
     }
 }
