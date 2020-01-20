@@ -32,8 +32,9 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
      * Have to break the setters for userAuth0 into individual fields because the Auth0
      * claims response requires us to use `let` on each field since it is potentially nullable.
      *
-     * Separate methods allows for setting right then and there, in the `let` lambda
-     * instead of dealing with temporary variables and calling a single method.
+     * Separate methods allow for setting individual fields of userAuth0 right then and there
+     * in the `let` lambda instead of dealing with temporary variables to calling a single method
+     * with all of the data needing to be passed.
      * */
     fun setUserAuth0Id(id: Int) {
         userAuth0.id = id
