@@ -20,9 +20,6 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
     private var userHackathonLiveList = MutableLiveData<MutableList<UserHackathon>>()
     fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
         userHackathonLiveList
-    fun setUserHackathonLiveList(mutableList: MutableList<UserHackathon>?) {
-        userHackathonLiveList.value = mutableList
-    }
 
     /**
      * Have to break the setters for userAuth0 into individual fields because the Auth0

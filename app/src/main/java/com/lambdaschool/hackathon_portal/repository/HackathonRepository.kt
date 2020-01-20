@@ -125,7 +125,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         Log.i(TAG, "Successfully updated hackathon")
                         val index = getUserHackathonIndexFromListById(hackathonId)
                         if (index != null && index != -1) {
-                            val updateHackathon = userRepo.getUserHackathonList().value!![index]
+                            val updateHackathon = repoObjs.getUserHackathonLiveList().value!![index]
                             response.body()?.name?.let {
                                 updateHackathon.hackathon_name = it
                             }
@@ -188,13 +188,13 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     }
 
     private fun removeUserHackathonFromListById(id: Int) {
-        val oldList: MutableList<UserHackathon>? = userRepo.getUserHackathonList().value
+        val oldList: MutableList<UserHackathon>? = repoObjs.getUserHackathonLiveList().value
         val newList = oldList?.toMutableList()
         userRepo.setUserHackathonList(newList?.filter { it.hackathon_id != id }?.toMutableList())
     }
 
     private fun getUserHackathonIndexFromListById(id: Int): Int? {
-        val oldList = userRepo.getUserHackathonList().value
+        val oldList = repoObjs.getUserHackathonLiveList().value
         var newList = oldList?.toMutableList()
         newList = newList?.filter { it.hackathon_id == id }?.toMutableList()
         return if (newList != null) {
@@ -205,7 +205,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     }
 
     private fun copyUserHackathonList(): MutableList<UserHackathon>? {
-        val oldList = userRepo.getUserHackathonList().value
+        val oldList = repoObjs.getUserHackathonLiveList().value
         return oldList?.toMutableList()
     }
 

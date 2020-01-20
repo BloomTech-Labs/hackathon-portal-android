@@ -19,12 +19,9 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
 
     private val TAG = "USER REPO"
 
-    private var userHackathonLiveList = MutableLiveData<MutableList<UserHackathon>>()
+    // userHackahtonLiveList
     fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
-        userHackathonLiveList
-    fun setUserHackathonList(mutableList: MutableList<UserHackathon>?) {
-        userHackathonLiveList.value = mutableList
-    }
+        repoObjs.getUserHackathonLiveList()
 
     /**
      * Have to break the setters for userAuth0 into individual fields because the Auth0
