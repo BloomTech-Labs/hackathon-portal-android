@@ -32,7 +32,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
 
-        hackathonService.postHackathon(userRepo.getUserAuth0Id(), userRepo.getBearerToken(), hackathon)
+        hackathonService.postHackathon(getUserAuth0Id(), getBearerToken(), hackathon)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     addHackathonResponse.value = false
@@ -62,7 +62,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     fun getHackathonById(hackathonId: Int): LiveData<Hackathon> {
         val getHackathonResponse = MutableLiveData<Hackathon>()
 
-        hackathonService.getHackathonById(hackathonId, userRepo.getBearerToken()).enqueue(object: Callback<Hackathon> {
+        hackathonService.getHackathonById(hackathonId, getBearerToken()).enqueue(object: Callback<Hackathon> {
             override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                 getHackathonResponse.value = null
                 Log.i(TAG, "Failed to connect to API")
@@ -88,7 +88,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     fun getAllHackathons(): LiveData<MutableList<Hackathon>> {
         val getAllHackathonsResponse = MutableLiveData<MutableList<Hackathon>>()
 
-        hackathonService.getAllHackathons(userRepo.getBearerToken()).enqueue(object : Callback<MutableList<Hackathon>> {
+        hackathonService.getAllHackathons(getBearerToken()).enqueue(object : Callback<MutableList<Hackathon>> {
             override fun onFailure(call: Call<MutableList<Hackathon>>, t: Throwable) {
                 getAllHackathonsResponse.value = null
                 Log.i(TAG, "Failed to connect to API")
@@ -116,7 +116,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     fun updateHackathonById(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
         val updateHackathonResponse = MutableLiveData<Hackathon>()
 
-        hackathonService.updateHackathonById(hackathonId, userRepo.getUserAuth0Id(), userRepo.getBearerToken(), jsonObject)
+        hackathonService.updateHackathonById(hackathonId, getUserAuth0Id(), getBearerToken(), jsonObject)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     updateHackathonResponse.value = null
@@ -167,7 +167,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     fun deleteHackathonById(hackathonId: Int): LiveData<Boolean> {
         val deleteHackathonResponse = MutableLiveData<Boolean>()
 
-        hackathonService.deleteHackathonById(hackathonId, userRepo.getUserAuth0Id(), userRepo.getBearerToken())
+        hackathonService.deleteHackathonById(hackathonId, getUserAuth0Id(), getBearerToken())
             .enqueue(object: Callback<Void> {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     deleteHackathonResponse.value = false
