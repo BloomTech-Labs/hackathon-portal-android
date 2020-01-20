@@ -1,11 +1,8 @@
 package com.lambdaschool.hackathon_portal.di.app
 
 import android.app.Application
-import com.lambdaschool.hackathon_portal.di.app.modules.AppModule
 import com.lambdaschool.hackathon_portal.di.activity.ActivityComponent
-import com.lambdaschool.hackathon_portal.di.app.modules.Auth0Module
-import com.lambdaschool.hackathon_portal.di.app.modules.UserModule
-import com.lambdaschool.hackathon_portal.di.app.modules.ViewModelsModule
+import com.lambdaschool.hackathon_portal.di.app.modules.*
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -16,6 +13,7 @@ import javax.inject.Singleton
         AppModule::class,
         Auth0Module::class,
         UserModule::class,
+        RepositoryModule::class,
         ViewModelsModule::class
     ])
 interface AppComponent {

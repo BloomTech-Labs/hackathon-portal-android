@@ -1,8 +1,5 @@
 package com.lambdaschool.hackathon_portal.di.app.modules
 
-import com.lambdaschool.hackathon_portal.model.User
-import com.lambdaschool.hackathon_portal.model.UserAuth0
-import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import dagger.Module
 import dagger.Provides
@@ -30,12 +27,4 @@ object AppModule {
     @JvmStatic
     fun provideHackathonService(retrofit: Retrofit): HackathonApiInterface =
         retrofit.create(HackathonApiInterface::class.java)
-
-    @Singleton
-    @Provides
-    @JvmStatic
-    fun providesHackathonRepository(hackathonApiInterface: HackathonApiInterface,
-                                    userAuth0: UserAuth0,
-                                    user: User) =
-        HackathonRepository(hackathonApiInterface, userAuth0, user)
 }
