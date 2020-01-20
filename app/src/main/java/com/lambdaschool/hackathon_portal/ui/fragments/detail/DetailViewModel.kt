@@ -7,11 +7,11 @@ import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import javax.inject.Inject
 
-class DetailViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
+class DetailViewModel @Inject constructor(private val hackathonRepo: HackathonRepository): ViewModel() {
 
     var currentHackathon = MutableLiveData<Hackathon>()
 
     fun getHackathon(id: Int): LiveData<Hackathon> {
-        return repo.getHackathon(id)
+        return hackathonRepo.getHackathon(id)
     }
 }

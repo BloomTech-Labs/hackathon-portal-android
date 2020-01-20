@@ -4,17 +4,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.User
-import com.lambdaschool.hackathon_portal.repository.HackathonRepository
+import com.lambdaschool.hackathon_portal.repository.UserRepository
 import javax.inject.Inject
 
-class AccountViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
+class AccountViewModel @Inject constructor(private val userRepo: UserRepository): ViewModel() {
 
     fun getUserObjectFromRepository(): User =
-        repo.getUserObject()
+        userRepo.getUserObject()
 
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> =
-        repo.updateUser(jsonObject)
+        userRepo.updateUser(jsonObject)
 
     fun deleteUser(): LiveData<Boolean> =
-        repo.deleteUser()
+        userRepo.deleteUser()
 }

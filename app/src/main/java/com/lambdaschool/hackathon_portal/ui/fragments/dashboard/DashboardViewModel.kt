@@ -6,24 +6,26 @@ import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
+import com.lambdaschool.hackathon_portal.repository.UserRepository
 import javax.inject.Inject
 
-class DashboardViewModel @Inject constructor(private val repo: HackathonRepository) : ViewModel() {
+class DashboardViewModel @Inject constructor(private val hackathonRepo: HackathonRepository,
+                                             private val userRepo: UserRepository) : ViewModel() {
 
     fun getUser(): LiveData<User> {
-        return repo.getUser()
+        return userRepo.getUser()
     }
 
     // Leaving this function because it might be necessary later
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
-        return repo.getUserHackathonList()
+        return userRepo.getUserHackathonList()
     }
 
     fun getAllHackthons(): LiveData<MutableList<Hackathon>> {
-        return repo.getAllHackathons()
+        return hackathonRepo.getAllHackathons()
     }
 
     fun getAllHackathonsList(): LiveData<MutableList<Hackathon>> {
-        return repo.getAllHackathonList()
+        return hackathonRepo.getAllHackathonList()
     }
 }
