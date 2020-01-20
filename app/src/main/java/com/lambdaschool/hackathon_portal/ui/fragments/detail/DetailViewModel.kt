@@ -12,6 +12,6 @@ class DetailViewModel @Inject constructor(private val hackathonRepo: HackathonRe
     var currentHackathon = MutableLiveData<Hackathon>()
 
     fun getHackathon(id: Int): LiveData<Hackathon> {
-        return hackathonRepo.getHackathon(id)
+        return hackathonRepo.getHackathonById(id)
     }
 }

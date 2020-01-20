@@ -10,14 +10,14 @@ import javax.inject.Inject
 class EditHackathonViewModel @Inject constructor(private val hackathonRepo: HackathonRepository): ViewModel() {
 
     fun getHackathon(hackathonId: Int): LiveData<Hackathon> {
-        return hackathonRepo.getHackathon(hackathonId)
+        return hackathonRepo.getHackathonById(hackathonId)
     }
 
     fun updateHackathon(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
-        return hackathonRepo.updateHackathon(hackathonId, jsonObject)
+        return hackathonRepo.updateHackathonById(hackathonId, jsonObject)
     }
 
     fun deleteHackathon(hackathonId: Int): LiveData<Boolean> {
-        return hackathonRepo.deleteHackathon(hackathonId)
+        return hackathonRepo.deleteHackathonById(hackathonId)
     }
 }

@@ -54,7 +54,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return addHackathonResponse
     }
 
-    fun getHackathon(hackathonId: Int): LiveData<Hackathon> {
+    fun getHackathonById(hackathonId: Int): LiveData<Hackathon> {
         val getHackathonResponse = MutableLiveData<Hackathon>()
 
         hackathonService.getHackathon(hackathonId, userRepo.getBearerToken()).enqueue(object: Callback<Hackathon> {
@@ -108,7 +108,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return getAllHackathonsResponse
     }
 
-    fun updateHackathon(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
+    fun updateHackathonById(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
         val updateHackathonResponse = MutableLiveData<Hackathon>()
 
         hackathonService.updateHackathon(hackathonId, userRepo.getUserAuth0Id(), userRepo.getBearerToken(), jsonObject)
@@ -159,7 +159,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return updateHackathonResponse
     }
 
-    fun deleteHackathon(hackathonId: Int): LiveData<Boolean> {
+    fun deleteHackathonById(hackathonId: Int): LiveData<Boolean> {
         val deleteHackathonResponse = MutableLiveData<Boolean>()
 
         hackathonService.deleteHackathon(hackathonId, userRepo.getUserAuth0Id(), userRepo.getBearerToken())
