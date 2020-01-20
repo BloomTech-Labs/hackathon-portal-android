@@ -34,6 +34,10 @@ class UserHackathonsFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fab_create_hackathon.setOnClickListener {
+            navController.navigate(R.id.nav_create_hackathon)
+        }
+
         fragment_user_hackathons_recycler_view_my_hackathons.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
