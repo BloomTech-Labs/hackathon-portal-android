@@ -19,7 +19,6 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
 import com.lambdaschool.hackathon_portal.util._toastLong
 import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
@@ -105,7 +104,7 @@ class EditHackathonFragment : BaseFragment() {
                     editHackathonViewModel.updateHackathon(hackathonId, selectiveJsonObject).observe(this, Observer {
                         if (it != null) {
                             activity?._toastLong("Successfully updated Hackathon")
-                            navController._navigateAndPopUpTo(
+                            navigateAndPopUpTo(
                                 Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
                         } else {
@@ -137,7 +136,7 @@ class EditHackathonFragment : BaseFragment() {
                             .observe(this, Observer {
                                 if (it != null) {
                                     if (it) {
-                                        navController._navigateAndPopUpTo(
+                                        navigateAndPopUpTo(
                                             Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                                         )
                                         activity?._toastLong("Successfully deleted Hackathon")

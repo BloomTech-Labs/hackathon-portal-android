@@ -45,7 +45,7 @@ class LoginFragment : NavDrawerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        drawerLayout._lockDrawer(toggle)
+        lockDrawer(true)
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -66,10 +66,9 @@ class LoginFragment : NavDrawerFragment() {
     }
 
     override fun onDestroyView() {
-        drawerLayout._unlockDrawer(toggle)
         // TODO: Enable Button & disable progress bar
         super.onDestroyView()
-
+        unlockDrawer(true)
     }
 
     private fun login() {
@@ -154,8 +153,9 @@ class LoginFragment : NavDrawerFragment() {
             loginViewModel.getUser().observe(this, Observer { response ->
                 if (response != null) {
                     setNavDrawerHeader(response)
-                    navController._navigateAndPopUpTo(
-                        Bundle(), R.id.nav_login, true, R.id.nav_dashboard)
+                    navigateAndPopUpTo(
+                        Bundle(), R.id.nav_login, true, R.id.nav_dashboard
+                    )
                 }
             })
         }

@@ -16,7 +16,6 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util._navigateAndPopUpTo
 import com.lambdaschool.hackathon_portal.util._toastLong
 import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
@@ -88,8 +87,8 @@ class CreateHackathonFragment : BaseFragment() {
                 createHackathonViewModel.postHackathon(newHackathon).observe(this, Observer {
                     if (it != null) {
                         if (it) {
-                            navController._navigateAndPopUpTo(
-                                Bundle(), R.id.nav_dashboard, false, R.id.nav_user_hackathons
+                            navigateAndPopUpTo(
+                                Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
                             activity?._toastLong("Successfully created Hackathon")
                         }
