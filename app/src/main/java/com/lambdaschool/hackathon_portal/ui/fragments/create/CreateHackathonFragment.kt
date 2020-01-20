@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util._openSoftKeyboardAndFocus
 import com.lambdaschool.hackathon_portal.util._toastLong
 import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
@@ -38,9 +39,9 @@ class CreateHackathonFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        context?._openSoftKeyboardAndFocus(edit_text_hackathon_name)
 
         var switchState = false
-
         switch_is_hackathon_open.setOnCheckedChangeListener { _, b ->
             switchState = b
             when (b) {
@@ -113,15 +114,23 @@ class CreateHackathonFragment : BaseFragment() {
     private fun checkIfRequiredFieldsEmpty(): Boolean {
         var requiredFieldsEmpty = false
         if (edit_text_hackathon_name.text.toString().isEmpty()) {
-            edit_text_hackathon_name.error = "Name is required"
+            edit_text_hackathon_name.error = "Required"
+            requiredFieldsEmpty = true
+        }
+        if (edit_text_hackathon_description.text.toString().isEmpty()) {
+            edit_text_hackathon_description.error = "Required"
+            requiredFieldsEmpty = true
+        }
+        if (edit_text_hackathon_location.text.toString().isEmpty()) {
+            edit_text_hackathon_location.error = "Required"
             requiredFieldsEmpty = true
         }
         if (edit_text_hackathon_start_date.text.toString().isEmpty()) {
-            edit_text_hackathon_start_date.error = "Start Date is required"
+            edit_text_hackathon_start_date.error = "Required"
             requiredFieldsEmpty = true
         }
         if (edit_text_hackathon_end_date.text.toString().isEmpty()) {
-            edit_text_hackathon_end_date.error = "End Date is required"
+            edit_text_hackathon_end_date.error = "Required"
             requiredFieldsEmpty = true
         }
         if (requiredFieldsEmpty) {
