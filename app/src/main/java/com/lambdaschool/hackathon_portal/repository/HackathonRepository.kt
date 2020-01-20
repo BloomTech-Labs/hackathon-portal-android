@@ -15,7 +15,7 @@ import javax.inject.Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface,
                            private val repoObjs: RepositoryObjects) {
 
-    private val TAG = "REPOSITORY"
+    private val TAG = "HACKATHON REPO"
 
     private fun getUserAuth0Id(): Int =
         repoObjs.getUserAuth0Id()

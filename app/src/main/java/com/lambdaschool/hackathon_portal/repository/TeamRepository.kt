@@ -7,4 +7,6 @@ import javax.inject.Singleton
 class TeamRepository(private val hackathonService: HackathonApiInterface,
                      private val repoObjs: RepositoryObjects) {
 
+    private val TAG = "TEAM REPO"
+
 }
