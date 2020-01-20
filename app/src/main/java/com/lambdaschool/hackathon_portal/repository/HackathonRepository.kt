@@ -17,6 +17,11 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
 
     private val TAG = "REPOSITORY"
 
+    private fun getUserAuth0Id(): Int =
+        repoObjs.getUserAuth0Id()
+    private fun getBearerToken(): String =
+        repoObjs.getBearerToken()
+
     private var allHackathonLiveList = MutableLiveData<MutableList<Hackathon>>()
     fun getAllHackathonLiveList(): LiveData<MutableList<Hackathon>> =
         allHackathonLiveList

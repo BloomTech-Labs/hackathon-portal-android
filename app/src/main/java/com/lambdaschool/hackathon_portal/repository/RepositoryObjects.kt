@@ -21,14 +21,8 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
     fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
         userHackathonLiveList
 
-    /**
-     * Have to break the setters for userAuth0 into individual fields because the Auth0
-     * claims response requires us to use `let` on each field since it is potentially nullable.
-     *
-     * Separate methods allow for setting individual fields of userAuth0 right then and there
-     * in the `let` lambda instead of dealing with temporary variables to calling a single method
-     * with all of the data needing to be passed.
-     * */
+
+    // userAuth0
     fun setUserAuth0Id(id: Int) {
         userAuth0.id = id
     }
@@ -41,7 +35,6 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
     fun getUserAuth0PictureUrl(): String =
         userAuth0.pictureUrl
 
-    // This will be set upon login and then wiped on logout
     private var bearerToken = ""
     fun setUserAuth0AccessToken(accessToken: String) {
         userAuth0.accessToken = accessToken
@@ -49,6 +42,9 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
     }
     fun getBearerToken(): String =
         bearerToken
+
+    fun getUserObject(): User =
+        user
 
     fun performLogout() {
         // Wipe userAuth0
@@ -69,7 +65,4 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
 
         // TODO: Should we also clear the mutable objects used in this file?
     }
-
-    fun getUserObject(): User =
-        user
 }

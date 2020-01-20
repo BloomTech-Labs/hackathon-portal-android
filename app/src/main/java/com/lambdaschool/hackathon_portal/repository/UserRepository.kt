@@ -19,61 +19,40 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
 
     private val TAG = "USER REPO"
 
+    private fun getUserAuth0Id(): Int =
+        repoObjs.getUserAuth0Id()
+    private fun getBearerToken(): String =
+        repoObjs.getBearerToken()
+
+
     // userHackahtonLiveList
     fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
         repoObjs.getUserHackathonLiveList()
 
-    /**
-     * Have to break the setters for userAuth0 into individual fields because the Auth0
-     * claims response requires us to use `let` on each field since it is potentially nullable.
-     *
-     * Separate methods allow for setting individual fields of userAuth0 right then and there
-     * in the `let` lambda instead of dealing with temporary variables to calling a single method
-     * with all of the data needing to be passed.
-     * */
+
+    // userAuth0
     fun setUserAuth0Id(id: Int) {
-        userAuth0.id = id
+        repoObjs.setUserAuth0Id(id)
     }
-    fun getUserAuth0Id(): Int =
-        userAuth0.id
 
     fun setUserAuth0PictureUrl(pictureUrl: String) {
-        userAuth0.pictureUrl = pictureUrl
+        repoObjs.setUserAuth0PictureUrl(pictureUrl)
     }
     fun getUserAuth0PictureUrl(): String =
-        userAuth0.pictureUrl
+        repoObjs.getUserAuth0PictureUrl()
 
-    // This will be set upon login and then wiped on logout
-    private var bearerToken = ""
     fun setUserAuth0AccessToken(accessToken: String) {
-        userAuth0.accessToken = accessToken
-        bearerToken = "Bearer $accessToken"
+        repoObjs.setUserAuth0AccessToken(accessToken)
     }
-    fun getBearerToken(): String =
-        bearerToken
 
+
+    // Logout
     fun performLogout() {
-        // Wipe userAuth0
-        userAuth0.id = -1
-        userAuth0.pictureUrl = ""
-        userAuth0.accessToken = ""
-
-        // Wipe bearerToken
-        bearerToken = ""
-
-        // Wipe user
-        user.id = -1
-        user.first_name = null
-        user.last_name = null
-        user.username = ""
-        user.email = ""
-        user.hackathons = mutableListOf()
-
-        // TODO: Should we also clear the mutable objects used in this file?
+        repoObjs.performLogout()
     }
 
     fun getUserObject(): User =
-        user
+        repoObjs.getUserObject()
 
     fun getUserById(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
