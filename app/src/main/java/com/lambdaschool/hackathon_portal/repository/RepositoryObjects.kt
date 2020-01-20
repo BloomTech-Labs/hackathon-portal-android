@@ -17,11 +17,11 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
      * User
      * */
 
-    private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
-    fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> =
-        userHackathonList
-    fun setUserHackathonList(mutableList: MutableList<UserHackathon>?) {
-        userHackathonList.value = mutableList
+    private var userHackathonLiveList = MutableLiveData<MutableList<UserHackathon>>()
+    fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
+        userHackathonLiveList
+    fun setUserHackathonLiveList(mutableList: MutableList<UserHackathon>?) {
+        userHackathonLiveList.value = mutableList
     }
 
     /**

@@ -9,6 +9,6 @@ import javax.inject.Inject
 class UserHackathonsViewModel @Inject constructor(private val userRepo: UserRepository): ViewModel() {
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
-        return userRepo.getUserHackathonList()
+        return userRepo.getUserHackathonLiveList()
     }
 }

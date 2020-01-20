@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Deletion
 import com.lambdaschool.hackathon_portal.model.User
-import com.lambdaschool.hackathon_portal.model.UserAuth0
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
 import retrofit2.Call
@@ -20,11 +19,11 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
 
     private val TAG = "USER REPO"
 
-    private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
-    fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> =
-        userHackathonList
+    private var userHackathonLiveList = MutableLiveData<MutableList<UserHackathon>>()
+    fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
+        userHackathonLiveList
     fun setUserHackathonList(mutableList: MutableList<UserHackathon>?) {
-        userHackathonList.value = mutableList
+        userHackathonLiveList.value = mutableList
     }
 
     /**
@@ -110,7 +109,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
                     }
                     response.body()?.hackathons?.let {
                         user.hackathons = it
-                        userHackathonList.value = it
+                        userHackathonLiveList.value = it
                     }
                 }
                 else {
