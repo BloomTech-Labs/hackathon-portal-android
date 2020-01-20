@@ -9,4 +9,8 @@ class TeamRepository(private val hackathonService: HackathonApiInterface,
 
     private val TAG = "TEAM REPO"
 
+    private fun getUserAuth0Id(): Int =
+        repoObjs.getUserAuth0Id()
+    private fun getBearerToken(): String =
+        repoObjs.getBearerToken()
 }
