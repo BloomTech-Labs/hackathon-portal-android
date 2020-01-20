@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.model.UserAuth0
 import com.lambdaschool.hackathon_portal.model.UserHackathon
+import retrofit2.Response
 
 /**
  * This is where all of the repository objects live, only accessible through methods for
@@ -17,6 +18,8 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
      * User
      * */
 
+    // userHackathonLiveList:
+    //   To set, use setUserHackathons method which will also keep the user object current.
     private var userHackathonLiveList = MutableLiveData<MutableList<UserHackathon>>()
     fun getUserHackathonLiveList(): LiveData<MutableList<UserHackathon>> =
         userHackathonLiveList
@@ -42,6 +45,33 @@ class RepositoryObjects(private val userAuth0: UserAuth0,
     }
     fun getBearerToken(): String =
         bearerToken
+
+
+    // user
+    fun setUser_ExceptHackathonsField(response: Response<User>) {
+        response.body()?.id?.let {
+            user.id = it
+        }
+        response.body()?.first_name?.let {
+            user.first_name = it
+        }
+        response.body()?.last_name?.let {
+            user.last_name = it
+        }
+        response.body()?.username?.let {
+            user.username = it
+        }
+        response.body()?.email?.let {
+            user.email = it
+        }
+    }
+
+    fun setUserHackathonsAndLiveList(hackathons: MutableList<UserHackathon>?) {
+        hackathons?.let {
+            user.hackathons = it
+        }
+        userHackathonLiveList.value = hackathons
+    }
 
     fun getUserObject(): User =
         user
