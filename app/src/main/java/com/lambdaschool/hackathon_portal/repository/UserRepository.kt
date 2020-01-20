@@ -7,14 +7,14 @@ import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Deletion
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.model.UserHackathon
-import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.UserApiInterface
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import javax.inject.Singleton
 
 @Singleton
-class UserRepository(private val hackathonService: HackathonApiInterface,
+class UserRepository(private val userService: UserApiInterface,
                      private val repoObjs: RepositoryObjects) {
 
     private val TAG = "USER REPO"
@@ -57,7 +57,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
     fun getUserById(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
 
-        hackathonService.getUserById(getUserAuth0Id(), getBearerToken())
+        userService.getUserById(getUserAuth0Id(), getBearerToken())
             .enqueue(object : Callback<User> { override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
                 Log.i(TAG, "Failed to connect to API")
@@ -89,7 +89,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
     fun updateUserById(jsonObject: JsonObject): LiveData<Boolean> {
         val updateUserResponse = MutableLiveData<Boolean>()
 
-        hackathonService.updateUserById(getUserAuth0Id(), getBearerToken(), jsonObject)
+        userService.updateUserById(getUserAuth0Id(), getBearerToken(), jsonObject)
             .enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     updateUserResponse.value = false
@@ -116,7 +116,7 @@ class UserRepository(private val hackathonService: HackathonApiInterface,
     fun deleteUserById(): LiveData<Boolean> {
         val deleteUserResponse = MutableLiveData<Boolean>()
 
-        hackathonService.deleteUserById(getUserAuth0Id(), getBearerToken())
+        userService.deleteUserById(getUserAuth0Id(), getBearerToken())
             .enqueue(object: Callback<Deletion> {
                 override fun onFailure(call: Call<Deletion>, t: Throwable) {
                     deleteUserResponse.value = false

@@ -7,11 +7,17 @@ import com.lambdaschool.hackathon_portal.repository.RepositoryObjects
 import com.lambdaschool.hackathon_portal.repository.TeamRepository
 import com.lambdaschool.hackathon_portal.repository.UserRepository
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.TeamApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.UserApiInterface
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton
 
-@Module(includes = [RepoObjectsModule::class])
+@Module(
+    includes = [
+        NetworkModule::class,
+        RepoObjectsModule::class
+    ])
 object RepositoryModule {
 
     @Singleton
@@ -24,9 +30,9 @@ object RepositoryModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun providesUserRepository(hackathonApiInterface: HackathonApiInterface,
+    fun providesUserRepository(userApiInterface: UserApiInterface,
                                repositoryObjects: RepositoryObjects) =
-        UserRepository(hackathonApiInterface, repositoryObjects)
+        UserRepository(userApiInterface, repositoryObjects)
 
     @Singleton
     @Provides
@@ -38,7 +44,7 @@ object RepositoryModule {
     @Singleton
     @Provides
     @JvmStatic
-    fun providesTeamRepository(hackathonApiInterface: HackathonApiInterface,
+    fun providesTeamRepository(teamApiInterface: TeamApiInterface,
                                repositoryObjects: RepositoryObjects) =
-        TeamRepository(hackathonApiInterface, repositoryObjects)
+        TeamRepository(teamApiInterface, repositoryObjects)
 }

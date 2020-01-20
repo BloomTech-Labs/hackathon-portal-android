@@ -1,6 +1,8 @@
 package com.lambdaschool.hackathon_portal.di.app.modules
 
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.TeamApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.UserApiInterface
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -8,7 +10,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 @Module
-object AppModule {
+object NetworkModule {
 
     private const val BASE_URL = "https://hackathon-portal.herokuapp.com/api/"
 
@@ -27,4 +29,16 @@ object AppModule {
     @JvmStatic
     fun provideHackathonService(retrofit: Retrofit): HackathonApiInterface =
         retrofit.create(HackathonApiInterface::class.java)
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideUserService(retrofit: Retrofit): UserApiInterface =
+        retrofit.create(UserApiInterface::class.java)
+
+    @Singleton
+    @Provides
+    @JvmStatic
+    fun provideTeamService(retrofit: Retrofit): TeamApiInterface =
+        retrofit.create(TeamApiInterface::class.java)
 }

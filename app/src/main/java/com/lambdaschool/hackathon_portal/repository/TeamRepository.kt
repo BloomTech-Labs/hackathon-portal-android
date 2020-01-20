@@ -1,10 +1,10 @@
 package com.lambdaschool.hackathon_portal.repository
 
-import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import com.lambdaschool.hackathon_portal.retrofit.TeamApiInterface
 import javax.inject.Singleton
 
 @Singleton
-class TeamRepository(private val hackathonService: HackathonApiInterface,
+class TeamRepository(private val teamService: TeamApiInterface,
                      private val repoObjs: RepositoryObjects) {
 
     private val TAG = "TEAM REPO"
