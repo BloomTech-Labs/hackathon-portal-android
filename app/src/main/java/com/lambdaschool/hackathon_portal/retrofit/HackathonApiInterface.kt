@@ -10,17 +10,17 @@ import retrofit2.http.*
 interface HackathonApiInterface {
 
     @GET("users/{id}")
-    fun getUser(@Path("id") id: Int,
-                @Header("Authorization") bearerToken: String): Call<User>
+    fun getUserById(@Path("id") id: Int,
+                    @Header("Authorization") bearerToken: String): Call<User>
 
     @PUT("users/{id}")
-    fun updateUser(@Path("id") id: Int,
-                   @Header("Authorization") bearerToken: String,
-                   @Body user: JsonObject): Call<User>
+    fun updateUserById(@Path("id") id: Int,
+                       @Header("Authorization") bearerToken: String,
+                       @Body user: JsonObject): Call<User>
 
     @DELETE("users/{id}")
-    fun deleteUser(@Path("id") id: Int,
-                   @Header("Authorization") bearerToken: String): Call<Deletion>
+    fun deleteUserById(@Path("id") id: Int,
+                       @Header("Authorization") bearerToken: String): Call<Deletion>
 
     @GET("hackathons")
     fun getAllHackathons(@Header("Authorization") bearerToken: String): Call<MutableList<Hackathon>>
