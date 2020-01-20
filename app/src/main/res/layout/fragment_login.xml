@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/progress_bar_login"
         android:layout_centerHorizontal="true"
-        android:text="@string/verifying_credentials"/>
+        android:text="@string/logging_in"/>
 
     <Button
         android:visibility="gone"
