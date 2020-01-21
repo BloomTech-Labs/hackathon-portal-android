@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -16,7 +18,6 @@ import com.afollestad.materialdialogs.datetime.datePicker
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
@@ -26,7 +27,6 @@ import java.util.*
 class EditHackathonFragment : BaseFragment() {
 
     private lateinit var editHackathonViewModel: EditHackathonViewModel
-    private lateinit var retrievedHackathon: Hackathon
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,7 +56,6 @@ class EditHackathonFragment : BaseFragment() {
             editHackathonViewModel.getHackathon(hackathonId).observe(this, Observer {
                 if (it != null) {
                     updateHackathonViews(it)
-                    updateRetrievedHackathon(it)
                 } else {
                     activity?.toastShort("Failed to get Hackathon")
                 }
@@ -86,15 +85,14 @@ class EditHackathonFragment : BaseFragment() {
         }
 
         fragment_edit_hackathon_fab_save_hackathon.setOnClickListener {
-            val selectiveJsonObject = SelectiveJsonObject.Builder()
-                .add("name", fragment_edit_hackathon_edit_text_hackathon_name, retrievedHackathon.name, true)
-                .add("description", fragment_edit_hackathon_edit_text_hackathon_description, retrievedHackathon.description, true)
-                .add("url", fragment_edit_hackathon_edit_text_hackathon_url, retrievedHackathon.url, false)
-                .add("start_date", fragment_edit_hackathon_edit_text_hackathon_start_date, retrievedHackathon.start_date, true)
-                .add("end_date", fragment_edit_hackathon_edit_text_hackathon_end_date, retrievedHackathon.end_date, true)
-                .add("location", fragment_edit_hackathon_edit_text_hackathon_location, retrievedHackathon.location, true)
-                .add("is_open", switchState, retrievedHackathon.is_open)
-                .build()
+            val newHackathon =
+                Hackathon(fragment_edit_hackathon_edit_text_hackathon_name.text.toString(),
+                    fragment_edit_hackathon_edit_text_hackathon_description.text.toString(),
+                    fragment_edit_hackathon_edit_text_hackathon_url.text.toString(),
+                    fragment_edit_hackathon_edit_text_hackathon_start_date.text.toString(),
+                    fragment_edit_hackathon_edit_text_hackathon_end_date.text.toString(),
+                    fragment_edit_hackathon_edit_text_hackathon_location.text.toString(),
+                    switchState)
 
             if (hackathonId != null) {
                 if (selectiveJsonObject != null) {
@@ -145,6 +143,17 @@ class EditHackathonFragment : BaseFragment() {
         }
     }
 
+    private fun navigateToUserHackathonsFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_user_hackathons, true)
+            .build()
+        navController.navigate(
+            R.id.nav_user_hackathons,
+            bundle,
+            navOptions)
+    }
+
     private fun updateHackathonViews(hackathon: Hackathon) {
         fragment_edit_hackathon_edit_text_hackathon_name.setText(hackathon.name)
         fragment_edit_hackathon_edit_text_hackathon_description.setText(hackathon.description)
@@ -153,17 +162,6 @@ class EditHackathonFragment : BaseFragment() {
         fragment_edit_hackathon_edit_text_hackathon_start_date.setText(hackathon.start_date)
         fragment_edit_hackathon_edit_text_hackathon_end_date.setText(hackathon.end_date)
         fragment_edit_hackathon_switch_is_hackathon_open.isChecked = hackathon.is_open
-    }
-
-    private fun updateRetrievedHackathon(hackathon: Hackathon) {
-        retrievedHackathon = Hackathon(
-            hackathon.name,
-            hackathon.description,
-            hackathon.url,
-            hackathon.start_date,
-            hackathon.end_date,
-            hackathon.location,
-            hackathon.is_open)
     }
 
     private fun formatCalendarToString(calendar: Calendar): String {

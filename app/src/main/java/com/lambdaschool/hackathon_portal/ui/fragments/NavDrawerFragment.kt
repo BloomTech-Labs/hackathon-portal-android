@@ -34,36 +34,6 @@ abstract class NavDrawerFragment: BaseFragment() {
         navView.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image)
     }
 
-    /**
-     * Locks the Navigation Drawer and, if true is passed, it will disable the
-     * toggle.
-     *
-     * Passing false will lock the Navigation Drawer only.
-     *
-     * @param disableToggle: Boolean
-     * */
-    fun lockDrawer(disableToggle: Boolean) {
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        if (disableToggle) {
-            toggle.isDrawerIndicatorEnabled = false
-        }
-    }
-
-    /**
-     * Unlocks the Navigation Drawer and, if true is passed it will enable the
-     * toggle.
-     *
-     * Passing false will unlock the Navigation Drawer only.
-     *
-     * @param enableToggle: Boolean
-     * */
-    fun unlockDrawer(enableToggle: Boolean) {
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        if (enableToggle) {
-            toggle.isDrawerIndicatorEnabled = true
-        }
-    }
-
     override fun onAttach(context: Context) {
         super.onAttach(context)
         fragmentComponent.injectNavDrawerFragment(this)

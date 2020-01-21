@@ -6,8 +6,11 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -20,7 +23,6 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
-import com.lambdaschool.hackathon_portal.util.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -46,7 +48,8 @@ class LoginFragment : NavDrawerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        lockDrawer(true)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
+        toggle.isDrawerIndicatorEnabled = false
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -66,7 +69,8 @@ class LoginFragment : NavDrawerFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        unlockDrawer(true)
+        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
+        toggle.isDrawerIndicatorEnabled = true
     }
 
     private fun login() {
@@ -103,9 +107,16 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onSuccess(credentials: Credentials) {
                 setCurrentUser(credentials)
-                navigateAndPopUpTo(
-                    Bundle(), R.id.nav_login, true, R.id.nav_dashboard
-                )
+
+                val bundle = Bundle()
+                val navOptions = NavOptions.Builder()
+                    .setPopUpTo(R.id.nav_login, true)
+                    .build()
+
+                navController.navigate(
+                    R.id.nav_dashboard,
+                    bundle,
+                    navOptions)
             }
 
             override fun onFailure(error: CredentialsManagerException?) {

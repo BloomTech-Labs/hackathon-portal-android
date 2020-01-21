@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -69,6 +71,7 @@ class CreateHackathonFragment : BaseFragment() {
             }
         }
 
+
         fab_save_hackathon.setOnClickListener {
 
             if (!checkIfRequiredFieldsEmpty()) {
@@ -96,6 +99,17 @@ class CreateHackathonFragment : BaseFragment() {
                 })
             }
         }
+    }
+
+    private fun navigateToUserHackathonsFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_user_hackathons, true)
+            .build()
+        navController.navigate(
+            R.id.nav_user_hackathons,
+            bundle,
+            navOptions)
     }
 
     private fun checkIfRequiredFieldsEmpty(): Boolean {

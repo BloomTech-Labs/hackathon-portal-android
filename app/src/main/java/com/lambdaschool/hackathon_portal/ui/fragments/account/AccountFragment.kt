@@ -5,12 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.NavOptions
+import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.*
+import com.lambdaschool.hackathon_portal.model.LoggedInUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util.toastLong
@@ -36,23 +39,15 @@ class AccountFragment : NavDrawerFragment() {
         loadUserInfoToEditTextFields()
 
         fab_save_user.setOnClickListener {
-            val selectiveJsonObject = SelectiveJsonObject.Builder()
-                .add("first_name", edit_text_user_first_name, LoggedInUser.user.first_name, false)
-                .add("last_name", edit_text_user_last_name, LoggedInUser.user.last_name, false)
-                .add("username", edit_text_username, LoggedInUser.user.username, true)
-                .add("email", edit_text_email_address, LoggedInUser.user.email, true)
-                .build()
-
-            if (selectiveJsonObject != null) {
-                accountViewModel.updateUser(selectiveJsonObject).observe(this, Observer {
+            val jsonObject = buildJsonObject()
+            if (jsonObject != null) {
+                accountViewModel.updateUser(jsonObject).observe(this, Observer {
                     if (it != null) {
                         if (it) {
                             activity?.toastLong("Successfully updated account info")
                             navHeaderTitleTextView.text = edit_text_username.text.toString()
                             navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
-                            navigateAndPopUpTo(
-                                Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
-                            )
+                            navigateToDashboardFragment()
                         }
                         else {
                             activity?.toastShort("Failed to update account info")
@@ -90,10 +85,60 @@ class AccountFragment : NavDrawerFragment() {
         }
     }
 
+    private fun navigateToDashboardFragment() {
+        val bundle = Bundle()
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.nav_dashboard, true)
+            .build()
+        navController.navigate(
+            R.id.nav_dashboard,
+            bundle,
+            navOptions)
+    }
+
     private fun loadUserInfoToEditTextFields() {
         edit_text_user_first_name.setText(LoggedInUser.user.first_name)
         edit_text_user_last_name.setText(LoggedInUser.user.last_name)
         edit_text_username.setText(LoggedInUser.user.username)
         edit_text_email_address.setText(LoggedInUser.user.email)
+    }
+
+    private fun buildJsonObject(): JsonObject? {
+        val firstName = edit_text_user_first_name.text.toString()
+        val lastName = edit_text_user_last_name.text.toString()
+        val username = edit_text_username.text.toString()
+        val email = edit_text_email_address.text.toString()
+
+        var counter = 0
+        val jsonObject = JsonObject()
+        if (firstName != LoggedInUser.user.first_name) {
+            jsonObject.addProperty("first_name", firstName)
+            counter++
+        }
+
+        if (lastName != LoggedInUser.user.last_name) {
+            jsonObject.addProperty("last_name", lastName)
+            counter++
+        }
+
+        if (username.isNotEmpty() && username != LoggedInUser.user.username) {
+            jsonObject.addProperty("username", username)
+            counter++
+        }
+
+        if (email.isNotEmpty() && email != LoggedInUser.user.email) {
+            jsonObject.addProperty("email", email)
+            counter++
+        }
+
+        return if (counter > 0) {
+            jsonObject
+        }
+        else {
+            activity?.apply {
+                Toast.makeText(this, "Nothing to update", Toast.LENGTH_SHORT).show()
+            }
+            null
+        }
     }
 }
