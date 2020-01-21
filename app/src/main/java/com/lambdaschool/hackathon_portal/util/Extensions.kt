@@ -10,7 +10,7 @@ import android.widget.Toast
  *
  * @param view : View
  * */
-fun Context._openSoftKeyboardAndFocus(view: View) {
+fun Context.openSoftKeyboardAndFocus(view: View) {
     view.requestFocus()
     val inputMethodManager = this.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
     inputMethodManager.showSoftInput(view, InputMethodManager.SHOW_IMPLICIT)
@@ -23,7 +23,7 @@ fun Context._openSoftKeyboardAndFocus(view: View) {
  *
  * NOTE: **Activity** context must be used.
  * */
-fun Context._toastShort(message: String) {
+fun Context.toastShort(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }
 
@@ -34,6 +34,6 @@ fun Context._toastShort(message: String) {
  *
  * NOTE: **Activity** context must be used.
  * */
-fun Context._toastLong(message: String) {
+fun Context.toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }

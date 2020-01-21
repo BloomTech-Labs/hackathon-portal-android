@@ -13,7 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util._toastShort
+import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : BaseFragment() {
@@ -44,7 +44,7 @@ class DetailFragment : BaseFragment() {
                     updateHackathonViews(it)
                     detailViewModel.currentHackathon.value = it
                 } else {
-                    activity?._toastShort("Failed to get Hackathon")
+                    activity?.toastShort("Failed to get Hackathon")
                 }
             })
         }

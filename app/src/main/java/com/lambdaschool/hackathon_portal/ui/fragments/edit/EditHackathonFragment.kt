@@ -19,8 +19,8 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util._toastLong
-import com.lambdaschool.hackathon_portal.util._toastShort
+import com.lambdaschool.hackathon_portal.util.toastLong
+import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
 import java.util.*
 
@@ -60,7 +60,7 @@ class EditHackathonFragment : BaseFragment() {
                     updateHackathonViews(it)
                     updateRetrievedHackathon(it)
                 } else {
-                    activity?._toastShort("Failed to get Hackathon")
+                    activity?.toastShort("Failed to get Hackathon")
                 }
             })
         }
@@ -103,18 +103,18 @@ class EditHackathonFragment : BaseFragment() {
                 if (selectiveJsonObject != null) {
                     editHackathonViewModel.updateHackathon(hackathonId, selectiveJsonObject).observe(this, Observer {
                         if (it != null) {
-                            activity?._toastLong("Successfully updated Hackathon")
+                            activity?.toastLong("Successfully updated Hackathon")
                             navigateAndPopUpTo(
                                 Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
                         } else {
                             // TODO: Enable Buttons & disable progress bar
-                            activity?._toastShort("Failed to update Hackathon")
+                            activity?.toastShort("Failed to update Hackathon")
                         }
                     })
                 } else {
                     // TODO: Enable Buttons & disable progress bar
-                    activity?._toastShort("Nothing to update")
+                    activity?.toastShort("Nothing to update")
                 }
             } else {
                 // TODO: Enable Buttons & disable progress bar
@@ -139,10 +139,10 @@ class EditHackathonFragment : BaseFragment() {
                                         navigateAndPopUpTo(
                                             Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                                         )
-                                        activity?._toastLong("Successfully deleted Hackathon")
+                                        activity?.toastLong("Successfully deleted Hackathon")
                                     } else {
                                         // TODO: Enable Buttons & disable progress bar
-                                        activity?._toastShort("Failed to delete Hackathon")
+                                        activity?.toastShort("Failed to delete Hackathon")
                                     }
                                 } else {
                                     Log.d(TAG, "Hackathon came back null")
