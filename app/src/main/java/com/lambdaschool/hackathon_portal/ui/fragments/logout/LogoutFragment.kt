@@ -57,7 +57,7 @@ class LogoutFragment : NavDrawerFragment() {
                     navigateAndPopUpTo(
                         Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
                     )
-                    activity?._toastLong("Logout Failed:\n${error?.message}")
+                    activity?.toastLong("Logout Failed:\n${error?.message}")
                 }
             })
         }

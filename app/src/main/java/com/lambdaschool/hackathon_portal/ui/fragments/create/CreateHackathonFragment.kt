@@ -15,8 +15,8 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util._toastLong
-import com.lambdaschool.hackathon_portal.util._toastShort
+import com.lambdaschool.hackathon_portal.util.toastLong
+import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
 import java.util.*
 
@@ -87,10 +87,10 @@ class CreateHackathonFragment : BaseFragment() {
                             navigateAndPopUpTo(
                                 Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
-                            activity?._toastLong("Successfully created Hackathon")
+                            activity?.toastLong("Successfully created Hackathon")
                         }
                         else {
-                            activity?._toastShort("Failed to create Hackathon")
+                            activity?.toastShort("Failed to create Hackathon")
                         }
                     }
                 })

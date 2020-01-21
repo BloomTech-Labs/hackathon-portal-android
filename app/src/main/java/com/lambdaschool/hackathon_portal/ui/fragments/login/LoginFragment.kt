@@ -77,13 +77,13 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
-                    activity?._toastLong("Login Failed - ${dialog.show()}")
+                    activity?.toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
-                    activity?._toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
+                    activity?.toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
                 override fun onSuccess(credentials: Credentials) {
@@ -110,7 +110,7 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onFailure(error: CredentialsManagerException?) {
                 error?.message?.let {
-                    activity?._toastLong(it)
+                    activity?.toastLong(it)
                 }
             }
         })
