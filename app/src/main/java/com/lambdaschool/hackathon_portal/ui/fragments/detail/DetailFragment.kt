@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.viewpager.widget.ViewPager
@@ -14,6 +13,7 @@ import com.google.android.material.tabs.TabLayout
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util._toastShort
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : BaseFragment() {
@@ -44,11 +44,7 @@ class DetailFragment : BaseFragment() {
                     updateHackathonViews(it)
                     detailViewModel.currentHackathon.value = it
                 } else {
-                    activity?.apply {
-                        Toast.makeText(this,
-                            "Failed to get Hackathon",
-                            Toast.LENGTH_LONG).show()
-                    }
+                    activity?._toastShort("Failed to get Hackathon")
                 }
             })
         }

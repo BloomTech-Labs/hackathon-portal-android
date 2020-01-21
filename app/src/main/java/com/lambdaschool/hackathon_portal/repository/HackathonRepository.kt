@@ -106,11 +106,11 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         return getAllHackathonsResponse
     }
 
-    fun updateHackathon(hackathonId: Int, hackathon: Hackathon): LiveData<Hackathon> {
+    fun updateHackathon(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
         val updateHackathonResponse = MutableLiveData<Hackathon>()
         val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
         val currentUserId = LoggedInUser.user.id
-        hackathonService.updateHackathon(hackathonId, currentUserId, bearerToken, hackathon)
+        hackathonService.updateHackathon(hackathonId, currentUserId, bearerToken, jsonObject)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     updateHackathonResponse.value = null

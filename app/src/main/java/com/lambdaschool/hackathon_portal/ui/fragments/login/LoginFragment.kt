@@ -6,11 +6,8 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.NavOptions
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -23,6 +20,7 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
+import com.lambdaschool.hackathon_portal.util.*
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -48,8 +46,7 @@ class LoginFragment : NavDrawerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
-        toggle.isDrawerIndicatorEnabled = false
+        lockDrawer(true)
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -69,8 +66,7 @@ class LoginFragment : NavDrawerFragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
-        drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
-        toggle.isDrawerIndicatorEnabled = true
+        unlockDrawer(true)
     }
 
     private fun login() {
@@ -81,19 +77,13 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
-
-                    activity?.apply {
-                        Toast.makeText(this, "Login Failed - ${dialog.show()}", Toast.LENGTH_SHORT).show()
-                    }
+                    activity?._toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
-
-                    activity?.apply {
-                        Toast.makeText(this, "Login Failed - Code: ${exception.code} Message: ${exception.message}", Toast.LENGTH_SHORT).show()
-                    }
+                    activity?._toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
                 override fun onSuccess(credentials: Credentials) {
@@ -113,21 +103,14 @@ class LoginFragment : NavDrawerFragment() {
 
             override fun onSuccess(credentials: Credentials) {
                 setCurrentUser(credentials)
-
-                val bundle = Bundle()
-                val navOptions = NavOptions.Builder()
-                    .setPopUpTo(R.id.nav_login, true)
-                    .build()
-
-                navController.navigate(
-                    R.id.nav_dashboard,
-                    bundle,
-                    navOptions)
+                navigateAndPopUpTo(
+                    Bundle(), R.id.nav_login, true, R.id.nav_dashboard
+                )
             }
 
             override fun onFailure(error: CredentialsManagerException?) {
-                activity?.apply {
-                    Toast.makeText(this, error?.message, Toast.LENGTH_SHORT).show()
+                error?.message?.let {
+                    activity?._toastLong(it)
                 }
             }
         })

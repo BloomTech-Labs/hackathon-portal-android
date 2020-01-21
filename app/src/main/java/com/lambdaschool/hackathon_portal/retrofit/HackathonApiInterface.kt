@@ -34,12 +34,11 @@ interface HackathonApiInterface {
     @GET("hackathons")
     fun getAllHackathons(@Header("Authorization") bearerToken: String): Call<MutableList<Hackathon>>
 
-    //TODO possibly change to use JSONObject that only sends fields that need to be updated
     @PUT("hackathons/{hack_id}/u/{org_id}")
     fun updateHackathon(@Path("hack_id") hack_id: Int,
                         @Path("org_id") org_id: Int,
                         @Header("Authorization") bearerToken: String,
-                        @Body hackathon: Hackathon): Call<Hackathon>
+                        @Body hackathon: JsonObject): Call<Hackathon>
 
     @DELETE("hackathons/{hack_id}/u/{org_id}")
     fun deleteHackathon(@Path("hack_id") hack_id: Int,
