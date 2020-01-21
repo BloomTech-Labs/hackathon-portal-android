@@ -45,7 +45,7 @@ class LoginFragment : NavDrawerFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        lockDrawer(true)
+        lockDrawer()
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
@@ -67,8 +67,8 @@ class LoginFragment : NavDrawerFragment() {
 
     override fun onDestroyView() {
         // TODO: Enable Button & disable progress bar
+        unlockDrawer()
         super.onDestroyView()
-        unlockDrawer(true)
     }
 
     private fun login() {

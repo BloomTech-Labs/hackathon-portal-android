@@ -58,14 +58,14 @@ abstract class NavDrawerFragment: BaseFragment() {
     }
 
     /**
-     * Locks the Navigation Drawer and, if true is passed, it will disable the
-     * toggle.
+     * Locks the Navigation Drawer and, by default, will disable the
+     * drawer toggle.
      *
      * Passing false will lock the Navigation Drawer only.
      *
      * @param disableToggle: Boolean
      * */
-    fun lockDrawer(disableToggle: Boolean) {
+    fun lockDrawer(disableToggle: Boolean = true) {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED)
         if (disableToggle) {
             toggle.isDrawerIndicatorEnabled = false
@@ -73,14 +73,14 @@ abstract class NavDrawerFragment: BaseFragment() {
     }
 
     /**
-     * Unlocks the Navigation Drawer and, if true is passed it will enable the
-     * toggle.
+     * Unlocks the Navigation Drawer and, by default, will enable the
+     * drawer toggle.
      *
      * Passing false will unlock the Navigation Drawer only.
      *
      * @param enableToggle: Boolean
      * */
-    fun unlockDrawer(enableToggle: Boolean) {
+    fun unlockDrawer(enableToggle: Boolean = true) {
         drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED)
         if (enableToggle) {
             toggle.isDrawerIndicatorEnabled = true
