@@ -13,7 +13,7 @@ import com.auth0.android.provider.WebAuthProvider
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
-import com.lambdaschool.hackathon_portal.util.*
+import com.lambdaschool.hackathon_portal.util.toastLong
 import javax.inject.Inject
 
 class LogoutFragment : NavDrawerFragment() {
