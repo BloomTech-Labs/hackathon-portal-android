@@ -10,8 +10,8 @@ import javax.inject.Inject
 
 class DashboardViewModel @Inject constructor(private val repo: HackathonRepository) : ViewModel() {
 
-    fun getUser(id: Int): LiveData<User> {
-        return repo.getUser(id)
+    fun getUser(): LiveData<User> {
+        return repo.getUser()
     }
 
     // Leaving this function because it might be necessary later

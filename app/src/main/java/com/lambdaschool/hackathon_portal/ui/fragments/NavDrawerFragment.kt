@@ -9,6 +9,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.drawerlayout.widget.DrawerLayout
 import com.google.android.material.navigation.NavigationView
 import com.lambdaschool.hackathon_portal.R
+import com.squareup.picasso.Picasso
 import javax.inject.Inject
 
 /**
@@ -24,14 +25,36 @@ abstract class NavDrawerFragment: BaseFragment() {
     @Inject
     lateinit var navView: NavigationView
 
-    val navHeaderTitleTextView: TextView by lazy {
+    private val navHeaderTitleTextView by lazy {
         navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_title)
     }
-    val navHeaderSubtitleTextView: TextView by lazy {
+    private val navHeaderSubtitleTextView by lazy {
         navView.getHeaderView(0).findViewById<TextView>(R.id.nav_header_subtitle)
     }
-    val navHeaderImageView: ImageView by lazy {
+    private val navHeaderImageView by lazy {
         navView.getHeaderView(0).findViewById<ImageView>(R.id.nav_header_image)
+    }
+
+    fun setNavDrawerHeaderTitle(string: String?) {
+        if (!string.isNullOrEmpty()) {
+            navHeaderTitleTextView.text = string
+        }
+    }
+
+    fun setNavDrawerHeaderSubTitle(string: String) {
+        navHeaderSubtitleTextView.text = string
+    }
+
+    fun setNavDrawerHeaderImage(pictureUrl: String) {
+        if (pictureUrl.isNotEmpty()) {
+            Picasso.get().load(pictureUrl).into(navHeaderImageView)
+        }
+    }
+
+    fun resetNavDrawerHeader() {
+        navHeaderTitleTextView.text = getString(R.string.nav_header_title)
+        navHeaderSubtitleTextView.text = getString(R.string.nav_header_subtitle)
+        navHeaderImageView.setImageResource(R.drawable.ic_launcher_background)
     }
 
     /**

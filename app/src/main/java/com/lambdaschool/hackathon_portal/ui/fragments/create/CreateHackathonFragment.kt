@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.create
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import java.util.*
 class CreateHackathonFragment : BaseFragment() {
 
     private lateinit var createHackathonViewModel: CreateHackathonViewModel
+    private val TAG = "CREATE HACKATHON"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,6 +72,7 @@ class CreateHackathonFragment : BaseFragment() {
         }
 
         fab_save_hackathon.setOnClickListener {
+            // TODO: Disable Button & show a progress bar
 
             if (!checkIfRequiredFieldsEmpty()) {
                 val newHackathon =
@@ -90,12 +93,21 @@ class CreateHackathonFragment : BaseFragment() {
                             activity?.toastLong("Successfully created Hackathon")
                         }
                         else {
+                            // TODO: Enable Buttons & disable progress bar
                             activity?.toastShort("Failed to create Hackathon")
                         }
+                    } else {
+                        // TODO: Enable Buttons & disable progress bar
+                        Log.d(TAG, "Hackathon object came back null")
                     }
                 })
             }
         }
+    }
+
+    override fun onDestroyView() {
+        // TODO: Enable Buttons & disable progress bar
+        super.onDestroyView()
     }
 
     private fun checkIfRequiredFieldsEmpty(): Boolean {
@@ -111,6 +123,10 @@ class CreateHackathonFragment : BaseFragment() {
         if (edit_text_hackathon_end_date.text.toString().isEmpty()) {
             edit_text_hackathon_end_date.error = "End Date is required"
             requiredFieldsEmpty = true
+        }
+        if (requiredFieldsEmpty) {
+            Log.d(TAG, "Required fields needed")
+            // TODO: Enable Button & disable progress bar
         }
         return requiredFieldsEmpty
     }

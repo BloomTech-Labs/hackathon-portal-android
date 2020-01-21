@@ -12,7 +12,9 @@ import retrofit2.Response
 import javax.inject.Singleton
 
 @Singleton
-class HackathonRepository (private val hackathonService: HackathonApiInterface) {
+class HackathonRepository (private val hackathonService: HackathonApiInterface,
+                           private val userAuth0: UserAuth0,
+                           private val user: User) {
 
     companion object {
         const val REPO_TAG = "REPOSITORY"
@@ -21,10 +23,57 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
     private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
 
+    // This will be set upon login and then wiped on logout
+    private var bearerToken = ""
+
+    // Have to break these into individual fields because the Auth0 claims response
+    // requires us to use `let` on each field since it is potentially nullable.
+    // Separate methods allows for setting right then and there, in the `let` lambda
+    // instead of dealing with temporary variables and calling a single method.
+    fun setUserAuth0Id(id: Int) {
+        userAuth0.id = id
+    }
+
+    fun setUserAuth0PictureUrl(pictureUrl: String) {
+        userAuth0.pictureUrl = pictureUrl
+    }
+
+    fun setUserAuth0AccessToken(accessToken: String) {
+        userAuth0.accessToken = accessToken
+        bearerToken = "Bearer $accessToken"
+    }
+
+    fun performLogout() {
+        // Wipe userAuth0
+        userAuth0.id = -1
+        userAuth0.pictureUrl = ""
+        userAuth0.accessToken = ""
+
+        // Wipe bearerToken
+        bearerToken = ""
+
+        // Wipe user
+        user.id = -1
+        user.first_name = null
+        user.last_name = null
+        user.username = ""
+        user.email = ""
+        user.hackathons = mutableListOf()
+
+        // TODO: Should we also clear the mutable objects used in this file?
+    }
+
+    fun getUserObject(): User {
+        return user
+    }
+
+    fun getUserAuth0PictureUrl(): String = userAuth0.pictureUrl
+    // AccessToken should ONLY be used here in the repo when coding up network calls.
+
     fun postHackathon(hackathon: Hackathon): LiveData<Boolean> {
         val addHackathonResponse = MutableLiveData<Boolean>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.postHackathon(CurrentUser.currentUser.id?.toInt(), bearerToken, hackathon)
+
+        hackathonService.postHackathon(userAuth0.id, bearerToken, hackathon)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     addHackathonResponse.value = false
@@ -51,10 +100,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         return addHackathonResponse
     }
 
-    fun getHackathon(id: Int): LiveData<Hackathon> {
+    fun getHackathon(hackathonId: Int): LiveData<Hackathon> {
         val getHackathonResponse = MutableLiveData<Hackathon>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.getHackathon(id, bearerToken).enqueue(object: Callback<Hackathon> {
+
+        hackathonService.getHackathon(hackathonId, bearerToken).enqueue(object: Callback<Hackathon> {
             override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                 getHackathonResponse.value = null
                 Log.i(REPO_TAG, "Failed to connect to API")
@@ -79,7 +128,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
 
     fun getAllHackathons(): LiveData<MutableList<Hackathon>> {
         val getAllHackathonsResponse = MutableLiveData<MutableList<Hackathon>>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
+
         hackathonService.getAllHackathons(bearerToken).enqueue(object : Callback<MutableList<Hackathon>> {
             override fun onFailure(call: Call<MutableList<Hackathon>>, t: Throwable) {
                 getAllHackathonsResponse.value = null
@@ -101,16 +150,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                     Log.i(REPO_TAG, response.message().toString())
                 }
             }
-
         })
         return getAllHackathonsResponse
     }
 
     fun updateHackathon(hackathonId: Int, jsonObject: JsonObject): LiveData<Hackathon> {
         val updateHackathonResponse = MutableLiveData<Hackathon>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        val currentUserId = LoggedInUser.user.id
-        hackathonService.updateHackathon(hackathonId, currentUserId, bearerToken, jsonObject)
+
+        hackathonService.updateHackathon(hackathonId, userAuth0.id, bearerToken, jsonObject)
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     updateHackathonResponse.value = null
@@ -124,7 +171,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                         Log.i(REPO_TAG, "Successfully updated hackathon")
                         val index = getUserHackathonIndexFromListById(hackathonId)
                         if (index != null && index != -1) {
-                            var updateHackathon = userHackathonList.value!![index]
+                            val updateHackathon = userHackathonList.value!![index]
                             response.body()?.name?.let {
                                 updateHackathon.hackathon_name = it
                             }
@@ -160,9 +207,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
 
     fun deleteHackathon(hackathonId: Int): LiveData<Boolean> {
         val deleteHackathonResponse = MutableLiveData<Boolean>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        val currentUserId = LoggedInUser.user.id
-        hackathonService.deleteHackathon(hackathonId, currentUserId, bearerToken)
+
+        hackathonService.deleteHackathon(hackathonId, userAuth0.id, bearerToken)
             .enqueue(object: Callback<Void> {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     deleteHackathonResponse.value = false
@@ -187,10 +233,10 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         return deleteHackathonResponse
     }
 
-    fun getUser(id: Int): LiveData<User> {
+    fun getUser(): LiveData<User> {
         val getUserResponse = MutableLiveData<User>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.getUser(id, bearerToken).enqueue(object : Callback<User> {
+
+        hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
                 Log.i(REPO_TAG, "Failed to connect to API")
@@ -202,22 +248,22 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                     getUserResponse.value = response.body()
                     Log.i(REPO_TAG, "Successfully get user")
                     response.body()?.id?.let {
-                        LoggedInUser.user.id = it
-                    }
-                    response.body()?.username?.let {
-                        LoggedInUser.user.username = it
+                        user.id = it
                     }
                     response.body()?.first_name?.let {
-                        LoggedInUser.user.first_name = it
+                        user.first_name = it
                     }
                     response.body()?.last_name?.let {
-                        LoggedInUser.user.last_name = it
+                        user.last_name = it
+                    }
+                    response.body()?.username?.let {
+                        user.username = it
                     }
                     response.body()?.email?.let {
-                        LoggedInUser.user.email = it
+                        user.email = it
                     }
                     response.body()?.hackathons?.let {
-                        LoggedInUser.user.hackathons = it
+                        user.hackathons = it
                         userHackathonList.value = it
                     }
                 }
@@ -234,8 +280,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
 
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> {
         val updateUserResponse = MutableLiveData<Boolean>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.updateUser(CurrentUser.currentUser.id?.toInt(), bearerToken, jsonObject)
+
+        hackathonService.updateUser(userAuth0.id, bearerToken, jsonObject)
             .enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     updateUserResponse.value = false
@@ -248,18 +294,16 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
                         updateUserResponse.value = true
                         Log.i(REPO_TAG, "Successfully updated user")
                         response.body()?.username?.let {
-                            LoggedInUser.user.username = it
-                            CurrentUser.currentUser.name = it
+                            user.username = it
                         }
                         response.body()?.first_name?.let {
-                            LoggedInUser.user.first_name = it
+                            user.first_name = it
                         }
                         response.body()?.last_name?.let {
-                            LoggedInUser.user.last_name = it
+                            user.last_name = it
                         }
                         response.body()?.email?.let {
-                            LoggedInUser.user.email = it
-                            CurrentUser.currentUser.email = it
+                            user.email = it
                         }
                     } else {
                         updateUserResponse.value = false
@@ -275,8 +319,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
 
     fun deleteUser(): LiveData<Boolean> {
         val deleteUserResponse = MutableLiveData<Boolean>()
-        val bearerToken = "Bearer ${CurrentUser.currentUser.accessToken}"
-        hackathonService.deleteUser(CurrentUser.currentUser.id?.toInt(), bearerToken)
+
+        hackathonService.deleteUser(userAuth0.id, bearerToken)
             .enqueue(object: Callback<Deletion> {
                 override fun onFailure(call: Call<Deletion>, t: Throwable) {
                     deleteUserResponse.value = false
@@ -345,8 +389,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface) 
         var hackathonDescription = ""
 
         hackathon?.name?.let { hackathonName = it }
-        LoggedInUser.user.username?.let { username = it }
-        LoggedInUser.user.id?.let { userId = it }
+        user.username?.let { username = it }
+        userId = user.id
         hackathon?.id?.let { hackathonId = it }
         hackathon?.start_date?.let { startDate = it }
         hackathon?.end_date?.let { endDate = it }

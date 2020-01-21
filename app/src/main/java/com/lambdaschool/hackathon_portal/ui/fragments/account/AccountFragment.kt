@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.account
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.*
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.util.toastLong
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.fragment_account.*
 class AccountFragment : NavDrawerFragment() {
 
     private lateinit var accountViewModel: AccountViewModel
+    private var TAG = "ACCOUNT FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,14 +35,16 @@ class AccountFragment : NavDrawerFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        loadUserInfoToEditTextFields()
+        val user = accountViewModel.getUserObjectFromRepository()
+        loadUserInfoToEditTextFields(user)
 
         fab_save_user.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val selectiveJsonObject = SelectiveJsonObject.Builder()
-                .add("first_name", edit_text_user_first_name, LoggedInUser.user.first_name, false)
-                .add("last_name", edit_text_user_last_name, LoggedInUser.user.last_name, false)
-                .add("username", edit_text_username, LoggedInUser.user.username, true)
-                .add("email", edit_text_email_address, LoggedInUser.user.email, true)
+                .add("first_name", edit_text_user_first_name, user.first_name, false)
+                .add("last_name", edit_text_user_last_name, user.last_name, false)
+                .add("username", edit_text_username, user.username, true)
+                .add("email", edit_text_email_address, user.email, true)
                 .build()
 
             if (selectiveJsonObject != null) {
@@ -48,23 +52,33 @@ class AccountFragment : NavDrawerFragment() {
                     if (it != null) {
                         if (it) {
                             activity?.toastLong("Successfully updated account info")
-                            navHeaderTitleTextView.text = edit_text_username.text.toString()
-                            navHeaderSubtitleTextView.text = edit_text_email_address.text.toString()
+                            if (selectiveJsonObject.has("username")) {
+                                setNavDrawerHeaderTitle(edit_text_username.text.toString())
+                            }
+                            if (selectiveJsonObject.has("email")) {
+                                setNavDrawerHeaderSubTitle(edit_text_email_address.text.toString())
+                            }
                             navigateAndPopUpTo(
                                 Bundle(), R.id.nav_dashboard, true, R.id.nav_dashboard
                             )
                         }
                         else {
+                            // TODO: Enable Buttons & disable progress bar
                             activity?.toastShort("Failed to update account info")
                         }
+                    } else {
+                        Log.d(TAG, "Update User came back null")
+                        // TODO: Enable Buttons & disable progress bar
                     }
                 })
             } else {
+                // TODO: Enable Buttons & disable progress bar
                 activity?.toastShort("Nothing to update")
             }
         }
 
         fab_delete_user.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val title = "Delete User?"
             val msg = "Are you sure you would like to delete this account?"
 
@@ -78,8 +92,12 @@ class AccountFragment : NavDrawerFragment() {
                             if (it) {
                                 navController.navigate(R.id.nav_logout)
                             } else {
+                                // TODO: Enable Buttons & disable progress bar
                                 activity?.toastShort("Failed to delete your account")
                             }
+                        } else {
+                            Log.d(TAG, "Delete User came back null")
+                            // TODO: Enable Buttons & disable progress bar
                         }
                     })
                 }
@@ -90,10 +108,15 @@ class AccountFragment : NavDrawerFragment() {
         }
     }
 
-    private fun loadUserInfoToEditTextFields() {
-        edit_text_user_first_name.setText(LoggedInUser.user.first_name)
-        edit_text_user_last_name.setText(LoggedInUser.user.last_name)
-        edit_text_username.setText(LoggedInUser.user.username)
-        edit_text_email_address.setText(LoggedInUser.user.email)
+    override fun onDestroyView() {
+        // TODO: Enable Buttons & disable progress bar
+        super.onDestroyView()
+    }
+
+    private fun loadUserInfoToEditTextFields(user: User) {
+        edit_text_user_first_name.setText(user.first_name)
+        edit_text_user_last_name.setText(user.last_name)
+        edit_text_username.setText(user.username)
+        edit_text_email_address.setText(user.email)
     }
 }

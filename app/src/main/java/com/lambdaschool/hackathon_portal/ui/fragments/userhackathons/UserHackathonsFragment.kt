@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.CurrentUser
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_user_hackathons.*
@@ -26,9 +25,6 @@ class UserHackathonsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         userHackathonsViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
             .get(UserHackathonsViewModel::class.java)
-        CurrentUser.currentUser.id?.toInt()?.let {
-            userHackathonsViewModel.getUser(it)
-        }
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {

@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.edit
 
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +28,7 @@ class EditHackathonFragment : BaseFragment() {
 
     private lateinit var editHackathonViewModel: EditHackathonViewModel
     private lateinit var retrievedHackathon: Hackathon
+    private val TAG = "EDIT HACKATHON"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -86,6 +88,7 @@ class EditHackathonFragment : BaseFragment() {
         }
 
         fragment_edit_hackathon_fab_save_hackathon.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val selectiveJsonObject = SelectiveJsonObject.Builder()
                 .add("name", fragment_edit_hackathon_edit_text_hackathon_name, retrievedHackathon.name, true)
                 .add("description", fragment_edit_hackathon_edit_text_hackathon_description, retrievedHackathon.description, true)
@@ -100,22 +103,27 @@ class EditHackathonFragment : BaseFragment() {
                 if (selectiveJsonObject != null) {
                     editHackathonViewModel.updateHackathon(hackathonId, selectiveJsonObject).observe(this, Observer {
                         if (it != null) {
-                            updateHackathonViews(it)
+                            activity?.toastLong("Successfully updated Hackathon")
                             navigateAndPopUpTo(
                                 Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
                             )
                             activity?.toastLong("Successfully updated Hackathon")
                         } else {
+                            // TODO: Enable Buttons & disable progress bar
                             activity?.toastShort("Failed to update Hackathon")
                         }
                     })
                 } else {
                     activity?.toastShort("Nothing to update")
                 }
+            } else {
+                // TODO: Enable Buttons & disable progress bar
+                Log.d(TAG, "Hackathon Id was null")
             }
         }
 
         fragment_edit_hackathon_fab_delete_hackathon.setOnClickListener {
+            // TODO: Disable Buttons & show a progress bar
             val title = "Delete Hackathon?"
             val msg = "Are you sure you want to delete this Hackathon?"
 
@@ -133,8 +141,12 @@ class EditHackathonFragment : BaseFragment() {
                                         )
                                         activity?.toastLong("Successfully deleted Hackathon")
                                     } else {
+                                        // TODO: Enable Buttons & disable progress bar
                                         activity?.toastShort("Failed to delete Hackathon")
                                     }
+                                } else {
+                                    Log.d(TAG, "Hackathon came back null")
+                                    // TODO: Enable Buttons & disable progress bar
                                 }
                             })
                     }
@@ -143,6 +155,11 @@ class EditHackathonFragment : BaseFragment() {
                 .create()
                 .show()
         }
+    }
+
+    override fun onDestroyView() {
+        // TODO: Enable Buttons & disable progress bar
+        super.onDestroyView()
     }
 
     private fun updateHackathonViews(hackathon: Hackathon) {
