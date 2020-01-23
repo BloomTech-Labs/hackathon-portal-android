@@ -10,5 +10,7 @@ data class Project(
     var android_spots: Int,
     var data_science_spots: Int,
     var ux_spots: Int,
-    var participants: MutableList<Participant>
+    var creator_id: Int?,
+    var hackathon_id: Int?,
+    var participants: MutableList<Participant>?
 )

@@ -78,13 +78,13 @@ class ProjectFragment : BaseFragment() {
             val data = teams[position]
             var hasBeenExpanded = false
             holder.nameView.text = data.project_title
-            holder.participantsView.text = " ${data.participants.size.toString()}"
+            holder.participantsView.text = " ${data.participants?.size.toString()}"
             holder.linearLayout.visibility = View.GONE
             holder.parentView.setOnClickListener {
 
                 when {
                     !holder.linearLayout.isVisible && !hasBeenExpanded -> {
-                        data.participants.forEach {
+                        data.participants?.forEach {
                             holder.linearLayout.addView(createTeamMemberViews(it))
                         }
                         holder.linearLayout.visibility = View.VISIBLE
