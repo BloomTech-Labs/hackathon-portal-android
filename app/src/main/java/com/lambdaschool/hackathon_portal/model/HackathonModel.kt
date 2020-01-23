@@ -32,7 +32,7 @@ sealed class HackathonModel {
         var location: String,
         var is_open: Boolean,
         var organizer_id: Int? = null,
-        var teams: MutableList<Team>? = null,
+        var projects: MutableList<Project>? = null,
         var admins: MutableList<Admin>? = null,
         var individual_devs: MutableList<User>? = null
     ): HackathonModel() {
@@ -58,16 +58,13 @@ sealed class HackathonModel {
      *   endpoint and is what's used in the UserHackathonsFragment.
      * */
     data class UserHackathon(
+        var hackathon_id: Int,
         var hackathon_name: String,
-        var username: String,
         var user_hackathon_role: String,
         var developer_role: String,
-        var team_id: Int,
-        var team_name: String,
-        var user_id: Int,
-        var hackathon_id: Int,
         var start_date: String,
         var end_date: String,
-        var hackathon_description: String
+        var hackathon_description: String,
+        var project: UserProject
     ): HackathonModel()
 }
