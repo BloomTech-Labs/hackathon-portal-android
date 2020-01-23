@@ -344,6 +344,31 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return deleteUserResponse
     }
 
+    fun getProject(projectId: Int): LiveData<Project> {
+        val getProjectResponse = MutableLiveData<Project>()
+        hackathonService.getProject(projectId, bearerToken).enqueue(object: Callback<Project>{
+            override fun onFailure(call: Call<Project>, t: Throwable) {
+                getProjectResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                 if (response.isSuccessful) {
+                     getProjectResponse.value = response.body()
+                     Log.i(REPO_TAG, "Successfuly got project")
+                 } else {
+                     getProjectResponse.value = null
+                     Log.i(REPO_TAG, "Failed to get project")
+                     Log.i(REPO_TAG, response.code().toString())
+                     Log.i(REPO_TAG, response.message().toString())
+                 }
+            }
+
+        })
+        return getProjectResponse
+    }
+
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
         return userHackathonList
     }

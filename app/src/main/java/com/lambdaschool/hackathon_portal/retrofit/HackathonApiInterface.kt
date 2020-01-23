@@ -3,6 +3,7 @@ package com.lambdaschool.hackathon_portal.retrofit
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Deletion
 import com.lambdaschool.hackathon_portal.model.Hackathon
+import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.model.User
 import retrofit2.Call
 import retrofit2.http.*
@@ -44,4 +45,8 @@ interface HackathonApiInterface {
     fun deleteHackathon(@Path("hack_id") hack_id: Int,
                         @Path("org_id") org_id: Int,
                         @Header("Authorization") bearerToken: String): Call<Void>
+
+    @GET("projects/{project_id}")
+    fun getProject(@Path("project_id") project_id: Int,
+                   @Header("Authorization") bearerToken: String): Call<Project>
 }
