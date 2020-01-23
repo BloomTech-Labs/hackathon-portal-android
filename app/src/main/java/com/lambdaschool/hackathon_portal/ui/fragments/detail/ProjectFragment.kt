@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.model.HackathonProject
 import com.lambdaschool.hackathon_portal.model.Participant
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
@@ -41,7 +42,7 @@ class ProjectFragment : BaseFragment() {
         fragment_project_recycler_view.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter = ProjectListAdapter(mutableListOf<Project>())
+            adapter = ProjectListAdapter(mutableListOf<HackathonProject>())
         }
 
         detailViewModel.currentHackathon.observe(this, Observer {
@@ -53,7 +54,7 @@ class ProjectFragment : BaseFragment() {
         })
     }
 
-    inner class ProjectListAdapter(private val teams: MutableList<Project>):
+    inner class ProjectListAdapter(private val teams: MutableList<HackathonProject>):
         RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() {
 
         lateinit var context: Context
