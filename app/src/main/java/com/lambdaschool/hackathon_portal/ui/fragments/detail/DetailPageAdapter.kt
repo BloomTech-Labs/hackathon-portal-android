@@ -11,7 +11,7 @@ class DetailPageAdapter(fm: FragmentManager, private val numOfTabs: Int):
         return when (position) {
             0 ->  DescriptionFragment()
             1 ->  AdminFragment()
-            2 ->  TeamFragment()
+            2 ->  ProjectFragment()
             else -> DescriptionFragment()
         }
     }
