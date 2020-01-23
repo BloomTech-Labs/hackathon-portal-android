@@ -114,6 +114,7 @@ class EditHackathonFragment : BaseFragment() {
                         }
                     })
                 } else {
+                    // TODO: Enable Buttons & disable progress bar
                     activity?.toastShort("Nothing to update")
                 }
             } else {
