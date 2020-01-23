@@ -10,6 +10,7 @@ import com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.login.LoginViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.projectdetail.ProjectDetailViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsViewModel
 import com.lambdaschool.hackathon_portal.viewmodel.ViewModelProviderFactory
 import dagger.Binds
@@ -71,4 +72,10 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(DetailViewModel::class)
     abstract fun bindsDetailViewModel(viewModel: DetailViewModel): ViewModel
+
+    @Singleton
+    @Binds
+    @IntoMap
+    @ViewModelKey(ProjectDetailViewModel::class)
+    abstract fun bindsProjectDetailViewModel(viewModel: ProjectDetailViewModel): ViewModel
 }
