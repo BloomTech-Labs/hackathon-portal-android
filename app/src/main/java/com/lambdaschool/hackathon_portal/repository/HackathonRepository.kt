@@ -377,35 +377,27 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
     private fun mapPostedHackathonToUserHackathon(hackathon: Hackathon?): UserHackathon {
         //this will need to be refactored one judges and hackers are added
         var hackathonName = ""
-        var username = ""
         var userHackathonRole = "organizer"
         var developerRole = ""
-        var teamId = -1
-        var teamName = ""
-        var userId = -1
         var hackathonId = -1
         var startDate = ""
         var endDate = ""
         var hackathonDescription = ""
 
         hackathon?.name?.let { hackathonName = it }
-        user.username?.let { username = it }
-        userId = user.id
         hackathon?.id?.let { hackathonId = it }
         hackathon?.start_date?.let { startDate = it }
         hackathon?.end_date?.let { endDate = it }
         hackathon?.description?.let { hackathonDescription = it }
 
-        return UserHackathon(hackathonName,
-            username,
+        return UserHackathon(
+            hackathonId,
+            hackathonName,
             userHackathonRole,
             developerRole,
-            teamId,
-            teamName,
-            userId,
-            hackathonId,
             startDate,
             endDate,
-            hackathonDescription)
+            hackathonDescription,
+            null)
     }
 }

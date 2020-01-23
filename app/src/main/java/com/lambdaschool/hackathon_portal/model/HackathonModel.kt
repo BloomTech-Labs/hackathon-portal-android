@@ -65,6 +65,6 @@ sealed class HackathonModel {
         var start_date: String,
         var end_date: String,
         var hackathon_description: String,
-        var project: UserProject
+        var project: UserProject?
     ): HackathonModel()
 }
