@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.detail.TeamFragment">
+    tools:context=".ui.fragments.detail.ProjectFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/fragment_team_recycler_view"
+        android:id="@+id/fragment_project_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
