@@ -369,6 +369,21 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return getProjectResponse
     }
 
+    fun joinHackathon(jsonObject: JsonObject, hackathonId: Int): LiveData<String> {
+        val joinHackathonResponse = MutableLiveData<String>()
+        hackathonService.joinHackathon(hackathonId, user.id, bearerToken, jsonObject)
+            .enqueue(object: Callback<Void>{
+                override fun onFailure(call: Call<Void>, t: Throwable) {
+                    joinHackathonResponse.value = "Failed to connect to API"
+                }
+
+                override fun onResponse(call: Call<Void>, response: Response<Void>) {
+                    joinHackathonResponse.value = response.message()
+                }
+            })
+        return joinHackathonResponse
+    }
+
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
         return userHackathonList
     }
