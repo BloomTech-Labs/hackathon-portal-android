@@ -58,4 +58,5 @@
     <string name="role">Role:</string>
     <string name="join">JOIN</string>
     <string name="add_admins">Add Admins</string>
+    <string name="add_as_organizer">Add as Organizer</string>
 </resources>
