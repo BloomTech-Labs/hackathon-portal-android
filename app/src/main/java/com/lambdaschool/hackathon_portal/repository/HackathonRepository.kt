@@ -279,6 +279,28 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return getUserResponse
     }
 
+    fun getAllUser(): LiveData<MutableList<User>> {
+        val allUsersResponse = MutableLiveData<MutableList<User>>()
+        hackathonService.getAllUsers(bearerToken).enqueue(object : Callback<MutableList<User>> {
+            override fun onFailure(call: Call<MutableList<User>>, t: Throwable) {
+                allUsersResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<MutableList<User>>, response: Response<MutableList<User>>) {
+                if (response.isSuccessful) {
+                    allUsersResponse.value = response.body()
+                    Log.i(REPO_TAG, "Successfully got users, ${response.body()!![0].username}")
+                } else {
+                    allUsersResponse.value = null
+                    Log.i(REPO_TAG, response.message())
+                }
+            }
+        })
+        return allUsersResponse
+    }
+
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> {
         val updateUserResponse = MutableLiveData<Boolean>()
 
