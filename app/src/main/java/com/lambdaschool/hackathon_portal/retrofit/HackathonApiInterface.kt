@@ -5,6 +5,7 @@ import com.lambdaschool.hackathon_portal.model.Deletion
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.model.User
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -51,9 +52,9 @@ interface HackathonApiInterface {
     fun getProject(@Path("project_id") project_id: Int,
                    @Header("Authorization") bearerToken: String): Call<Project>
 
-    @POST("hackathons/{hack_id}/join/{user_id")
+    @POST("hackathons/{hack_id}/join/{user_id}")
     fun joinHackathon(@Path("hack_id") hackathonId: Int,
                       @Path("user_id") userId: Int,
                       @Header("Authorization") bearerToken: String,
-                      @Body jsonObject: JsonObject): Call<Void>
+                      @Body jsonObject: JsonObject): Call<JsonObject>
 }

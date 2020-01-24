@@ -1,6 +1,7 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.projectdetail
 
 
+import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,14 +12,29 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.afollestad.materialdialogs.DialogCallback
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.callbacks.onCancel
+import com.afollestad.materialdialogs.callbacks.onDismiss
+import com.afollestad.materialdialogs.callbacks.onPreShow
+import com.afollestad.materialdialogs.callbacks.onShow
+import com.afollestad.materialdialogs.list.SingleChoiceListener
+import com.afollestad.materialdialogs.list.getItemSelector
+import com.afollestad.materialdialogs.list.isItemChecked
+import com.afollestad.materialdialogs.list.listItemsSingleChoice
+import com.google.gson.JsonObject
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Participant
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_project_details.*
 import kotlinx.android.synthetic.main.participant_list_view.view.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONObject
 
 class ProjectDetailsFragment : BaseFragment() {
 
@@ -51,8 +67,25 @@ class ProjectDetailsFragment : BaseFragment() {
             projectDetailViewModel.getProject(id).observe(this, Observer { project ->
                 if (project != null) {
                     updateProjectViews(project)
+                    retrievedProject = project
                 } else activity?.toastShort("Failed to get project")
             })
+        }
+
+        val displayRoles = listOf("Front End Developer", "Back End Developer", "iOS Developer",
+            "Android Developer", "Data Scientist", "UX Designer")
+        val actualRoles = listOf("front-end", "back-end", "ios", "android", "data_science", "ux")
+
+        button_join_hackathon.setOnClickListener {
+            context?.let { myContext ->
+                MaterialDialog(myContext).show {
+                    title(text = "Select Role")
+                    message(text = "Please select the developer role you will be fulfilling for this project")
+                    listItemsSingleChoice(items = displayRoles) { _, index, _ ->
+                        joinHackathon(actualRoles[index])
+                    }
+                }
+            }
         }
     }
 
@@ -93,5 +126,18 @@ class ProjectDetailsFragment : BaseFragment() {
         text_view_data_science_count.text = project.data_science_spots.toString()
         text_view_ux_designer_count.text = project.ux_spots.toString()
         recycler_view_participants.adapter = ParticipantListAdapter(project.participants)
+    }
+
+    private fun joinHackathon(role: String) {
+        val json = JsonObject()
+        json.addProperty("project_id", retrievedProject.id)
+        json.addProperty("user_hackathon_role", "participant")
+        json.addProperty("developer_role", role)
+        projectDetailViewModel.joinProject(json, retrievedProject.hackathon_id).observe(this, Observer {
+            it?.let {
+                activity?.toastLong(it)
+                navController.popBackStack()
+            }
+        })
     }
 }
