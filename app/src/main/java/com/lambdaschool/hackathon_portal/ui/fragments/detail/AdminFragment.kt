@@ -15,12 +15,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Admin
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import kotlinx.android.synthetic.main.add_admin_list_view.*
 import kotlinx.android.synthetic.main.admin_list_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_admin.*
 
 class AdminFragment : BaseFragment() {
 
     private lateinit var detailViewModel: DetailViewModel
+    private var hackathonId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,11 +45,18 @@ class AdminFragment : BaseFragment() {
 
         detailViewModel.currentHackathon.observe(this, Observer {
             if (it != null) {
+                hackathonId = it.id
                 it.admins?.let { admins ->
                     fragment_admin_recycler_view.adapter = AdminListAdapter(admins)
                 }
             }
         })
+
+        fragment_admin_add_admin.setOnClickListener {
+            val bundle = Bundle()
+            hackathonId?.let { bundle.putInt("hackathon_id", it) }
+            navController.navigate(R.id.addAdminFragment, bundle)
+        }
     }
 
     inner class AdminListAdapter(private val admins: MutableList<Admin>):
