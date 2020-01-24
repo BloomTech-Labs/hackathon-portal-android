@@ -103,15 +103,16 @@ class ProjectFragment : BaseFragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun createTeamMemberViews(participant: Participant): LinearLayout {
         val linearLayout = LinearLayout(this.context)
         val usernameTextView = TextView(this.context)
         val roleTextView = TextView(this.context)
         val paddingAll = 8
         usernameTextView.text = participant.username
-        usernameTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
+        usernameTextView.setTextColor(resources.getColor(R.color.colorAccentLight))
         roleTextView.text = participant.developer_role
-        roleTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
+        roleTextView.setTextColor(resources.getColor(R.color.colorAccentLight))
         linearLayout.orientation = LinearLayout.VERTICAL
         linearLayout.addView(usernameTextView)
         linearLayout.addView(roleTextView)
