@@ -37,6 +37,7 @@ class AddAdminFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        //TODO implement search view
         hackathonId = arguments?.getInt("hackathon_id")
 
         add_admin_recyclerview.apply {
@@ -80,6 +81,7 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visibility = View.VISIBLE
                     holder.buttonAddOrganizer.setOnClickListener {
+                        // TODO display alert dialog first?
                         hackathonId?.let { id ->
                             addOrganizer(id, data.id)
                         }
