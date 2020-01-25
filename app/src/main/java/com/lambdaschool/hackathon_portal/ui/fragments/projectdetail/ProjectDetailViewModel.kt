@@ -15,6 +15,10 @@ class ProjectDetailViewModel @Inject constructor(private val repo: HackathonRepo
     }
 
     fun joinProject(jsonObject: JsonObject, hackathonId: Int): LiveData<String> {
-        return repo.joinHackathon(jsonObject, hackathonId)
+        return repo.joinHackathon(jsonObject, hackathonId, getCurrentUserId())
+    }
+
+    fun getCurrentUserId(): Int {
+        return repo.getUserObject().id
     }
 }
