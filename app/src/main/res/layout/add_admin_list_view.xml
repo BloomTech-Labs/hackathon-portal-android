@@ -7,7 +7,8 @@
     app:cardElevation="0dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp">
+    android:layout_margin="8dp"
+    android:id="@+id/add_admin_parent_cardview">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:orientation="vertical"
@@ -43,11 +44,12 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@+id/add_admin_image_admin_user"
             app:layout_constraintStart_toEndOf="@id/add_admin_image_admin_user">
 
             <Button
-                android:id="@+id/add_adming_button_add_admin"
+                android:id="@+id/add_admin_button_add_admin"
                 android:layout_width="wrap_content"
                 android:text="@string/add_as_organizer"
                 android:layout_height="wrap_content"/>
