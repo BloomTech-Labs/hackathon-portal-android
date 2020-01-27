@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.HackathonProject
 import com.lambdaschool.hackathon_portal.model.Participant
-import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_project.*
 import kotlinx.android.synthetic.main.project_list_item_view.view.*
@@ -45,13 +44,27 @@ class ProjectFragment : BaseFragment() {
             adapter = ProjectListAdapter(mutableListOf<HackathonProject>())
         }
 
+        var projectId: Int? = null
         detailViewModel.currentHackathon.observe(this, Observer {
             if (it != null) {
                 it.projects?.let { projects ->
                     fragment_project_recycler_view.adapter = ProjectListAdapter(projects)
                 }
+                it.id?.let { hackathonId ->
+                    projectId = hackathonId
+                }
             }
         })
+
+        fragment_project_create_project.setOnClickListener {
+            if (projectId != null) {
+                val bundle = Bundle()
+                projectId?.let {
+                    bundle.putInt("hackathon_id", it)
+                }
+                navController.navigate(R.id.nav_create_project, bundle)
+            }
+        }
     }
 
     inner class ProjectListAdapter(private val teams: MutableList<HackathonProject>):
