@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
@@ -405,7 +406,8 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                     if (response.isSuccessful) {
                         joinHackathonResponse.value = response.body()?.get("message").toString()
                     } else if (response.code() == 401) {
-                        joinHackathonResponse.value = "You have already signed up for this hackathon"
+                        val newJson =  JSONObject(response.errorBody()?.string())
+                        joinHackathonResponse.value = newJson.get("error").toString()
                     }
                 }
             })
