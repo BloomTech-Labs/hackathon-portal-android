@@ -1,7 +1,6 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.projectdetail
 
 
-import android.app.Dialog
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.afollestad.materialdialogs.DialogCallback
 import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.callbacks.onCancel
-import com.afollestad.materialdialogs.callbacks.onDismiss
-import com.afollestad.materialdialogs.callbacks.onPreShow
-import com.afollestad.materialdialogs.callbacks.onShow
-import com.afollestad.materialdialogs.list.SingleChoiceListener
-import com.afollestad.materialdialogs.list.getItemSelector
-import com.afollestad.materialdialogs.list.isItemChecked
 import com.afollestad.materialdialogs.list.listItemsSingleChoice
 import com.google.gson.JsonObject
 
@@ -32,9 +23,6 @@ import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_project_details.*
 import kotlinx.android.synthetic.main.participant_list_view.view.*
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.json.JSONObject
 
 class ProjectDetailsFragment : BaseFragment() {
 
@@ -125,7 +113,9 @@ class ProjectDetailsFragment : BaseFragment() {
         text_view_android_count.text = project.android_spots.toString()
         text_view_data_science_count.text = project.data_science_spots.toString()
         text_view_ux_designer_count.text = project.ux_spots.toString()
-        recycler_view_participants.adapter = ParticipantListAdapter(project.participants)
+        project.participants?.let {
+            recycler_view_participants.adapter = ParticipantListAdapter(it)
+        }
     }
 
     private fun joinHackathon(role: String) {
