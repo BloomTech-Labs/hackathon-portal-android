@@ -57,30 +57,7 @@ class AddAdminFragment : BaseFragment() {
             }
         })
 
-        add_admin_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-            var searchList = mutableListOf<User>()
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                searchList = addAdminViewModel.searchUserList(query, userList, searchList)
-                userList.clear()
-                userList.addAll(searchList)
-                add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                return true
-            }
-
-            override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.length == 0) {
-                    userList.clear()
-                    userList.addAll(userListCopy)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                } else {
-                    searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
-                    userList.clear()
-                    userList.addAll(searchList)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                }
-                return true
-            }
-        })
+        addQueryListener()
     }
 
     inner class UserListAdapter(var users: MutableList<User>):
@@ -131,5 +108,32 @@ class AddAdminFragment : BaseFragment() {
         jsonObject.addProperty("user_hackathon_role", "organizer")
         addAdminViewModel.addOrganizerToHackathon(myHackathonId, userId, jsonObject)
             .observe(this, Observer { activity?.toastLong(it) })
+    }
+
+    private fun addQueryListener() {
+        add_admin_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            var searchList = mutableListOf<User>()
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchList = addAdminViewModel.searchUserList(query, userList, searchList)
+                userList.clear()
+                userList.addAll(searchList)
+                add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.length == 0) {
+                    userList.clear()
+                    userList.addAll(userListCopy)
+                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                } else {
+                    searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
+                    userList.clear()
+                    userList.addAll(searchList)
+                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                }
+                return true
+            }
+        })
     }
 }
