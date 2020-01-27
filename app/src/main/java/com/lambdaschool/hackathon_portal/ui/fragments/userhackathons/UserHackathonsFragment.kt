@@ -56,6 +56,7 @@ class UserHackathonsFragment : BaseFragment() {
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nameView: TextView = view.text_view_hackathon_name
+            val userRole: TextView = view.text_view_user_role
             val locationView: TextView = view.text_view_hackathon_location
             val startView: TextView = view.text_view_start_date
             val statusView: TextView = view.text_view_status
@@ -73,6 +74,8 @@ class UserHackathonsFragment : BaseFragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = userHackathons[position]
             holder.nameView.text = data.hackathon_name
+            holder.userRole.visibility = View.VISIBLE
+            holder.userRole.text = data.user_hackathon_role
             //TODO: bind locationView
             holder.startView.text = "Start Date: ${data.start_date}"
             //TODO: bind statusView
