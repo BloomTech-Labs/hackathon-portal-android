@@ -25,7 +25,7 @@ class CreateProjectFragment : BaseFragment() {
 
         val hackathonId = arguments?.getInt("hackathon_id")
 
-        fragment_create_project_create_project.setOnClickListener {
+        button_fragment_create_project_create_project.setOnClickListener {
             activity?.toastShort("Project created for $hackathonId")
             navController.popBackStack()
         }

@@ -13,7 +13,7 @@
         android:text="@string/hello_blank_fragment" />
 
     <Button
-        android:id="@+id/fragment_create_project_create_project"
+        android:id="@+id/button_fragment_create_project_create_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
