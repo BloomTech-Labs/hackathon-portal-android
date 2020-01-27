@@ -6,7 +6,6 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
-import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -388,6 +387,32 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                 }
             })
         return joinHackathonResponse
+    }
+
+    fun postProject(project: Project): LiveData<Boolean> {
+        val addProjectResponse = MutableLiveData<Boolean>()
+
+        hackathonService.postProject(bearerToken, project)
+            .enqueue(object: Callback<Project> {
+                override fun onFailure(call: Call<Project>, t: Throwable) {
+                    addProjectResponse.value = false
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                    if (response.isSuccessful) {
+                        addProjectResponse.value = true
+                        Log.i(REPO_TAG, "Successfully posted hackathon")
+                    } else {
+                        addProjectResponse.value = false
+                        Log.i(REPO_TAG, "Failed to post hackathon")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+                    }
+                }
+            })
+        return addProjectResponse
     }
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
