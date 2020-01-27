@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -90,10 +91,18 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visibility = View.VISIBLE
                     holder.buttonAddOrganizer.setOnClickListener {
-                        // TODO display alert dialog first?
-                        hackathonId?.let { id ->
-                            addOrganizer(id, data.id)
-                        }
+                        AlertDialog.Builder(context!!)
+                            .setTitle("Add Organizer")
+                            .setMessage("Are you sure you want to add this user as an organizer?")
+                            .setPositiveButton("Yes") { _, _ ->
+                                hackathonId?.let { id ->
+                                    addOrganizer(id, data.id)
+                                }
+                            }
+
+                            .setNegativeButton("No") { _, _ -> }
+                            .create()
+                            .show()
                     }
                 } else {
                     isExpanded = false
