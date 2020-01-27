@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.lambdaschool.hackathon_portal.di.app.ViewModelKey
 import com.lambdaschool.hackathon_portal.ui.fragments.account.AccountViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonViewModel
+import com.lambdaschool.hackathon_portal.ui.fragments.create.CreateProjectViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailViewModel
 import com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonViewModel
@@ -78,4 +79,10 @@ abstract class ViewModelsModule {
     @IntoMap
     @ViewModelKey(ProjectDetailViewModel::class)
     abstract fun bindsProjectDetailViewModel(viewModel: ProjectDetailViewModel): ViewModel
+
+    @Singleton
+    @Binds
+    @IntoMap
+    @ViewModelKey(CreateProjectViewModel::class)
+    abstract fun bindsCreateProjectViewModel(viewModel: CreateProjectViewModel): ViewModel
 }
