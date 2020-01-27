@@ -48,4 +48,13 @@
     <string name="status_closed">CLOSED</string>
     <string name="members">Members:</string>
     <string name="logging_out">Logging out...</string>
+    <string name="details">DETAILS</string>
+    <string name="front_end_spots">Front End Spots</string>
+    <string name="back_end_spots">Back End Spots</string>
+    <string name="ios_spots">iOS Spots</string>
+    <string name="android_spots">Android Spots</string>
+    <string name="data_science_spots">Data Science Spots</string>
+    <string name="ux_designer_spots">UX Designer Spots</string>
+    <string name="role">Role:</string>
+    <string name="join">JOIN</string>
 </resources>

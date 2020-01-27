@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -342,6 +343,51 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                 }
             })
         return deleteUserResponse
+    }
+
+    fun getProject(projectId: Int): LiveData<Project> {
+        val getProjectResponse = MutableLiveData<Project>()
+        hackathonService.getProject(projectId, bearerToken).enqueue(object: Callback<Project>{
+            override fun onFailure(call: Call<Project>, t: Throwable) {
+                getProjectResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                 if (response.isSuccessful) {
+                     getProjectResponse.value = response.body()
+                     Log.i(REPO_TAG, "Successfuly got project")
+                 } else {
+                     getProjectResponse.value = null
+                     Log.i(REPO_TAG, "Failed to get project")
+                     Log.i(REPO_TAG, response.code().toString())
+                     Log.i(REPO_TAG, response.message().toString())
+                 }
+            }
+
+        })
+        return getProjectResponse
+    }
+
+    fun joinHackathon(jsonObject: JsonObject, hackathonId: Int): LiveData<String> {
+        val joinHackathonResponse = MutableLiveData<String>()
+        Log.i(REPO_TAG, jsonObject.toString())
+        hackathonService.joinHackathon(hackathonId, userAuth0.id, bearerToken, jsonObject)
+            .enqueue(object: Callback<JsonObject>{
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    joinHackathonResponse.value = "Failed to connect to API"
+                }
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        joinHackathonResponse.value = response.body()?.get("message").toString()
+                    } else if (response.code() == 401) {
+                        joinHackathonResponse.value = "You have already signed up for this hackathon"
+                    }
+                }
+            })
+        return joinHackathonResponse
     }
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {

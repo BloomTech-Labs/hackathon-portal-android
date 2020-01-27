@@ -32,7 +32,7 @@ sealed class HackathonModel {
         var location: String,
         var is_open: Boolean,
         var organizer_id: Int? = null,
-        var projects: MutableList<Project>? = null,
+        var projects: MutableList<HackathonProject>? = null,
         var admins: MutableList<Admin>? = null,
         var individual_devs: MutableList<User>? = null
     ): HackathonModel() {

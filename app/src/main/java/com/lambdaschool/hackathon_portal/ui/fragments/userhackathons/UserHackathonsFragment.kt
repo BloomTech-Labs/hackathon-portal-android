@@ -20,6 +20,8 @@ import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 class UserHackathonsFragment : BaseFragment() {
 
     private lateinit var userHackathonsViewModel: UserHackathonsViewModel
+    private val ORGANIZER = "organizer"
+    private val PARTICIPANT = "participant"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +79,11 @@ class UserHackathonsFragment : BaseFragment() {
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-                navController.navigate(R.id.nav_edit_hackathon, bundle)
+                if (data.user_hackathon_role == ORGANIZER) {
+                    navController.navigate(R.id.nav_edit_hackathon, bundle)
+                } else if (data.user_hackathon_role == PARTICIPANT) {
+                    navController.navigate(R.id.nav_hackathon_details, bundle)
+                }
             }
         }
     }

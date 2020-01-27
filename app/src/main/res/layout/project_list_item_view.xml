@@ -64,6 +64,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
+            <TextView
+                android:id="@+id/text_view_project_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/details"
+                android:textSize="12sp"
+                android:textColor="@color/colorAccent"
+                android:padding="8dp"
+                android:layout_gravity="end"/>
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
