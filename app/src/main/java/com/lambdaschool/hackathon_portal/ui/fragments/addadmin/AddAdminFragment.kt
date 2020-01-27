@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +24,8 @@ class AddAdminFragment : BaseFragment() {
 
     private lateinit var addAdminViewModel: AddAdminViewModel
     private var hackathonId: Int? = null
+    private var userList = mutableListOf<User>()
+    private var userListCopy = mutableListOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,15 +46,44 @@ class AddAdminFragment : BaseFragment() {
         add_admin_recyclerview.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter = UserListAdapter(mutableListOf<User>())
+            adapter = UserListAdapter(userList)
         }
 
         addAdminViewModel.getAllUsers().observe(this, Observer {
-            it?.let { add_admin_recyclerview.adapter = UserListAdapter(it) }
+            it?.let {
+                userList = it
+                userListCopy.addAll(it)
+                add_admin_recyclerview.adapter = UserListAdapter(userList)
+            }
+        })
+
+        add_admin_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            var searchList = mutableListOf<User>()
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchList = addAdminViewModel.searchUserList(query, userList, searchList)
+                userList.clear()
+                userList.addAll(searchList)
+                add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.length == 0) {
+                    userList.clear()
+                    userList.addAll(userListCopy)
+                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                } else {
+                    searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
+                    userList.clear()
+                    userList.addAll(searchList)
+                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
+                }
+                return true
+            }
         })
     }
 
-    inner class UserListAdapter(private val users: MutableList<User>):
+    inner class UserListAdapter(var users: MutableList<User>):
         RecyclerView.Adapter<UserListAdapter.ViewHolder>() {
 
         lateinit var context: Context

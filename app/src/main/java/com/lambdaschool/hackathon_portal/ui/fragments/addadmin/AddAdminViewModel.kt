@@ -18,4 +18,17 @@ class AddAdminViewModel @Inject constructor(private val repo: HackathonRepositor
     fun addOrganizerToHackathon(hackathonId: Int, userId: Int, jsonObject: JsonObject): LiveData<String> {
         return repo.joinHackathon(jsonObject, hackathonId, userId)
     }
+
+    fun searchUserList(query: String?, oldList: MutableList<User>, newList: MutableList<User>): MutableList<User> {
+        newList.clear()
+        oldList.forEach {user ->
+            when {
+                user.username.toString().contains(query.toString()) -> newList.add(user)
+                user.email.contains(query.toString()) -> newList.add(user)
+                user.first_name.toString().contains(query.toString()) -> newList.add(user)
+                user.last_name.toString().contains(query.toString()) -> newList.add(user)
+            }
+        }
+        return newList
+    }
 }
