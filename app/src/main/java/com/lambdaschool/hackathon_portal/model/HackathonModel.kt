@@ -2,6 +2,7 @@ package com.lambdaschool.hackathon_portal.model
 
 typealias Hackathon = HackathonModel.Hackathon
 typealias UserHackathon = HackathonModel.UserHackathon
+typealias ProjectHackathon = HackathonModel.ProjectHackathon
 
 sealed class HackathonModel {
 
@@ -32,7 +33,7 @@ sealed class HackathonModel {
         var location: String,
         var is_open: Boolean,
         var organizer_id: Int? = null,
-        var projects: MutableList<HackathonProject>? = null,
+        var projects: MutableList<ProjectHackathon>? = null,
         var admins: MutableList<Admin>? = null,
         var individual_devs: MutableList<User>? = null
     ): HackathonModel() {
@@ -65,6 +66,19 @@ sealed class HackathonModel {
         var start_date: String,
         var end_date: String,
         var hackathon_description: String,
-        var project: UserProject?
+        var project: ProjectUser?
+    ): HackathonModel()
+
+    data class ProjectHackathon(
+        val project_id: Int,
+        var project_title: String,
+        var project_description: String,
+        var front_end_spots: Int,
+        var back_end_spots: Int,
+        var ios_spots: Int,
+        var android_spots: Int,
+        var data_science_spots: Int,
+        var ux_spots: Int,
+        var participants: MutableList<Participant>?
     ): HackathonModel()
 }
