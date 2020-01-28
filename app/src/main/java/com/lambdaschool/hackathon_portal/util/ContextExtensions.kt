@@ -46,11 +46,6 @@ fun Context.toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
-fun <T> MutableList<T>.clearAndAddAll(newList: MutableList<T>) {
-    this.clear()
-    this.addAll(newList)
-}
-
 fun Context.buildAlertDialog(title: String, message: String,
                              onPositiveClicked: () -> Unit,
                              onNegativeClicked: () -> Unit) {
@@ -66,20 +61,4 @@ fun Context.buildAlertDialog(title: String, message: String,
         }
         .create()
         .show()
-}
-
-fun Calendar.formatCalendarToString(): String {
-    return "${this.month + 1}/${this.dayOfMonth}/${this.year}"
-}
-
-fun EditText.setClickListenerToOpenDatePickerAndSetTextToDate(context: Context) {
-    this.setOnClickListener {
-        MaterialDialog(context).show {
-            datePicker { _, datetime ->
-                this@setClickListenerToOpenDatePickerAndSetTextToDate
-                    .setText(datetime.formatCalendarToString())
-            }
-        }
-    }
-
 }
