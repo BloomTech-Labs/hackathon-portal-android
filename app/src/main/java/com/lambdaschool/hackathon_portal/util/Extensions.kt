@@ -3,11 +3,14 @@ package com.lambdaschool.hackathon_portal.util
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
+import com.afollestad.materialdialogs.MaterialDialog
+import com.afollestad.materialdialogs.datetime.datePicker
 import java.util.*
 
 /**
@@ -67,4 +70,16 @@ fun Context.buildAlertDialog(title: String, message: String,
 
 fun Calendar.formatCalendarToString(): String {
     return "${this.month + 1}/${this.dayOfMonth}/${this.year}"
+}
+
+fun EditText.setClickListenerToOpenDatePickerAndSetTextToDate(context: Context) {
+    this.setOnClickListener {
+        MaterialDialog(context).show {
+            datePicker { _, datetime ->
+                this@setClickListenerToOpenDatePickerAndSetTextToDate
+                    .setText(datetime.formatCalendarToString())
+            }
+        }
+    }
+
 }
