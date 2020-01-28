@@ -5,6 +5,10 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.afollestad.date.dayOfMonth
+import com.afollestad.date.month
+import com.afollestad.date.year
+import java.util.*
 
 /**
  * Open the keyboard and focus on a specified view.
@@ -59,4 +63,8 @@ fun Context.buildAlertDialog(context: Context, title: String, message: String,
         }
         .create()
         .show()
+}
+
+fun Calendar.formatCalendarToString(): String {
+    return "${this.month + 1}/${this.dayOfMonth}/${this.year}"
 }
