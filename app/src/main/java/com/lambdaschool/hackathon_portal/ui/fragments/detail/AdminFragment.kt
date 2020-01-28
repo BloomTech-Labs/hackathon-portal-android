@@ -37,7 +37,7 @@ class AdminFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragment_admin_add_admin.visGone()
+        button_fragment_admin_add_admin.visGone()
 
         fragment_admin_recycler_view.apply {
             setHasFixedSize(false)
@@ -84,8 +84,8 @@ class AdminFragment : BaseFragment() {
     private fun initAddAdminButton() {
         if (detailViewModel.currentHackathon.value?.organizer_id
             == detailViewModel.getCurrentUserId()) {
-            fragment_admin_add_admin.visVisible()
-            fragment_admin_add_admin.setOnClickListener {
+            button_fragment_admin_add_admin.visVisible()
+            button_fragment_admin_add_admin.setOnClickListener {
                 val bundle = Bundle()
                 detailViewModel.currentHackathon.value?.id?.let { bundle.putInt("hackathon_id", it) }
                 navController.navigate(R.id.nav_add_admin, bundle)

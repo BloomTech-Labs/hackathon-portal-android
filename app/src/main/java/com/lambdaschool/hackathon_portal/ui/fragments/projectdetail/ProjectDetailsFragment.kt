@@ -64,7 +64,7 @@ class ProjectDetailsFragment : BaseFragment() {
             "Android Developer", "Data Scientist", "UX Designer")
         val actualRoles = listOf("front-end", "back-end", "ios", "android", "data_science", "ux")
 
-        button_join_hackathon.setOnClickListener {
+        button_fragment_project_details_join_hackathon.setOnClickListener {
             context?.let { myContext ->
                 MaterialDialog(myContext).show {
                     title(text = "Select Role")

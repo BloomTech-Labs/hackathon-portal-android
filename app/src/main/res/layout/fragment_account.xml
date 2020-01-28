@@ -101,18 +101,18 @@
         style="@style/EditTextStyle"/>
 
     <Button
-        android:id="@+id/fab_save_user"
+        android:id="@+id/button_fragment_account_save_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_button"
         android:layout_marginBottom="16dp"
         android:text="@string/save"
         android:textColor="@color/colorAccent"
-        app:layout_constraintBottom_toTopOf="@+id/fab_delete_user"
+        app:layout_constraintBottom_toTopOf="@+id/button_fragment_account_delete_user"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
-        android:id="@+id/fab_delete_user"
+        android:id="@+id/button_fragment_account_delete_user"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_button"

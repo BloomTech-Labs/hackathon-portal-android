@@ -165,7 +165,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/fragment_edit_hackathon_fab_save_hackathon"
+        android:id="@+id/button_fragment_edit_hackathon_save_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
@@ -173,10 +173,10 @@
         android:text="@string/save"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/fragment_edit_hackathon_fab_delete_hackathon" />
+        app:layout_constraintBottom_toTopOf="@+id/button_fragment_edit_hackathon_delete_hackathon" />
 
     <Button
-        android:id="@+id/fragment_edit_hackathon_fab_delete_hackathon"
+        android:id="@+id/button_fragment_edit_hackathon_delete_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_corner_button"

@@ -52,7 +52,7 @@ class LoginFragment : NavDrawerFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        button_login.setOnClickListener {
+        button_fragment_login_login.setOnClickListener {
             showProgressBarViews(true, getString(R.string.logging_in))
             login()
         }
@@ -174,11 +174,11 @@ class LoginFragment : NavDrawerFragment() {
             if (setText != null) {
                 text_view_login_progress.text(setText)
             }
-            button_login.visGone()
+            button_fragment_login_login.visGone()
         } else {
             progress_bar_login.visGone()
             text_view_login_progress.visGone()
-            button_login.visVisible()
+            button_fragment_login_login.visVisible()
         }
     }
 }

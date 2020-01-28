@@ -58,7 +58,7 @@ class ProjectFragment : BaseFragment() {
             }
         })
 
-        fragment_project_create_project.setOnClickListener {
+        button_fragment_project_create_project.setOnClickListener {
             if (projectId != null) {
                 val bundle = Bundle()
                 projectId?.let {

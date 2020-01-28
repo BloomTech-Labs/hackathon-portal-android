@@ -15,10 +15,10 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/fragment_admin_add_admin"/>
+        app:layout_constraintBottom_toTopOf="@id/button_fragment_admin_add_admin"/>
 
     <Button
-        android:id="@+id/fragment_admin_add_admin"
+        android:id="@+id/button_fragment_admin_add_admin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="8dp"
