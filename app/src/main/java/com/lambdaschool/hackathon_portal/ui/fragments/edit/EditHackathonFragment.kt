@@ -17,11 +17,8 @@ import com.afollestad.materialdialogs.datetime.datePicker
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util.buildAlertDialog
-import com.lambdaschool.hackathon_portal.util.toastLong
-import com.lambdaschool.hackathon_portal.util.toastShort
+import com.lambdaschool.hackathon_portal.util.*
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
 import java.util.*
 
@@ -72,7 +69,7 @@ class EditHackathonFragment : BaseFragment() {
                     datePicker { _, datetime ->
                         this@EditHackathonFragment
                             .fragment_edit_hackathon_edit_text_hackathon_end_date
-                            .setText(formatCalendarToString(datetime))
+                            .setText(datetime.formatCalendarToString())
                     }
                 }
             }
@@ -82,7 +79,7 @@ class EditHackathonFragment : BaseFragment() {
                     datePicker { _, datetime ->
                         this@EditHackathonFragment
                             .fragment_edit_hackathon_edit_text_hackathon_start_date
-                            .setText(formatCalendarToString(datetime))
+                            .setText(datetime.formatCalendarToString())
                     }
                 }
             }
@@ -156,10 +153,6 @@ class EditHackathonFragment : BaseFragment() {
             hackathon.end_date,
             hackathon.location,
             hackathon.is_open)
-    }
-
-    private fun formatCalendarToString(calendar: Calendar): String {
-        return "${calendar.month + 1}/${calendar.dayOfMonth}/${calendar.year}"
     }
 
     private fun deleteHackathon(id: Int?) {

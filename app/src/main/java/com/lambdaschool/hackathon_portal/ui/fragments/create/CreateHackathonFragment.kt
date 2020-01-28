@@ -16,6 +16,7 @@ import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.formatCalendarToString
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
@@ -55,7 +56,7 @@ class CreateHackathonFragment : BaseFragment() {
                     datePicker { _, datetime ->
                         this@CreateHackathonFragment
                             .edit_text_hackathon_end_date
-                            .setText(formatCalendarToString(datetime))
+                            .setText(datetime.formatCalendarToString())
                     }
                 }
             }
@@ -65,7 +66,7 @@ class CreateHackathonFragment : BaseFragment() {
                     datePicker { _, datetime ->
                         this@CreateHackathonFragment
                             .edit_text_hackathon_start_date
-                            .setText(formatCalendarToString(datetime))
+                            .setText(datetime.formatCalendarToString())
                     }
                 }
             }
@@ -129,10 +130,5 @@ class CreateHackathonFragment : BaseFragment() {
             // TODO: Enable Button & disable progress bar
         }
         return requiredFieldsEmpty
-    }
-
-    //Todo move this to an extension file or util class
-    private fun formatCalendarToString(calendar: Calendar): String {
-        return "${calendar.month + 1}/${calendar.dayOfMonth}/${calendar.year}"
     }
 }
