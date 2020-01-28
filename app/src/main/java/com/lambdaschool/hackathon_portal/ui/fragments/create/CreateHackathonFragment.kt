@@ -17,6 +17,7 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.formatCalendarToString
+import com.lambdaschool.hackathon_portal.util.setClickListenerToOpenDatePickerAndSetTextToDate
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
@@ -51,25 +52,8 @@ class CreateHackathonFragment : BaseFragment() {
         }
 
         this.context?.let { context ->
-            edit_text_hackathon_end_date.setOnClickListener {
-                MaterialDialog(context).show {
-                    datePicker { _, datetime ->
-                        this@CreateHackathonFragment
-                            .edit_text_hackathon_end_date
-                            .setText(datetime.formatCalendarToString())
-                    }
-                }
-            }
-
-            edit_text_hackathon_start_date.setOnClickListener {
-                MaterialDialog(context).show {
-                    datePicker { _, datetime ->
-                        this@CreateHackathonFragment
-                            .edit_text_hackathon_start_date
-                            .setText(datetime.formatCalendarToString())
-                    }
-                }
-            }
+            edit_text_hackathon_end_date.setClickListenerToOpenDatePickerAndSetTextToDate(context)
+            edit_text_hackathon_start_date.setClickListenerToOpenDatePickerAndSetTextToDate(context)
         }
 
         fab_save_hackathon.setOnClickListener {

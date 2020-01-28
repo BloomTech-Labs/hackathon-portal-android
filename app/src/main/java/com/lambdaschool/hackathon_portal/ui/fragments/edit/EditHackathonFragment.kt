@@ -64,25 +64,11 @@ class EditHackathonFragment : BaseFragment() {
         }
 
         this.context?.let { context ->
-            fragment_edit_hackathon_edit_text_hackathon_end_date.setOnClickListener {
-                MaterialDialog(context).show {
-                    datePicker { _, datetime ->
-                        this@EditHackathonFragment
-                            .fragment_edit_hackathon_edit_text_hackathon_end_date
-                            .setText(datetime.formatCalendarToString())
-                    }
-                }
-            }
+            fragment_edit_hackathon_edit_text_hackathon_end_date
+                .setClickListenerToOpenDatePickerAndSetTextToDate(context)
 
-            fragment_edit_hackathon_edit_text_hackathon_start_date.setOnClickListener {
-                MaterialDialog(context).show {
-                    datePicker { _, datetime ->
-                        this@EditHackathonFragment
-                            .fragment_edit_hackathon_edit_text_hackathon_start_date
-                            .setText(datetime.formatCalendarToString())
-                    }
-                }
-            }
+            fragment_edit_hackathon_edit_text_hackathon_start_date
+                .setClickListenerToOpenDatePickerAndSetTextToDate(context)
         }
 
         fragment_edit_hackathon_fab_save_hackathon.setOnClickListener {
