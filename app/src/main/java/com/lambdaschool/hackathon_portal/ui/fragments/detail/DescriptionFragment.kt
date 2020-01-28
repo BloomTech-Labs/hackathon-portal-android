@@ -28,8 +28,8 @@ class DescriptionFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        detailViewModel.currentHackathon.observe(this, Observer {
-            fragment_description_text_view_description.text = it.description
+        detailViewModel.currentHackathon.observe(this, Observer { hackathon ->
+            hackathon?.let { fragment_description_text_view_description.text = it.description }
         })
     }
 }

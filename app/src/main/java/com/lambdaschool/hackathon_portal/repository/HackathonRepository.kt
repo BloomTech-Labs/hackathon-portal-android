@@ -6,6 +6,8 @@ import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.*
 import com.lambdaschool.hackathon_portal.retrofit.HackathonApiInterface
+import okhttp3.ResponseBody
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -278,6 +280,28 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return getUserResponse
     }
 
+    fun getAllUser(): LiveData<MutableList<User>> {
+        val allUsersResponse = MutableLiveData<MutableList<User>>()
+        hackathonService.getAllUsers(bearerToken).enqueue(object : Callback<MutableList<User>> {
+            override fun onFailure(call: Call<MutableList<User>>, t: Throwable) {
+                allUsersResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<MutableList<User>>, response: Response<MutableList<User>>) {
+                if (response.isSuccessful) {
+                    allUsersResponse.value = response.body()
+                    Log.i(REPO_TAG, "Successfully got users, ${response.body()!![0].username}")
+                } else {
+                    allUsersResponse.value = null
+                    Log.i(REPO_TAG, response.message())
+                }
+            }
+        })
+        return allUsersResponse
+    }
+
     fun updateUser(jsonObject: JsonObject): LiveData<Boolean> {
         val updateUserResponse = MutableLiveData<Boolean>()
 
@@ -342,6 +366,78 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                 }
             })
         return deleteUserResponse
+    }
+
+    fun getProject(projectId: Int): LiveData<Project> {
+        val getProjectResponse = MutableLiveData<Project>()
+        hackathonService.getProject(projectId, bearerToken).enqueue(object: Callback<Project>{
+            override fun onFailure(call: Call<Project>, t: Throwable) {
+                getProjectResponse.value = null
+                Log.i(REPO_TAG, "Failed to connect to API")
+                Log.i(REPO_TAG, t.message.toString())
+            }
+
+            override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                 if (response.isSuccessful) {
+                     getProjectResponse.value = response.body()
+                     Log.i(REPO_TAG, "Successfuly got project")
+                 } else {
+                     getProjectResponse.value = null
+                     Log.i(REPO_TAG, "Failed to get project")
+                     Log.i(REPO_TAG, response.code().toString())
+                     Log.i(REPO_TAG, response.message().toString())
+                 }
+            }
+
+        })
+        return getProjectResponse
+    }
+
+    fun joinHackathon(jsonObject: JsonObject, hackathonId: Int, userId: Int): LiveData<String> {
+        val joinHackathonResponse = MutableLiveData<String>()
+        Log.i(REPO_TAG, jsonObject.toString())
+        hackathonService.joinHackathon(hackathonId, userId, bearerToken, jsonObject)
+            .enqueue(object: Callback<JsonObject>{
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    joinHackathonResponse.value = "Failed to connect to API"
+                }
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        joinHackathonResponse.value = response.body()?.get("message").toString()
+                    } else if (response.code() == 401) {
+                        val newJson =  JSONObject(response.errorBody()?.string())
+                        joinHackathonResponse.value = newJson.get("error").toString()
+                    }
+                }
+            })
+        return joinHackathonResponse
+    }
+
+    fun postProject(project: Project): LiveData<Boolean> {
+        val addProjectResponse = MutableLiveData<Boolean>()
+
+        hackathonService.postProject(bearerToken, project)
+            .enqueue(object: Callback<Project> {
+                override fun onFailure(call: Call<Project>, t: Throwable) {
+                    addProjectResponse.value = false
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                    if (response.isSuccessful) {
+                        addProjectResponse.value = true
+                        Log.i(REPO_TAG, "Successfully posted hackathon")
+                    } else {
+                        addProjectResponse.value = false
+                        Log.i(REPO_TAG, "Failed to post hackathon")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+                    }
+                }
+            })
+        return addProjectResponse
     }
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {

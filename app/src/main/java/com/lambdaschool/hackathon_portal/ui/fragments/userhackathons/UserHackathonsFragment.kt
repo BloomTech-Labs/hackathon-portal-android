@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 
 class UserHackathonsFragment : BaseFragment() {
 
     private lateinit var userHackathonsViewModel: UserHackathonsViewModel
+    private val ORGANIZER = "organizer"
+    private val PARTICIPANT = "participant"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,7 @@ class UserHackathonsFragment : BaseFragment() {
 
         inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             val nameView: TextView = view.text_view_hackathon_name
+            val userRole: TextView = view.text_view_user_role
             val locationView: TextView = view.text_view_hackathon_location
             val startView: TextView = view.text_view_start_date
             val statusView: TextView = view.text_view_status
@@ -71,13 +75,19 @@ class UserHackathonsFragment : BaseFragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = userHackathons[position]
             holder.nameView.text = data.hackathon_name
+            holder.userRole.visibility = View.VISIBLE
+            holder.userRole.text = data.user_hackathon_role
             //TODO: bind locationView
             holder.startView.text = "Start Date: ${data.start_date}"
             //TODO: bind statusView
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-                navController.navigate(R.id.nav_edit_hackathon, bundle)
+//                if (data.user_hackathon_role == ORGANIZER) {
+//                    navController.navigate(R.id.nav_edit_hackathon, bundle)
+//                } else if (data.user_hackathon_role == PARTICIPANT) {
+                    navController.navigate(R.id.nav_hackathon_details, bundle)
+                //}
             }
         }
     }

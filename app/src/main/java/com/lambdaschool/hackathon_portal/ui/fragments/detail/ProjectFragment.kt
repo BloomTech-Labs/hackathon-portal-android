@@ -15,11 +15,11 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
+import com.lambdaschool.hackathon_portal.model.HackathonProject
 import com.lambdaschool.hackathon_portal.model.Participant
-import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import kotlinx.android.synthetic.main.fragment_project.*
-import kotlinx.android.synthetic.main.team_list_item_view.view.*
+import kotlinx.android.synthetic.main.project_list_item_view.view.*
 
 class ProjectFragment : BaseFragment() {
 
@@ -41,19 +41,33 @@ class ProjectFragment : BaseFragment() {
         fragment_project_recycler_view.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter = ProjectListAdapter(mutableListOf<Project>())
+            adapter = ProjectListAdapter(mutableListOf<HackathonProject>())
         }
 
+        var projectId: Int? = null
         detailViewModel.currentHackathon.observe(this, Observer {
             if (it != null) {
                 it.projects?.let { projects ->
                     fragment_project_recycler_view.adapter = ProjectListAdapter(projects)
                 }
+                it.id?.let { hackathonId ->
+                    projectId = hackathonId
+                }
             }
         })
+
+        fragment_project_create_project.setOnClickListener {
+            if (projectId != null) {
+                val bundle = Bundle()
+                projectId?.let {
+                    bundle.putInt("hackathon_id", it)
+                }
+                navController.navigate(R.id.nav_create_project, bundle)
+            }
+        }
     }
 
-    inner class ProjectListAdapter(private val teams: MutableList<Project>):
+    inner class ProjectListAdapter(private val teams: MutableList<HackathonProject>):
         RecyclerView.Adapter<ProjectListAdapter.ViewHolder>() {
 
         lateinit var context: Context
@@ -62,13 +76,14 @@ class ProjectFragment : BaseFragment() {
             val nameView: TextView = view.text_view_team_name
             val participantsView: TextView = view.text_view_team_participants
             val parentView: CardView = view.parent_card_view
+            val detailView: TextView = view.text_view_project_details
             val linearLayout: LinearLayout = view.linear_layout_list_members
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             context = parent.context
             val view = LayoutInflater.from(parent.context)
-                .inflate(R.layout.team_list_item_view, parent, false)
+                .inflate(R.layout.project_list_item_view, parent, false)
             return ViewHolder(view)
         }
 
@@ -99,6 +114,11 @@ class ProjectFragment : BaseFragment() {
                         holder.linearLayout.visibility = View.GONE
                     }
                 }
+            }
+            holder.detailView.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putInt("project_id", data.project_id)
+                navController.navigate(R.id.projectDetailsFragment, bundle)
             }
         }
     }

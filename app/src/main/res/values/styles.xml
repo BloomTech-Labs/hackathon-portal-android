@@ -29,6 +29,8 @@
     </style>
 
     <style name="EditTextStyle">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
         <item name="android:background">@drawable/edit_text_background</item>
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:paddingStart">4dp</item>
