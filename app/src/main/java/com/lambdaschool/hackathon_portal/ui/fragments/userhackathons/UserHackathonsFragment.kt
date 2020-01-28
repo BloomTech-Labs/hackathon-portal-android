@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 
@@ -79,11 +80,11 @@ class UserHackathonsFragment : BaseFragment() {
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-                if (data.user_hackathon_role == ORGANIZER) {
-                    navController.navigate(R.id.nav_edit_hackathon, bundle)
-                } else if (data.user_hackathon_role == PARTICIPANT) {
+//                if (data.user_hackathon_role == ORGANIZER) {
+//                    navController.navigate(R.id.nav_edit_hackathon, bundle)
+//                } else if (data.user_hackathon_role == PARTICIPANT) {
                     navController.navigate(R.id.nav_hackathon_details, bundle)
-                }
+                //}
             }
         }
     }
