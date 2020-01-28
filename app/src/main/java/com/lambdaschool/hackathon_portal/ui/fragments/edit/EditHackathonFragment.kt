@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -32,7 +32,7 @@ class EditHackathonFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        editHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        editHackathonViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(EditHackathonViewModel::class.java)
     }
 

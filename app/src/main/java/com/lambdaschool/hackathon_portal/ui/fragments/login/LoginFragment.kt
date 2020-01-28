@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.auth0.android.authentication.AuthenticationException
 import com.auth0.android.authentication.storage.CredentialsManagerException
 import com.auth0.android.authentication.storage.SecureCredentialsManager
@@ -40,7 +40,7 @@ class LoginFragment : NavDrawerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectLoginFragment(this)
         super.onCreate(savedInstanceState)
-        loginViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        loginViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(LoginViewModel::class.java)
     }
 

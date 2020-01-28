@@ -6,10 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 
 import com.lambdaschool.hackathon_portal.R
-import com.lambdaschool.hackathon_portal.model.Participant
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.openSoftKeyboardAndFocus
@@ -22,7 +21,7 @@ class CreateProjectFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createProjectViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        createProjectViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(CreateProjectViewModel::class.java)
     }
 

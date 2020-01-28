@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.afollestad.materialdialogs.MaterialDialog
@@ -31,7 +31,7 @@ class ProjectDetailsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        projectDetailViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        projectDetailViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(ProjectDetailViewModel::class.java)
     }
 

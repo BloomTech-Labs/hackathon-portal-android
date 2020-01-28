@@ -3,20 +3,18 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Admin
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import kotlinx.android.synthetic.main.add_admin_list_view.*
 import kotlinx.android.synthetic.main.admin_list_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_admin.*
 
@@ -26,7 +24,7 @@ class AdminFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        detailViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(DetailViewModel::class.java)
     }
 

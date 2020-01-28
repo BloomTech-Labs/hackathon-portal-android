@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -30,7 +30,7 @@ class AddAdminFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addAdminViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        addAdminViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(AddAdminViewModel::class.java)
     }
 
