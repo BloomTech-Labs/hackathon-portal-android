@@ -93,7 +93,9 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visibility = View.VISIBLE
                     holder.buttonAddOrganizer.setOnClickListener {
-                        context.buildAlertDialog(context, "Test", "Test",
+                        val title = "Add Organizer"
+                        val message = "Are you sure you want to add this user as an organizer"
+                        context.buildAlertDialog(context, title, message,
                             { hackathonId?.let { id -> addOrganizer(id, data.id) } }, {})
                     }
                 } else {
