@@ -18,6 +18,8 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.toastLong
+import com.lambdaschool.hackathon_portal.util.visGone
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.add_admin_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_add_admin.*
 
@@ -89,7 +91,7 @@ class AddAdminFragment : BaseFragment() {
             holder.parentCard.setOnClickListener {
                 if (!isExpanded) {
                     isExpanded = true
-                    holder.buttonLayout.visibility = View.VISIBLE
+                    holder.buttonLayout.visVisible()
                     holder.buttonAddOrganizer.setOnClickListener {
                         AlertDialog.Builder(context!!)
                             .setTitle("Add Organizer")
@@ -106,7 +108,7 @@ class AddAdminFragment : BaseFragment() {
                     }
                 } else {
                     isExpanded = false
-                    holder.buttonLayout.visibility = View.GONE
+                    holder.buttonLayout.visGone()
                 }
             }
         }
