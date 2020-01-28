@@ -19,6 +19,7 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.buildAlertDialog
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
@@ -127,34 +128,7 @@ class EditHackathonFragment : BaseFragment() {
             // TODO: Disable Buttons & show a progress bar
             val title = "Delete Hackathon?"
             val msg = "Are you sure you want to delete this Hackathon?"
-
-            AlertDialog.Builder(context!!)
-                .setTitle(title)
-                .setMessage(msg)
-                .setPositiveButton("Yes") { _, _ ->
-                    if (hackathonId != null) {
-                        editHackathonViewModel.deleteHackathon(hackathonId)
-                            .observe(this, Observer {
-                                if (it != null) {
-                                    if (it) {
-                                        navigateAndPopUpTo(
-                                            Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
-                                        )
-                                        activity?.toastLong("Successfully deleted Hackathon")
-                                    } else {
-                                        // TODO: Enable Buttons & disable progress bar
-                                        activity?.toastShort("Failed to delete Hackathon")
-                                    }
-                                } else {
-                                    Log.d(TAG, "Hackathon came back null")
-                                    // TODO: Enable Buttons & disable progress bar
-                                }
-                            })
-                    }
-                }
-                .setNegativeButton("No") { _, _ -> }
-                .create()
-                .show()
+            activity?.buildAlertDialog(context!!, title, msg, {deleteHackathon(hackathonId)}, {})
         }
     }
 
@@ -186,5 +160,27 @@ class EditHackathonFragment : BaseFragment() {
 
     private fun formatCalendarToString(calendar: Calendar): String {
         return "${calendar.month + 1}/${calendar.dayOfMonth}/${calendar.year}"
+    }
+
+    private fun deleteHackathon(id: Int?) {
+        if (id != null) {
+            editHackathonViewModel.deleteHackathon(id)
+                .observe(this, Observer {
+                    if (it != null) {
+                        if (it) {
+                            navigateAndPopUpTo(
+                                Bundle(), R.id.nav_user_hackathons, true, R.id.nav_user_hackathons
+                            )
+                            activity?.toastLong("Successfully deleted Hackathon")
+                        } else {
+                            // TODO: Enable Buttons & disable progress bar
+                            activity?.toastShort("Failed to delete Hackathon")
+                        }
+                    } else {
+                        Log.d(TAG, "Hackathon came back null")
+                        // TODO: Enable Buttons & disable progress bar
+                    }
+                })
+        }
     }
 }
