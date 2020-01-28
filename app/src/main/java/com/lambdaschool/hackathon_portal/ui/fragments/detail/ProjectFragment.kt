@@ -118,7 +118,7 @@ class ProjectFragment : BaseFragment() {
             holder.detailView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("project_id", data.project_id)
-                navController.navigate(R.id.projectDetailsFragment, bundle)
+                navController.navigate(R.id.nav_project_details, bundle)
             }
         }
     }
