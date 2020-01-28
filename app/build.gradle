@@ -61,7 +61,7 @@ dependencies {
     kapt "androidx.lifecycle:lifecycle-compiler:2.1.0"
 
     //Nav component
-    def nav_version = "2.1.0"
+    def nav_version = "2.2.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
