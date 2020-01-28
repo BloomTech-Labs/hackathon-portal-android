@@ -57,4 +57,8 @@ interface HackathonApiInterface {
                       @Path("user_id") userId: Int,
                       @Header("Authorization") bearerToken: String,
                       @Body jsonObject: JsonObject): Call<JsonObject>
+
+    @POST("projects")
+    fun postProject(@Header("Authorization") bearerToken: String,
+                    @Body project: Project): Call<Project>
 }
