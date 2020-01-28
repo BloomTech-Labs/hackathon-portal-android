@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 /**
  * Open the keyboard and focus on a specified view.
@@ -41,4 +42,21 @@ fun Context.toastLong(message: String) {
 fun <T> MutableList<T>.clearAndAddAll(newList: MutableList<T>) {
     this.clear()
     this.addAll(newList)
+}
+
+fun Context.buildAlertDialog(context: Context, title: String, message: String,
+                             onPositiveClicked: () -> Unit,
+                             onNegativeClicked: () -> Unit) {
+    AlertDialog.Builder(context)
+        .setTitle(title)
+        .setMessage(message)
+        .setPositiveButton("Yes") { _, _ ->
+            onPositiveClicked.invoke()
+        }
+
+        .setNegativeButton("No") { _, _ ->
+            onNegativeClicked.invoke()
+        }
+        .create()
+        .show()
 }
