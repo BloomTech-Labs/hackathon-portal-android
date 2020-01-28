@@ -99,6 +99,7 @@ class DashboardFragment : BaseFragment() {
     }
 
     private fun initTextQueryListener() {
+        fragment_dashboard_searchview.setIconifiedByDefault(false)
         fragment_dashboard_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             var searchList = mutableListOf<Hackathon>()
             override fun onQueryTextSubmit(query: String?): Boolean {

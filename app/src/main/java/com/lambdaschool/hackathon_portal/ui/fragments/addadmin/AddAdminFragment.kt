@@ -121,6 +121,7 @@ class AddAdminFragment : BaseFragment() {
     }
 
     private fun addQueryListener() {
+        add_admin_searchview.setIconifiedByDefault(false)
         add_admin_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             var searchList = mutableListOf<User>()
             override fun onQueryTextSubmit(query: String?): Boolean {
