@@ -50,7 +50,11 @@
 
             <Button
                 android:id="@+id/add_admin_button_add_admin"
+                android:background="@drawable/rounded_corner_button"
+                android:textColor="@color/colorAccent"
                 android:layout_width="wrap_content"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
                 android:text="@string/add_as_organizer"
                 android:layout_height="wrap_content"/>
 
