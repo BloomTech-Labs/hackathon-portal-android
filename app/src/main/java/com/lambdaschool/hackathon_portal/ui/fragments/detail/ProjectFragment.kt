@@ -18,6 +18,8 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.ProjectHackathon
 import com.lambdaschool.hackathon_portal.model.Participant
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.visGone
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.fragment_project.*
 import kotlinx.android.synthetic.main.project_list_item_view.view.*
 
@@ -56,7 +58,7 @@ class ProjectFragment : BaseFragment() {
             }
         })
 
-        fragment_project_create_project.setOnClickListener {
+        button_fragment_project_create_project.setOnClickListener {
             if (projectId != null) {
                 val bundle = Bundle()
                 projectId?.let {
@@ -94,7 +96,7 @@ class ProjectFragment : BaseFragment() {
             var hasBeenExpanded = false
             holder.nameView.text = data.project_title
             holder.participantsView.text = " ${data.participants?.size.toString()}"
-            holder.linearLayout.visibility = View.GONE
+            holder.linearLayout.visGone()
             holder.parentView.setOnClickListener {
 
                 when {
@@ -102,16 +104,16 @@ class ProjectFragment : BaseFragment() {
                         data.participants?.forEach {
                             holder.linearLayout.addView(createTeamMemberViews(it))
                         }
-                        holder.linearLayout.visibility = View.VISIBLE
+                        holder.linearLayout.visVisible()
                         hasBeenExpanded = true
                     }
 
                     !holder.linearLayout.isVisible && hasBeenExpanded -> {
-                        holder.linearLayout.visibility = View.VISIBLE
+                        holder.linearLayout.visVisible()
                     }
 
                     holder.linearLayout.isVisible -> {
-                        holder.linearLayout.visibility = View.GONE
+                        holder.linearLayout.visGone()
                     }
                 }
             }

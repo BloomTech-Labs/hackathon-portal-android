@@ -65,4 +65,6 @@
     <string name="registered_participants">Registered Participants:</string>
     <string name="project_details">Project Details</string>
     <string name="create_project">Create Project</string>
+    <string name="verifying_credentials">Verifying Credentials...</string>
+    <string name="logging_in">Logging In...</string>
 </resources>

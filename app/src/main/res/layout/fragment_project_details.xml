@@ -1,71 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="16dp"
-    android:background="@color/colorPrimaryDark"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
+    android:padding="16dp"
     tools:context=".ui.fragments.projectdetail.ProjectDetailsFragment">
-    
+
     <TextView
         android:id="@+id/project_details_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/hello_blank_fragment"
+        android:textColor="@color/colorAccent"
         android:textSize="24sp"
         android:textStyle="bold"
-        android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-    
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/project_details_description"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        android:textColor="@color/colorAccentLight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/project_details_title"/>
+        android:textColor="@color/colorAccentLight"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        app:layout_constraintTop_toBottomOf="@+id/project_details_title" />
 
     <TextView
         android:id="@+id/project_details_roles_header"
-        android:text="@string/roles"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccentLight"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="@string/roles"
+        android:textColor="@color/colorAccentLight"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/project_details_description"/>
+        app:layout_constraintTop_toBottomOf="@id/project_details_description" />
 
     <LinearLayout
         android:id="@+id/linear_layout_front_end_spots"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="8dp"
+        android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/project_details_roles_header"
-        app:layout_constraintStart_toStartOf="parent">
-    
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/project_details_roles_header">
+
         <TextView
             android:id="@+id/text_view_front_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/front_end_spots"/>
+            android:text="@string/front_end_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_front_end_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -75,23 +74,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_front_end_spots"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_front_end_spots">
 
         <TextView
             android:id="@+id/text_view_back_end"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/back_end_spots"/>
+            android:text="@string/back_end_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_back_end_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -101,23 +100,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_back_end_spots"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_back_end_spots">
 
         <TextView
             android:id="@+id/text_view_ios"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/ios_spots"/>
+            android:text="@string/ios_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_ios_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -127,23 +126,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_ios_spots"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_ios_spots">
 
         <TextView
             android:id="@+id/text_view_android"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/android_spots"/>
+            android:text="@string/android_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_android_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -153,23 +152,23 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_android_spots"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_android_spots">
 
         <TextView
             android:id="@+id/text_view_data_science"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/data_science_spots"/>
+            android:text="@string/data_science_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_data_science_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
@@ -179,56 +178,55 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_data_science_spots"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_data_science_spots">
 
         <TextView
             android:id="@+id/text_view_ux_designer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/colorAccentLight"
-            android:text="@string/ux_designer_spots"/>
+            android:text="@string/ux_designer_spots"
+            android:textColor="@color/colorAccentLight" />
 
         <TextView
             android:id="@+id/text_view_ux_designer_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:textColor="@color/colorAccentLight"
-            android:textStyle="italic"
-            android:layout_marginStart="8dp"/>
+            android:textStyle="italic" />
 
     </LinearLayout>
 
     <TextView
         android:id="@+id/text_view_registered_participants"
-        android:text="@string/registered_participants"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:textColor="@color/colorAccentLight"
-        android:layout_marginTop="8dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/linear_layout_ux_designer_spots"
-        app:layout_constraintStart_toStartOf="parent"/>
+        android:layout_marginTop="8dp"
+        android:text="@string/registered_participants"
+        android:textColor="@color/colorAccentLight"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linear_layout_ux_designer_spots" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_participants"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingTop="8dp"
         android:paddingStart="8dp"
-        app:layout_constraintTop_toBottomOf="@id/text_view_registered_participants"
-        app:layout_constraintBottom_toTopOf="@+id/button_join_hackathon"/>
+        android:paddingTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/button_fragment_project_details_join_hackathon"
+        app:layout_constraintTop_toBottomOf="@id/text_view_registered_participants" />
 
     <Button
-        android:id="@+id/button_join_hackathon"
-        android:background="@drawable/rounded_corner_button"
+        android:id="@+id/button_fragment_project_details_join_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_button"
         android:text="@string/join"
         android:textColor="@color/colorAccent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

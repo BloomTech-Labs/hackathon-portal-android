@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 
@@ -74,7 +75,7 @@ class UserHackathonsFragment : BaseFragment() {
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             val data = userHackathons[position]
             holder.nameView.text = data.hackathon_name
-            holder.userRole.visibility = View.VISIBLE
+            holder.userRole.visVisible()
             holder.userRole.text = data.user_hackathon_role
             //TODO: bind locationView
             holder.startView.text = "Start Date: ${data.start_date}"

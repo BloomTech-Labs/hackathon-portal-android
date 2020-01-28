@@ -14,6 +14,8 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.toastShort
+import com.lambdaschool.hackathon_portal.util.visGone
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.fragment_detail.*
 
 class DetailFragment : BaseFragment() {
@@ -35,7 +37,7 @@ class DetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragment_detail_text_view_edit_details.visibility = View.GONE
+        fragment_detail_text_view_edit_details.visGone()
 
         hackathonId = arguments?.getInt("hackathon_id")
         detailPageAdapter = DetailPageAdapter(childFragmentManager, fragment_detail_tab_layout.tabCount)
@@ -102,7 +104,7 @@ class DetailFragment : BaseFragment() {
     private fun initEditDetailsButton() {
         if (detailViewModel.currentHackathon.value?.organizer_id
             == detailViewModel.getCurrentUserId()) {
-            fragment_detail_text_view_edit_details.visibility = View.VISIBLE
+            fragment_detail_text_view_edit_details.visVisible()
             fragment_detail_text_view_edit_details.setOnClickListener {
                 val bundle = Bundle()
                 hackathonId?.let {id ->

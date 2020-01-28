@@ -39,7 +39,7 @@ class AccountFragment : NavDrawerFragment() {
         val user = accountViewModel.getUserObjectFromRepository()
         loadUserInfoToEditTextFields(user)
 
-        fab_save_user.setOnClickListener {
+        button_fragment_account_save_user.setOnClickListener {
             // TODO: Disable Buttons & show a progress bar
             val selectiveJsonObject = SelectiveJsonObject.Builder()
                 .add("first_name", edit_text_user_first_name, user.first_name, false)
@@ -78,7 +78,7 @@ class AccountFragment : NavDrawerFragment() {
             }
         }
 
-        fab_delete_user.setOnClickListener {
+        button_fragment_account_delete_user.setOnClickListener {
             // TODO: Disable Buttons & show a progress bar
             val title = "Delete User?"
             val msg = "Are you sure you would like to delete this account?"

@@ -56,7 +56,7 @@ class CreateHackathonFragment : BaseFragment() {
             edit_text_hackathon_start_date.setClickListenerToOpenDatePickerAndSetTextToDate(context)
         }
 
-        fab_save_hackathon.setOnClickListener {
+        button_fragment_create_hackathon_create_hackathon.setOnClickListener {
             // TODO: Disable Button & show a progress bar
 
             if (!checkIfRequiredFieldsEmpty()) {

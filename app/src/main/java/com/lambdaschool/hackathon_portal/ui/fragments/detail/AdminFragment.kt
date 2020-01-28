@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Admin
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.visGone
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.admin_list_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_admin.*
 
@@ -35,7 +37,7 @@ class AdminFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        fragment_admin_add_admin.visibility = View.GONE
+        button_fragment_admin_add_admin.visGone()
 
         fragment_admin_recycler_view.apply {
             setHasFixedSize(false)
@@ -82,8 +84,8 @@ class AdminFragment : BaseFragment() {
     private fun initAddAdminButton() {
         if (detailViewModel.currentHackathon.value?.organizer_id
             == detailViewModel.getCurrentUserId()) {
-            fragment_admin_add_admin.visibility = View.VISIBLE
-            fragment_admin_add_admin.setOnClickListener {
+            button_fragment_admin_add_admin.visVisible()
+            button_fragment_admin_add_admin.setOnClickListener {
                 val bundle = Bundle()
                 detailViewModel.currentHackathon.value?.id?.let { bundle.putInt("hackathon_id", it) }
                 navController.navigate(R.id.nav_add_admin, bundle)
