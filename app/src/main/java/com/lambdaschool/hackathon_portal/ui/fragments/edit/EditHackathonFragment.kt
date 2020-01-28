@@ -87,7 +87,7 @@ class EditHackathonFragment : BaseFragment() {
             }
         }
 
-        fragment_edit_hackathon_fab_save_hackathon.setOnClickListener {
+        button_fragment_edit_hackathon_save_hackathon.setOnClickListener {
             // TODO: Disable Buttons & show a progress bar
             val selectiveJsonObject = SelectiveJsonObject.Builder()
                 .add("name", fragment_edit_hackathon_edit_text_hackathon_name, retrievedHackathon.name, true)
@@ -123,7 +123,7 @@ class EditHackathonFragment : BaseFragment() {
             }
         }
 
-        fragment_edit_hackathon_fab_delete_hackathon.setOnClickListener {
+        button_fragment_edit_hackathon_delete_hackathon.setOnClickListener {
             // TODO: Disable Buttons & show a progress bar
             val title = "Delete Hackathon?"
             val msg = "Are you sure you want to delete this Hackathon?"

@@ -2,22 +2,22 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
     android:padding="@dimen/activity_vertical_margin"
     tools:context=".ui.fragments.create.CreateHackathonFragment">
 
     <ScrollView
-        android:layout_weight="1"
-        android:scrollbarSize="8dp"
-        android:scrollbarStyle="insideOverlay"
-        android:fadeScrollbars="false"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="parent">
+        android:layout_weight="1"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="8dp"
+        android:scrollbarStyle="insideOverlay"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,22 +140,22 @@
 
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="200dp"/>
+                android:layout_height="200dp" />
 
         </LinearLayout>
 
     </ScrollView>
 
     <Button
-        android:layout_marginTop="16dp"
         android:id="@+id/button_fragment_create_project_create_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
         android:background="@drawable/rounded_corner_button"
         android:text="@string/create"
         android:textColor="@color/colorAccent"
-        android:layout_gravity="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
