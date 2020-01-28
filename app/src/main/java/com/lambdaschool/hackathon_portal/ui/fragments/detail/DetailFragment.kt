@@ -56,6 +56,12 @@ class DetailFragment : BaseFragment() {
         addOnTabSelectedListener()
         addOnPageChangeListener()
     }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        detailViewModel.currentHackathon.value = null
+    }
+    
     private fun updateHackathonViews(hackathon: Hackathon) {
         fragment_detail_text_view_hackathon_name.text = hackathon.name
         //fragment_detail_text_view_hackathon_description.text = hackathon.description
