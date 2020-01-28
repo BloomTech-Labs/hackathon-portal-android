@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.afollestad.date.dayOfMonth
 import com.afollestad.date.month
 import com.afollestad.date.year
@@ -28,7 +28,7 @@ class CreateHackathonFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        createHackathonViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        createHackathonViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(CreateHackathonViewModel::class.java)
     }
 

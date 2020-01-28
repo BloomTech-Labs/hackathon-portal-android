@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
@@ -23,7 +23,7 @@ class DashboardFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        dashboardViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        dashboardViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(DashboardViewModel::class.java)
         dashboardViewModel.getAllHackthons()
     }

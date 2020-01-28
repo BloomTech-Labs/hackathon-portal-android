@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.auth0.android.Auth0Exception
 import com.auth0.android.authentication.storage.SecureCredentialsManager
 import com.auth0.android.provider.VoidCallback
@@ -29,7 +29,7 @@ class LogoutFragment : NavDrawerFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         fragmentComponent.injectLogoutFragment(this)
         super.onCreate(savedInstanceState)
-        logoutViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        logoutViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(LogoutViewModel::class.java)
     }
 
