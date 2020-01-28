@@ -17,6 +17,7 @@ import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.clearAndAddAll
 import com.lambdaschool.hackathon_portal.util.toastLong
 import kotlinx.android.synthetic.main.add_admin_list_view.view.*
 import kotlinx.android.synthetic.main.fragment_add_admin.*
@@ -124,23 +125,16 @@ class AddAdminFragment : BaseFragment() {
             var searchList = mutableListOf<User>()
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchList = addAdminViewModel.searchUserList(query, userList, searchList)
-                userList.clear()
-                userList.addAll(searchList)
+                userList.clearAndAddAll(searchList)
                 add_admin_recyclerview.adapter?.notifyDataSetChanged()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.length == 0) {
-                    userList.clear()
-                    userList.addAll(userListCopy)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                } else {
-                    searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
-                    userList.clear()
-                    userList.addAll(searchList)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                }
+                userList.clearAndAddAll(userListCopy)
+                searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
+                userList.clearAndAddAll(searchList)
+                add_admin_recyclerview.adapter?.notifyDataSetChanged()
                 return true
             }
         })
