@@ -56,9 +56,9 @@
         android:label="@string/project_details"
         tools:layout="@layout/fragment_project_details" />
     <fragment
-        android:id="@+id/addAdminFragment"
+        android:id="@+id/nav_add_admin"
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.addadmin.AddAdminFragment"
-        android:label="fragment_add_admin"
+        android:label="@string/add_admins"
         tools:layout="@layout/fragment_add_admin" />
     <fragment
         android:id="@+id/nav_create_project"

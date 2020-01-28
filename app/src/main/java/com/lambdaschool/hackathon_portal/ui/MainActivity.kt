@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_create_hackathon,
                 R.id.nav_user_hackathons,
                 R.id.nav_hackathon_details,
+                R.id.nav_add_admin,
                 R.id.nav_project_details,
                 R.id.nav_create_project,
                 R.id.nav_edit_hackathon,
