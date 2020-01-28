@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.model.UserModel
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
+import java.util.*
 import javax.inject.Inject
 
 class AddAdminViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {
@@ -23,10 +24,18 @@ class AddAdminViewModel @Inject constructor(private val repo: HackathonRepositor
         newList.clear()
         oldList.forEach {user ->
             when {
-                user.username.toString().contains(query.toString()) -> newList.add(user)
-                user.email.contains(query.toString()) -> newList.add(user)
-                user.first_name.toString().contains(query.toString()) -> newList.add(user)
-                user.last_name.toString().contains(query.toString()) -> newList.add(user)
+                user.username.toString().toLowerCase(Locale.getDefault())
+                    .contains(query.toString().toLowerCase(Locale.getDefault())) ->
+                    newList.add(user)
+                user.email.toLowerCase(Locale.getDefault())
+                    .contains(query.toString().toLowerCase(Locale.getDefault())) ->
+                    newList.add(user)
+                user.first_name.toString().toLowerCase(Locale.getDefault())
+                    .contains(query.toString().toLowerCase(Locale.getDefault())) ->
+                    newList.add(user)
+                user.last_name.toString().toLowerCase(Locale.getDefault())
+                    .contains(query.toString().toLowerCase(Locale.getDefault())) ->
+                    newList.add(user)
             }
         }
         return newList
