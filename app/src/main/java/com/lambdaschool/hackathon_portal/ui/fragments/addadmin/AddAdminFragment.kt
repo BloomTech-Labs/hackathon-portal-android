@@ -17,6 +17,7 @@ import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.buildAlertDialog
 import com.lambdaschool.hackathon_portal.util.clearAndAddAll
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.visGone
@@ -94,18 +95,10 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visVisible()
                     holder.buttonAddOrganizer.setOnClickListener {
-                        AlertDialog.Builder(context)
-                            .setTitle("Add Organizer")
-                            .setMessage("Are you sure you want to add this user as an organizer?")
-                            .setPositiveButton("Yes") { _, _ ->
-                                hackathonId?.let { id ->
-                                    addOrganizer(id, data.id)
-                                }
-                            }
-
-                            .setNegativeButton("No") { _, _ -> }
-                            .create()
-                            .show()
+                        val title = "Add Organizer"
+                        val message = "Are you sure you want to add this user as an organizer"
+                        context.buildAlertDialog(title, message,
+                            { hackathonId?.let { id -> addOrganizer(id, data.id) } }, {})
                     }
                 } else {
                     isExpanded = false

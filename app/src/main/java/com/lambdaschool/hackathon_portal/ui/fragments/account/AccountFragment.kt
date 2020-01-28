@@ -14,6 +14,7 @@ import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
 import com.lambdaschool.hackathon_portal.util.SelectiveJsonObject
+import com.lambdaschool.hackathon_portal.util.buildAlertDialog
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_account.*
@@ -82,11 +83,8 @@ class AccountFragment : NavDrawerFragment() {
             val title = "Delete User?"
             val msg = "Are you sure you would like to delete this account?"
 
-            AlertDialog.Builder(context!!)
-                .setTitle(title)
-                .setMessage(msg)
-                .setPositiveButton("Yes") { _, _ ->
-
+            activity?.buildAlertDialog(title, msg,
+                {
                     accountViewModel.deleteUser().observe(this, Observer {
                         if (it != null) {
                             if (it) {
@@ -100,11 +98,7 @@ class AccountFragment : NavDrawerFragment() {
                             // TODO: Enable Buttons & disable progress bar
                         }
                     })
-                }
-
-                .setNegativeButton("No") { _, _ -> }
-                .create()
-                .show()
+                }, {})
         }
     }
 
