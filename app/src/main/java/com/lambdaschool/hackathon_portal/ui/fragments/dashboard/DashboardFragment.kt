@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +15,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.clearAndAddAll
 import kotlinx.android.synthetic.main.fragment_dashboard.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 
 class DashboardFragment : BaseFragment() {
 
     private lateinit var dashboardViewModel: DashboardViewModel
+    private var hackathonList = mutableListOf<Hackathon>()
+    private var hackathonListCopy = mutableListOf<Hackathon>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,14 +42,18 @@ class DashboardFragment : BaseFragment() {
         fragment_dashboard_recycler_view_all_hackathons.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
-            adapter = HackathonListAdapter(mutableListOf<Hackathon>())
+            adapter = HackathonListAdapter(hackathonList)
         }
 
         dashboardViewModel.getAllHackathonsList().observe(this, Observer {
             if (it != null) {
-                fragment_dashboard_recycler_view_all_hackathons.adapter = HackathonListAdapter(it)
+                hackathonList.clearAndAddAll(it)
+                hackathonListCopy = it
+                fragment_dashboard_recycler_view_all_hackathons.adapter?.notifyDataSetChanged()
             }
         })
+
+        initTextQueryListener()
     }
 
     inner class HackathonListAdapter(private val hackathons: MutableList<Hackathon>):
@@ -88,5 +96,27 @@ class DashboardFragment : BaseFragment() {
                 navController.navigate(R.id.nav_hackathon_details, bundle)
             }
         }
+    }
+
+    private fun initTextQueryListener() {
+        fragment_dashboard_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            var searchList = mutableListOf<Hackathon>()
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchList = dashboardViewModel
+                    .searchHackathonList(query, hackathonList, searchList)
+                hackathonList.clearAndAddAll(searchList)
+                fragment_dashboard_recycler_view_all_hackathons.adapter?.notifyDataSetChanged()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                hackathonList.clearAndAddAll(hackathonListCopy)
+                searchList = dashboardViewModel
+                    .searchHackathonList(newText, hackathonList, searchList)
+                hackathonList.clearAndAddAll(searchList)
+                fragment_dashboard_recycler_view_all_hackathons.adapter?.notifyDataSetChanged()
+                return true
+            }
+        })
     }
 }
