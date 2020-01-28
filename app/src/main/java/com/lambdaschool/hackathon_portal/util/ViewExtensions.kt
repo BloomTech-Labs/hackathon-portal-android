@@ -23,6 +23,11 @@ fun TextView.text(string: String) {
     this.text = string
 }
 
+/**
+ * Sets click listener on edit text that method is called on. Click listener opens a Material
+ * Dialog DatePicker, and sets the text of the edit text to the selected date when the positive
+ * button is clicked
+ */
 fun EditText.setClickListenerToOpenDatePickerAndSetTextToDate(context: Context) {
     this.setOnClickListener {
         MaterialDialog(context).show {

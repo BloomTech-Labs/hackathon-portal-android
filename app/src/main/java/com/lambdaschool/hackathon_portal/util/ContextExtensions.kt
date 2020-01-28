@@ -46,6 +46,20 @@ fun Context.toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
 
+/**
+ * Builds and displays an alert dialog with custom title, message, and code to be executed for both
+ * positive and negative buttons
+ *
+ * @param title: String
+ * @param message: String
+ * @param onPositiveClicked: () -> Unit  - Allows you to pass in block of code to be executed
+ *                                        (between {}) when the positive button is clicked,
+ *                                        does not give access to dialog buttons.
+ * @param onNegativeClicked: () -> Unit  - Same as onPositiveClicked, but executed when negative
+ *                                         button is clicked.
+ *
+ * NOTE: **Activity** context must be used.
+ */
 fun Context.buildAlertDialog(title: String, message: String,
                              onPositiveClicked: () -> Unit,
                              onNegativeClicked: () -> Unit) {
