@@ -6,10 +6,9 @@
     android:fillViewport="true">
 
 <androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/colorPrimaryDark"
     android:padding="@dimen/activity_vertical_margin"
@@ -169,25 +168,20 @@
         android:id="@+id/fragment_edit_hackathon_fab_save_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner_button"
         android:text="@string/save"
         android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_status"
-        app:layout_constraintBottom_toTopOf="@id/fragment_edit_hackathon_fab_delete_hackathon"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_edit_hackathon_fab_delete_hackathon" />
 
     <Button
         android:id="@+id/fragment_edit_hackathon_fab_delete_hackathon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
         android:background="@drawable/rounded_corner_button"
         android:text="@string/delete"
         android:textColor="@color/colorAccent"
-        app:layout_constraintTop_toBottomOf="@id/fragment_edit_hackathon_fab_save_hackathon"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
