@@ -53,20 +53,20 @@ class LoginFragment : NavDrawerFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         button_login.setOnClickListener {
-            // TODO: Disable Button & show a progress bar
+            showProgressBarViews(true, getString(R.string.logging_in))
             login()
         }
 
         if (credentialsManager.hasValidCredentials()) {
             Log.i(TAG, "Sending to Dashboard")
-            // TODO: Disable Button & show a progress bar
             showNextFragment()
+        } else {
+            showProgressBarViews(false)
         }
 
     }
 
     override fun onDestroyView() {
-        // TODO: Enable Button & disable progress bar
         super.onDestroyView()
         unlockDrawer(true)
     }
@@ -79,14 +79,14 @@ class LoginFragment : NavDrawerFragment() {
                 override fun onFailure(dialog: Dialog) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "${dialog.show()}")
-                    // TODO: Enable Button & disable progress bar
+                    showProgressBarViews(false)
                     activity?.toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
                     Log.i(TAG, "Login Failed")
                     Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
-                    // TODO: Enable Button & disable progress bar
+                    showProgressBarViews(false)
                     activity?.toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
@@ -110,7 +110,7 @@ class LoginFragment : NavDrawerFragment() {
                     getUserData()
                 } else {
                     Log.d(TAG, "Failed to set UserAuth0 credentials")
-                    // TODO: Enable Button & disable progress bar
+                    showProgressBarViews(false)
                 }
             }
 
@@ -118,7 +118,7 @@ class LoginFragment : NavDrawerFragment() {
                 error?.message?.let {
                     activity?.toastLong(it)
                     Log.d(TAG, it)
-                    // TODO: Enable Button & disable progress bar
+                    showProgressBarViews(false)
                 }
             }
         })
@@ -165,5 +165,20 @@ class LoginFragment : NavDrawerFragment() {
         setNavDrawerHeaderTitle(response.username)
         setNavDrawerHeaderSubTitle(response.email)
         setNavDrawerHeaderImage(loginViewModel.getUserAuth0PictureUrl())
+    }
+
+    private fun showProgressBarViews(boolean: Boolean, setText: String? = null) {
+        if (boolean) {
+            progress_bar_login.visVisible()
+            text_view_login_progress.visVisible()
+            if (setText != null) {
+                text_view_login_progress.text(setText)
+            }
+            button_login.visGone()
+        } else {
+            progress_bar_login.visGone()
+            text_view_login_progress.visGone()
+            button_login.visVisible()
+        }
     }
 }
