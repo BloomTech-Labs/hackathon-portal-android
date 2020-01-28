@@ -12,7 +12,7 @@ sealed class UserModel {
         var last_name: String?,
         var username: String?,
         var email: String,
-        var hackathons: MutableList<UserHackathon>
+        var hackathons: MutableList<UserHackathon>?
     ): UserModel()
 
     data class ProjectUser(

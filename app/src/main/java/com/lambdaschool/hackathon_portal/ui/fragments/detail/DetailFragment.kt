@@ -20,6 +20,7 @@ class DetailFragment : BaseFragment() {
 
     private lateinit var detailViewModel: DetailViewModel
     private lateinit var detailPageAdapter: DetailPageAdapter
+    private var hackathonId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,49 +35,26 @@ class DetailFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val hackathonId = arguments?.getInt("hackathon_id")
+        fragment_detail_text_view_edit_details.visibility = View.GONE
+
+        hackathonId = arguments?.getInt("hackathon_id")
         detailPageAdapter = DetailPageAdapter(childFragmentManager, fragment_detail_tab_layout.tabCount)
         view_pager.adapter = detailPageAdapter
 
-        if (hackathonId != null) {
-            detailViewModel.getHackathon(hackathonId).observe(this, Observer {
+        hackathonId?.let { id ->
+            detailViewModel.getHackathon(id).observe(this, Observer {
                 if (it != null) {
                     updateHackathonViews(it)
                     detailViewModel.currentHackathon.value = it
+                    initEditDetailsButton()
                 } else {
                     activity?.toastShort("Failed to get Hackathon")
                 }
             })
         }
 
-        fragment_detail_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-            }
-
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.position?.let { position ->
-                    view_pager.currentItem = position
-                }
-            }
-        })
-
-        view_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-
-            }
-
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-
-            }
-
-            override fun onPageSelected(position: Int) {
-                fragment_detail_tab_layout.getTabAt(position)?.select()
-            }
-
-        })
+        addOnTabSelectedListener()
+        addOnPageChangeListener()
     }
     private fun updateHackathonViews(hackathon: Hackathon) {
         fragment_detail_text_view_hackathon_name.text = hackathon.name
@@ -89,6 +67,43 @@ class DetailFragment : BaseFragment() {
             fragment_detail_text_view_hackathon_is_open.text = getString(R.string.hackathon_is_open)
         } else {
             fragment_detail_text_view_hackathon_is_open.text = getString(R.string.hackathon_is_closed)
+        }
+    }
+
+    private fun addOnTabSelectedListener() {
+        fragment_detail_tab_layout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {}
+            override fun onTabUnselected(tab: TabLayout.Tab?) {}
+            override fun onTabSelected(tab: TabLayout.Tab?) {
+                tab?.position?.let { position ->
+                    view_pager.currentItem = position
+                }
+            }
+        })
+    }
+
+    private fun addOnPageChangeListener() {
+        view_pager.addOnPageChangeListener(object: ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageSelected(position: Int) {
+                fragment_detail_tab_layout.getTabAt(position)?.select()
+            }
+
+        })
+    }
+
+    private fun initEditDetailsButton() {
+        if (detailViewModel.currentHackathon.value?.organizer_id
+            == detailViewModel.getCurrentUserId()) {
+            fragment_detail_text_view_edit_details.visibility = View.VISIBLE
+            fragment_detail_text_view_edit_details.setOnClickListener {
+                val bundle = Bundle()
+                hackathonId?.let {id ->
+                    bundle.putInt("hackathon_id", id)
+                    navController.navigate(R.id.nav_edit_hackathon, bundle)
+                }
+            }
         }
     }
 }

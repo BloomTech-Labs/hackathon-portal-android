@@ -3,6 +3,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Admin
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import kotlinx.android.synthetic.main.add_admin_list_view.*
 import kotlinx.android.synthetic.main.admin_list_item_view.view.*
 import kotlinx.android.synthetic.main.fragment_admin.*
 
@@ -35,6 +37,8 @@ class AdminFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fragment_admin_add_admin.visibility = View.GONE
+
         fragment_admin_recycler_view.apply {
             setHasFixedSize(false)
             layoutManager = LinearLayoutManager(context)
@@ -46,6 +50,7 @@ class AdminFragment : BaseFragment() {
                 it.admins?.let { admins ->
                     fragment_admin_recycler_view.adapter = AdminListAdapter(admins)
                 }
+                initAddAdminButton()
             }
         })
     }
@@ -73,6 +78,18 @@ class AdminFragment : BaseFragment() {
             val data = admins[position]
             holder.nameView.text = data.username
             holder.roleView.text = data.user_hackathon_role
+        }
+    }
+
+    private fun initAddAdminButton() {
+        if (detailViewModel.currentHackathon.value?.organizer_id
+            == detailViewModel.getCurrentUserId()) {
+            fragment_admin_add_admin.visibility = View.VISIBLE
+            fragment_admin_add_admin.setOnClickListener {
+                val bundle = Bundle()
+                detailViewModel.currentHackathon.value?.id?.let { bundle.putInt("hackathon_id", it) }
+                navController.navigate(R.id.addAdminFragment, bundle)
+            }
         }
     }
 }

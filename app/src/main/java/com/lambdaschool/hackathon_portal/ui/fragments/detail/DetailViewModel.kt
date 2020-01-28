@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.lambdaschool.hackathon_portal.model.Hackathon
+import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import javax.inject.Inject
 
@@ -13,5 +14,9 @@ class DetailViewModel @Inject constructor(private val repo: HackathonRepository)
 
     fun getHackathon(id: Int): LiveData<Hackathon> {
         return repo.getHackathon(id)
+    }
+
+    fun getCurrentUserId(): Int {
+        return repo.getUserObject().id
     }
 }

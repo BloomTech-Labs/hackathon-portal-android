@@ -44,13 +44,27 @@ class ProjectFragment : BaseFragment() {
             adapter = ProjectListAdapter(mutableListOf<ProjectHackathon>())
         }
 
+        var projectId: Int? = null
         detailViewModel.currentHackathon.observe(this, Observer {
             if (it != null) {
                 it.projects?.let { projects ->
                     fragment_project_recycler_view.adapter = ProjectListAdapter(projects)
                 }
+                it.id?.let { hackathonId ->
+                    projectId = hackathonId
+                }
             }
         })
+
+        fragment_project_create_project.setOnClickListener {
+            if (projectId != null) {
+                val bundle = Bundle()
+                projectId?.let {
+                    bundle.putInt("hackathon_id", it)
+                }
+                navController.navigate(R.id.nav_create_project, bundle)
+            }
+        }
     }
 
     inner class ProjectListAdapter(private val teams: MutableList<ProjectHackathon>):

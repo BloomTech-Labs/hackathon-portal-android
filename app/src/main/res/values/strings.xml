@@ -57,4 +57,8 @@
     <string name="ux_designer_spots">UX Designer Spots</string>
     <string name="role">Role:</string>
     <string name="join">JOIN</string>
+    <string name="add_admins">Add Admins</string>
+    <string name="add_as_organizer">Add as Organizer</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="project_title">Project Title</string>
 </resources>

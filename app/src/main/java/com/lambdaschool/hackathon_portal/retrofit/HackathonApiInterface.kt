@@ -16,6 +16,9 @@ interface HackathonApiInterface {
     fun getUser(@Path("id") id: Int,
                 @Header("Authorization") bearerToken: String): Call<User>
 
+    @GET("users")
+    fun getAllUsers(@Header("Authorization") bearerToken: String): Call<MutableList<User>>
+
     @PUT("users/{id}")
     fun updateUser(@Path("id") id: Int,
                    @Header("Authorization") bearerToken: String,
@@ -57,4 +60,8 @@ interface HackathonApiInterface {
                       @Path("user_id") userId: Int,
                       @Header("Authorization") bearerToken: String,
                       @Body jsonObject: JsonObject): Call<JsonObject>
+
+    @POST("projects")
+    fun postProject(@Header("Authorization") bearerToken: String,
+                    @Body project: Project): Call<Project>
 }
