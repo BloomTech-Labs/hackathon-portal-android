@@ -156,6 +156,8 @@ class LoginFragment : NavDrawerFragment() {
                     navigateAndPopUpTo(
                         Bundle(), R.id.nav_login, true, R.id.nav_dashboard
                     )
+                } else {
+                    showProgressBarViews(false)
                 }
             })
         }
