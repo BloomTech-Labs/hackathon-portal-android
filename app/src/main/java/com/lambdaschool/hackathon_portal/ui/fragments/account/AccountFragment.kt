@@ -83,7 +83,7 @@ class AccountFragment : NavDrawerFragment() {
             val title = "Delete User?"
             val msg = "Are you sure you would like to delete this account?"
 
-            activity?.buildAlertDialog(context!!, title, msg,
+            activity?.buildAlertDialog(title, msg,
                 {
                     accountViewModel.deleteUser().observe(this, Observer {
                         if (it != null) {

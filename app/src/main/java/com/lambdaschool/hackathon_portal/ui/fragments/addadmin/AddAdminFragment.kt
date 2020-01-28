@@ -95,7 +95,7 @@ class AddAdminFragment : BaseFragment() {
                     holder.buttonAddOrganizer.setOnClickListener {
                         val title = "Add Organizer"
                         val message = "Are you sure you want to add this user as an organizer"
-                        context.buildAlertDialog(context, title, message,
+                        context.buildAlertDialog(title, message,
                             { hackathonId?.let { id -> addOrganizer(id, data.id) } }, {})
                     }
                 } else {

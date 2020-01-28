@@ -48,10 +48,10 @@ fun <T> MutableList<T>.clearAndAddAll(newList: MutableList<T>) {
     this.addAll(newList)
 }
 
-fun Context.buildAlertDialog(context: Context, title: String, message: String,
+fun Context.buildAlertDialog(title: String, message: String,
                              onPositiveClicked: () -> Unit,
                              onNegativeClicked: () -> Unit) {
-    AlertDialog.Builder(context)
+    AlertDialog.Builder(this)
         .setTitle(title)
         .setMessage(message)
         .setPositiveButton("Yes") { _, _ ->

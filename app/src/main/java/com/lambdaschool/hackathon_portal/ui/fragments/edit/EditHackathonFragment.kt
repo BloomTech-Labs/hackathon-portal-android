@@ -125,7 +125,7 @@ class EditHackathonFragment : BaseFragment() {
             // TODO: Disable Buttons & show a progress bar
             val title = "Delete Hackathon?"
             val msg = "Are you sure you want to delete this Hackathon?"
-            activity?.buildAlertDialog(context!!, title, msg, {deleteHackathon(hackathonId)}, {})
+            activity?.buildAlertDialog(title, msg, {deleteHackathon(hackathonId)}, {})
         }
     }
 
