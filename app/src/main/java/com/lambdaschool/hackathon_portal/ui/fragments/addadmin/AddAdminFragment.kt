@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.gson.JsonObject
@@ -17,6 +17,7 @@ import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.clearAndAddAll
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.visGone
 import com.lambdaschool.hackathon_portal.util.visVisible
@@ -32,7 +33,7 @@ class AddAdminFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        addAdminViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        addAdminViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(AddAdminViewModel::class.java)
     }
 
@@ -93,7 +94,7 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visVisible()
                     holder.buttonAddOrganizer.setOnClickListener {
-                        AlertDialog.Builder(context!!)
+                        AlertDialog.Builder(context)
                             .setTitle("Add Organizer")
                             .setMessage("Are you sure you want to add this user as an organizer?")
                             .setPositiveButton("Yes") { _, _ ->
@@ -122,27 +123,21 @@ class AddAdminFragment : BaseFragment() {
     }
 
     private fun addQueryListener() {
+        add_admin_searchview.setIconifiedByDefault(false)
         add_admin_searchview.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             var searchList = mutableListOf<User>()
             override fun onQueryTextSubmit(query: String?): Boolean {
                 searchList = addAdminViewModel.searchUserList(query, userList, searchList)
-                userList.clear()
-                userList.addAll(searchList)
+                userList.clearAndAddAll(searchList)
                 add_admin_recyclerview.adapter?.notifyDataSetChanged()
                 return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                if (newText?.length == 0) {
-                    userList.clear()
-                    userList.addAll(userListCopy)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                } else {
-                    searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
-                    userList.clear()
-                    userList.addAll(searchList)
-                    add_admin_recyclerview.adapter?.notifyDataSetChanged()
-                }
+                userList.clearAndAddAll(userListCopy)
+                searchList = addAdminViewModel.searchUserList(newText, userList, searchList)
+                userList.clearAndAddAll(searchList)
+                add_admin_recyclerview.adapter?.notifyDataSetChanged()
                 return true
             }
         })

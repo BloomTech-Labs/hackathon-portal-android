@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
@@ -29,7 +29,7 @@ class ProjectFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        detailViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        detailViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(DetailViewModel::class.java)
     }
 
@@ -125,15 +125,16 @@ class ProjectFragment : BaseFragment() {
         }
     }
 
+    @Suppress("DEPRECATION")
     private fun createTeamMemberViews(participant: Participant): LinearLayout {
         val linearLayout = LinearLayout(this.context)
         val usernameTextView = TextView(this.context)
         val roleTextView = TextView(this.context)
         val paddingAll = 8
         usernameTextView.text = participant.username
-        usernameTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
+        usernameTextView.setTextColor(resources.getColor(R.color.colorAccentLight))
         roleTextView.text = participant.developer_role
-        roleTextView.setTextColor(getResources().getColor(R.color.colorAccentLight))
+        roleTextView.setTextColor(resources.getColor(R.color.colorAccentLight))
         linearLayout.orientation = LinearLayout.VERTICAL
         linearLayout.addView(usernameTextView)
         linearLayout.addView(roleTextView)

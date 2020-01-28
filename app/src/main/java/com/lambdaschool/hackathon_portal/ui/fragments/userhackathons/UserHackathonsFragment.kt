@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.UserHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.visVisible
-import kotlinx.android.synthetic.main.fragment_detail.*
 import kotlinx.android.synthetic.main.fragment_user_hackathons.*
 import kotlinx.android.synthetic.main.hackathon_list_item_view.view.*
 
@@ -27,7 +26,7 @@ class UserHackathonsFragment : BaseFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        userHackathonsViewModel = ViewModelProviders.of(this, viewModelProviderFactory)
+        userHackathonsViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(UserHackathonsViewModel::class.java)
     }
 

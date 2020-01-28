@@ -37,3 +37,8 @@ fun Context.toastShort(message: String) {
 fun Context.toastLong(message: String) {
     Toast.makeText(this, message, Toast.LENGTH_LONG).show()
 }
+
+fun <T> MutableList<T>.clearAndAddAll(newList: MutableList<T>) {
+    this.clear()
+    this.addAll(newList)
+}
