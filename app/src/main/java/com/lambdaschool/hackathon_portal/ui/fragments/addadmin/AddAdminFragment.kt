@@ -91,7 +91,7 @@ class AddAdminFragment : BaseFragment() {
                     isExpanded = true
                     holder.buttonLayout.visibility = View.VISIBLE
                     holder.buttonAddOrganizer.setOnClickListener {
-                        AlertDialog.Builder(context!!)
+                        AlertDialog.Builder(context)
                             .setTitle("Add Organizer")
                             .setMessage("Are you sure you want to add this user as an organizer?")
                             .setPositiveButton("Yes") { _, _ ->
