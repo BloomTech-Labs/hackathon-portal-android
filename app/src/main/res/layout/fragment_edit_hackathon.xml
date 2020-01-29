@@ -97,13 +97,12 @@
         <EditText
             android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_start_date"
             style="@style/EditTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:lines="1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_text_view_hackathon_start_date" />
 
@@ -118,13 +117,12 @@
         <EditText
             android:id="@+id/fragment_edit_hackathon_edit_text_hackathon_end_date"
             style="@style/EditTextStyle"
-            android:layout_width="match_parent"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:focusable="false"
             android:focusableInTouchMode="false"
             android:inputType="date"
             android:lines="1"
-            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_text_view_hackathon_end_date" />
 
@@ -170,7 +168,6 @@
             android:background="@drawable/rounded_corner_button"
             android:text="@string/save"
             android:textColor="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_status"
             app:layout_constraintBottom_toTopOf="@+id/button_fragment_edit_hackathon_delete_hackathon"
             app:layout_constraintEnd_toEndOf="parent" />
 
