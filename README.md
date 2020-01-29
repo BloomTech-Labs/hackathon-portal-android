@@ -29,7 +29,7 @@
 
 Hackathon Portal is an app that helps you easily create an account and then either organize or join hackathons.
 
-![](header.png)
+![](screenshots.png)
 
 ### Features
 
