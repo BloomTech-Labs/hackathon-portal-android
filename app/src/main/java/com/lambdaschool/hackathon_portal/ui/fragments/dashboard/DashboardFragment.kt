@@ -3,9 +3,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.dashboard
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
@@ -30,6 +28,7 @@ class DashboardFragment : BaseFragment() {
         dashboardViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(DashboardViewModel::class.java)
         dashboardViewModel.getAllHackthons()
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -54,6 +53,23 @@ class DashboardFragment : BaseFragment() {
         })
 
         initTextQueryListener()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.refresh_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> {
+                fragment_dashboard_progressbar.visibility = View.VISIBLE
+                dashboardViewModel.getAllHackthons().observe(this, Observer {
+                    it?.let { fragment_dashboard_progressbar.visibility = View.GONE }
+                })
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     inner class HackathonListAdapter(private val hackathons: MutableList<Hackathon>):
