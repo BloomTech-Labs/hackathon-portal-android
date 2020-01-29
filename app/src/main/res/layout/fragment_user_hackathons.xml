@@ -7,6 +7,16 @@
     android:background="@color/colorPrimaryDark"
     tools:context=".ui.fragments.userhackathons.UserHackathonsFragment">
 
+    <ProgressBar
+        android:id="@+id/fragment_user_hackathons_progressbar"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:visibility="gone"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/fragment_user_hackathons_recycler_view_my_hackathons"
         android:layout_width="match_parent"

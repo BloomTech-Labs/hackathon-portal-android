@@ -3,9 +3,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.userhackathons
 
 import android.content.Context
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,6 +26,7 @@ class UserHackathonsFragment : BaseFragment() {
         super.onCreate(savedInstanceState)
         userHackathonsViewModel = ViewModelProvider(this, viewModelProviderFactory)
             .get(UserHackathonsViewModel::class.java)
+        setHasOptionsMenu(true)
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -48,6 +47,23 @@ class UserHackathonsFragment : BaseFragment() {
                 fragment_user_hackathons_recycler_view_my_hackathons.adapter = UserHackathonListAdapter(it)
             }
         })
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.refresh_menu, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.menu_refresh -> {
+                fragment_user_hackathons_progressbar.visibility = View.VISIBLE
+                userHackathonsViewModel.getUser().observe(this, Observer {
+                    it?.let { fragment_user_hackathons_progressbar.visibility = View.GONE }
+                })
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     inner class UserHackathonListAdapter(private val userHackathons: MutableList<UserHackathon>):
@@ -83,11 +99,7 @@ class UserHackathonsFragment : BaseFragment() {
             holder.itemView.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("hackathon_id", data.hackathon_id)
-//                if (data.user_hackathon_role == ORGANIZER) {
-//                    navController.navigate(R.id.nav_edit_hackathon, bundle)
-//                } else if (data.user_hackathon_role == PARTICIPANT) {
-                    navController.navigate(R.id.nav_hackathon_details, bundle)
-                //}
+                navController.navigate(R.id.nav_hackathon_details, bundle)
             }
         }
     }
