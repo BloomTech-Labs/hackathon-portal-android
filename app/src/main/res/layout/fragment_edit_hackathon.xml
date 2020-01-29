@@ -170,6 +170,7 @@
             android:background="@drawable/rounded_corner_button"
             android:text="@string/save"
             android:textColor="@color/colorAccent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_edit_hackathon_status"
             app:layout_constraintBottom_toTopOf="@+id/button_fragment_edit_hackathon_delete_hackathon"
             app:layout_constraintEnd_toEndOf="parent" />
 
