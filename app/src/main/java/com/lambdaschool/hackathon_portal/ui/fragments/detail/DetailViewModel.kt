@@ -22,8 +22,6 @@ class DetailViewModel @Inject constructor(private val repo: HackathonRepository)
     }
 
     fun approveProject(projectId: Int): LiveData<Boolean> {
-        val json = JsonObject()
-        json.addProperty("is_approved", true)
-        return repo.approveProject(projectId, json)
+        return repo.approveProject(projectId)
     }
 }
