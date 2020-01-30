@@ -27,6 +27,7 @@ import kotlinx.android.synthetic.main.project_approval_list_view.view.*
 class ApproveProjectFragment : BaseFragment() {
 
     private lateinit var detailViewModel: DetailViewModel
+    private lateinit var approvedProjects: MutableList<ProjectHackathon>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,10 +51,10 @@ class ApproveProjectFragment : BaseFragment() {
         detailViewModel.currentHackathon.observe(this, Observer {
             it?.let { hackathon ->
                 hackathon.projects?.let { projectList ->
+                    approvedProjects = projectList.filter { project -> !project.is_approved!! }
+                        .toMutableList()
                     project_approval_recyclerview.adapter =
-                        ApproveProjectListAdapter(projectList.filter { project ->
-                            !project.is_approved!!
-                        }.toMutableList())
+                        ApproveProjectListAdapter(approvedProjects)
                 }
             }
         })
@@ -107,7 +108,12 @@ class ApproveProjectFragment : BaseFragment() {
                             .observe(this@ApproveProjectFragment, Observer {
                                 it?.let { response ->
                                     when (response) {
-                                        true -> activity?.toastLong("Successfully pproved Project!")
+                                        true -> {
+                                            activity?.toastLong("Successfully pproved Project!")
+                                            projects.removeAt(position)
+                                            notifyItemRemoved(position)
+                                            notifyItemRangeChanged(position, projects.size)
+                                        }
                                         false -> activity?.toastLong("Failed to approve Project!")
                                     }
                                 }
