@@ -3,6 +3,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
@@ -18,5 +19,11 @@ class DetailViewModel @Inject constructor(private val repo: HackathonRepository)
 
     fun getCurrentUserId(): Int {
         return repo.getUserObject().id
+    }
+
+    fun approveProject(projectId: Int): LiveData<Boolean> {
+        val json = JsonObject()
+        json.addProperty("is_approved", true)
+        return repo.approveProject(projectId, json)
     }
 }

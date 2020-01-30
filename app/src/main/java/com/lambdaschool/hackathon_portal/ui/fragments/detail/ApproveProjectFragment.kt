@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.ProjectHackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
+import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.visGone
 import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.fragment_approve_project.*
@@ -101,7 +102,17 @@ class ApproveProjectFragment : BaseFragment() {
                     holder.androidCountView.text = data.android_spots.toString()
                     holder.uxDesignerCountView.text = data.ux_spots.toString()
                     holder.dataScienceCountView.text = data.data_science_spots.toString()
-                    holder.buttonApproveView.setOnClickListener { }
+                    holder.buttonApproveView.setOnClickListener {
+                        detailViewModel.approveProject(data.project_id)
+                            .observe(this@ApproveProjectFragment, Observer {
+                                it?.let { response ->
+                                    when (response) {
+                                        true -> activity?.toastLong("Successfully pproved Project!")
+                                        false -> activity?.toastLong("Failed to approve Project!")
+                                    }
+                                }
+                            })
+                    }
                 } else {
                     isExpanded = false
                     holder.expandView.visGone()
