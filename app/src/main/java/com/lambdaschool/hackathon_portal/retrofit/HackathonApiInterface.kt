@@ -64,4 +64,9 @@ interface HackathonApiInterface {
     @POST("projects")
     fun postProject(@Header("Authorization") bearerToken: String,
                     @Body project: Project): Call<Project>
+
+    @PUT("projects/{project_id}")
+    fun approveProject(@Header("Authorization") bearerToken: String,
+                       @Path("project_id") projectId: Int,
+                       @Body jsonObject: JsonObject): Call<Project>
 }
