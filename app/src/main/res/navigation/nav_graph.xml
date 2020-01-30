@@ -65,4 +65,9 @@
         android:name="com.lambdaschool.hackathon_portal.ui.fragments.create.CreateProjectFragment"
         android:label="@string/create_project"
         tools:layout="@layout/fragment_create_project" />
+    <fragment
+        android:id="@+id/approveProjectFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.ApproveProjectFragment"
+        android:label="@string/approve_projects"
+        tools:layout="@layout/fragment_approve_project" />
 </navigation>

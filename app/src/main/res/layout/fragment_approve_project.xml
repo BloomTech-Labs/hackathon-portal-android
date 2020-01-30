@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorPrimaryDark"
     tools:context=".ui.fragments.detail.ApproveProjectFragment">
 
     <TextView
@@ -12,9 +13,13 @@
         android:layout_height="wrap_content"
         android:text="@string/unapproved_projects"
         app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/colorAccent"
+        android:textStyle="bold"
+        android:textSize="24sp"
         app:layout_constraintStart_toStartOf="parent"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/project_approval_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="8dp"
