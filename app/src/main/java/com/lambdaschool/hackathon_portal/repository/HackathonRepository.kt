@@ -419,17 +419,25 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         val addProjectResponse = MutableLiveData<Boolean>()
 
         hackathonService.postProject(bearerToken, project)
-            .enqueue(object: Callback<Project> {
-                override fun onFailure(call: Call<Project>, t: Throwable) {
+            .enqueue(object: Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     addProjectResponse.value = false
                     Log.i(REPO_TAG, "Failed to connect to API")
                     Log.i(REPO_TAG, t.message.toString())
                 }
 
-                override fun onResponse(call: Call<Project>, response: Response<Project>) {
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         addProjectResponse.value = true
                         Log.i(REPO_TAG, "Successfully posted hackathon")
+                        response.body()?.let { responseJson ->
+                            val projectJson = JSONObject(responseJson.get("data").toString())
+                            val projectHackathonId: Int = projectJson.get("hackathon_id").toString().toInt()
+                            val projectId: Int = projectJson.get("id").toString().toInt()
+                            if (checkIfProjectWasPostedByOrganizer(projectHackathonId)) {
+                                approveProject(projectId)
+                            }
+                        }
                     } else {
                         addProjectResponse.value = false
                         Log.i(REPO_TAG, "Failed to post hackathon")
@@ -441,7 +449,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return addProjectResponse
     }
 
-    fun approveProject(projectId: Int, jsonObject: JsonObject): LiveData<Boolean> {
+    fun approveProject(projectId: Int): LiveData<Boolean> {
+        val jsonObject = JsonObject()
+        jsonObject.addProperty("is_approved", true)
         val approveProjectResponse = MutableLiveData<Boolean>()
         hackathonService.approveProject(bearerToken, projectId, jsonObject)
             .enqueue(object : Callback<Project> {
@@ -465,6 +475,11 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             })
 
         return approveProjectResponse
+    }
+
+    private fun checkIfProjectWasPostedByOrganizer(projectHackathonId: Int): Boolean {
+        return allHackathonList.value?.find { it.id == projectHackathonId
+        }?.organizer_id == user.id
     }
 
     fun getUserHackathonList(): LiveData<MutableList<UserHackathon>> {
