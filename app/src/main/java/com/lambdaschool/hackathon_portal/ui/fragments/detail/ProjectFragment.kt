@@ -151,6 +151,9 @@ class ProjectFragment : BaseFragment() {
     private fun initApproveButton() {
         if (organizerId == detailViewModel.getCurrentUserId()) {
             button_fragment_project_all_projects.visibility = View.VISIBLE
+            button_fragment_project_all_projects.setOnClickListener {
+                navController.navigate(R.id.approveProjectFragment)
+            }
         }
     }
 }
