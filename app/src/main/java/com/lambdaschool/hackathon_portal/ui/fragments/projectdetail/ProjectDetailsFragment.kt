@@ -28,6 +28,8 @@ class ProjectDetailsFragment : BaseFragment() {
 
     private lateinit var projectDetailViewModel: ProjectDetailViewModel
     private lateinit var retrievedProject: Project
+    private val displayRoles = mutableListOf<String>()
+    private val actualRoles = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,19 +58,20 @@ class ProjectDetailsFragment : BaseFragment() {
                 if (project != null) {
                     updateProjectViews(project)
                     retrievedProject = project
+                    buildRoleLists()
                 } else activity?.toastShort("Failed to get project")
             })
         }
 
-        val displayRoles = listOf("Front End Developer", "Back End Developer", "iOS Developer",
-            "Android Developer", "Data Scientist", "UX Designer")
-        val actualRoles = listOf("front-end", "back-end", "ios", "android", "data_science", "ux")
+
+        var message = "Please select the developer role you will be fulfilling for this project"
+        if (actualRoles.size == 0) message = "There are no open roles for this project"
 
         button_fragment_project_details_join_hackathon.setOnClickListener {
             context?.let { myContext ->
                 MaterialDialog(myContext).show {
                     title(text = "Select Role")
-                    message(text = "Please select the developer role you will be fulfilling for this project")
+                    message(text = message)
                     listItemsSingleChoice(items = displayRoles) { _, index, _ ->
                         joinHackathon(actualRoles[index])
                     }
@@ -129,5 +132,37 @@ class ProjectDetailsFragment : BaseFragment() {
                 navController.popBackStack()
             }
         })
+    }
+
+    private fun buildRoleLists() {
+        if (retrievedProject.front_end_spots > 0) {
+            displayRoles.add("Front End Developer")
+            actualRoles.add("front-end")
+        }
+
+        if (retrievedProject.back_end_spots > 0) {
+            displayRoles.add("Back End Developer")
+            actualRoles.add("back-end")
+        }
+
+        if (retrievedProject.ios_spots > 0) {
+            displayRoles.add("iOS Developer")
+            actualRoles.add("ios")
+        }
+
+        if (retrievedProject.android_spots > 0) {
+            displayRoles.add("Android Developer")
+            actualRoles.add("android")
+        }
+
+        if (retrievedProject.data_science_spots > 0) {
+            displayRoles.add("Data Scientist")
+            actualRoles.add("data_science")
+        }
+
+        if (retrievedProject.front_end_spots > 0) {
+            displayRoles.add("UX Designer")
+            actualRoles.add("ux")
+        }
     }
 }
