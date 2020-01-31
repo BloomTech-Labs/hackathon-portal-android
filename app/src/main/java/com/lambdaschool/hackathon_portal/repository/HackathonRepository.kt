@@ -90,7 +90,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         val newUserHackathon = mapPostedHackathonToUserHackathon(response.body())
                         newList?.add(newUserHackathon)
                         userHackathonList.value = newList
-                        getAllHackathons()
+                        val newAllHackathonList = copyAllHackathonList()
+                        response.body()?.let { newAllHackathonList?.add(it) }
+                        allHackathonList.value = newAllHackathonList
                     } else {
                         addHackathonResponse.value = false
                         Log.i(REPO_TAG, "Failed to post hackathon")
@@ -510,6 +512,11 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
 
     private fun copyUserHackathonList(): MutableList<UserHackathon>? {
         val oldList = userHackathonList.value
+        return oldList?.toMutableList()
+    }
+
+    private fun copyAllHackathonList(): MutableList<Hackathon>? {
+        val oldList = allHackathonList.value
         return oldList?.toMutableList()
     }
 
