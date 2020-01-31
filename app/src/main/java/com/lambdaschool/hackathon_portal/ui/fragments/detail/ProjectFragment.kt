@@ -26,6 +26,7 @@ import kotlinx.android.synthetic.main.project_list_item_view.view.*
 class ProjectFragment : BaseFragment() {
 
     private lateinit var detailViewModel: DetailViewModel
+    private var organizerId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,15 +49,20 @@ class ProjectFragment : BaseFragment() {
 
         var projectId: Int? = null
         detailViewModel.currentHackathon.observe(this, Observer {
-            if (it != null) {
-                it.projects?.let { projects ->
-                    fragment_project_recycler_view.adapter = ProjectListAdapter(projects)
+            it?.let { hackathon ->
+                organizerId = hackathon.organizer_id
+                initApproveButton()
+                hackathon.projects?.let { projectList ->
+                    fragment_project_recycler_view.adapter = ProjectListAdapter(projectList
+                        .filter { project -> project.is_approved!! }.toMutableList())
                 }
-                it.id?.let { hackathonId ->
+                hackathon.id?.let { hackathonId ->
                     projectId = hackathonId
                 }
             }
         })
+
+
 
         button_fragment_project_create_project.setOnClickListener {
             if (projectId != null) {
@@ -140,5 +146,14 @@ class ProjectFragment : BaseFragment() {
         linearLayout.addView(roleTextView)
         linearLayout.setPadding(paddingAll, paddingAll, paddingAll, paddingAll)
         return linearLayout
+    }
+
+    private fun initApproveButton() {
+        if (organizerId == detailViewModel.getCurrentUserId()) {
+            button_fragment_project_all_projects.visibility = View.VISIBLE
+            button_fragment_project_all_projects.setOnClickListener {
+                navController.navigate(R.id.approveProjectFragment)
+            }
+        }
     }
 }

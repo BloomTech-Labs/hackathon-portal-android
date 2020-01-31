@@ -57,20 +57,24 @@ fun Context.toastLong(message: String) {
  *                                        does not give access to dialog buttons.
  * @param onNegativeClicked: () -> Unit  - Same as onPositiveClicked, but executed when negative
  *                                         button is clicked.
+ * @param positiveText: String - Text displayed on positive button. Defaults to "Yes"
+ * @param negativeText: String - Text displayed on negative button. Defaults to "No"
  *
  * NOTE: **Activity** context must be used.
  */
 fun Context.buildAlertDialog(title: String, message: String,
                              onPositiveClicked: () -> Unit,
-                             onNegativeClicked: () -> Unit) {
+                             onNegativeClicked: () -> Unit,
+                             positiveText: String = "Yes",
+                             negativeText: String = "No") {
     AlertDialog.Builder(this)
         .setTitle(title)
         .setMessage(message)
-        .setPositiveButton("Yes") { _, _ ->
+        .setPositiveButton(positiveText) { _, _ ->
             onPositiveClicked.invoke()
         }
 
-        .setNegativeButton("No") { _, _ ->
+        .setNegativeButton(negativeText) { _, _ ->
             onNegativeClicked.invoke()
         }
         .create()

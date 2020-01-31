@@ -17,6 +17,17 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/button_fragment_project_all_projects"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:background="@drawable/rounded_corner_button"
+        android:text="@string/approve"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@id/button_fragment_project_create_project"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:id="@+id/button_fragment_project_create_project"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

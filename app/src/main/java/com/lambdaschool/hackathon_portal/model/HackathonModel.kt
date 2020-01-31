@@ -79,6 +79,7 @@ sealed class HackathonModel {
         var android_spots: Int,
         var data_science_spots: Int,
         var ux_spots: Int,
-        var participants: MutableList<Participant>?
+        var participants: MutableList<Participant>?,
+        var is_approved: Boolean? = null
     ): HackathonModel()
 }

@@ -68,4 +68,7 @@
     <string name="verifying_credentials">Verifying Credentials...</string>
     <string name="logging_in">Logging In...</string>
     <string name="refresh">Refresh</string>
+    <string name="approve">Approve</string>
+    <string name="unapproved_projects">Unapproved Projects</string>
+    <string name="approve_projects">Approve Projects</string>
 </resources>
