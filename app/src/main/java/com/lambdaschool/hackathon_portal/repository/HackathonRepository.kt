@@ -90,6 +90,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         val newUserHackathon = mapPostedHackathonToUserHackathon(response.body())
                         newList?.add(newUserHackathon)
                         userHackathonList.value = newList
+                        getAllHackathons()
                     } else {
                         addHackathonResponse.value = false
                         Log.i(REPO_TAG, "Failed to post hackathon")
