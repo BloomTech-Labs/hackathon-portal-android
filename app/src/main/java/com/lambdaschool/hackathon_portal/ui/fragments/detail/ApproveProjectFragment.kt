@@ -109,7 +109,7 @@ class ApproveProjectFragment : BaseFragment() {
                                 it?.let { response ->
                                     when (response) {
                                         true -> {
-                                            activity?.toastLong("Successfully pproved Project!")
+                                            activity?.toastLong("Successfully approved Project!")
                                             projects.removeAt(position)
                                             notifyItemRemoved(position)
                                             notifyItemRangeChanged(position, projects.size)
