@@ -480,6 +480,31 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         return approveProjectResponse
     }
 
+    fun deleteProject(projectId: Int): LiveData<Boolean> {
+        val deleteProjectResponse = MutableLiveData<Boolean>()
+        hackathonService.deleteProject(bearerToken, projectId)
+            .enqueue(object : Callback<JsonObject> {
+                override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                    deleteProjectResponse.value = false
+                    Log.i(REPO_TAG, "Failed to connect to API")
+                    Log.i(REPO_TAG, t.message.toString())
+                }
+
+                override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                    if (response.isSuccessful) {
+                        deleteProjectResponse.value = true
+                        Log.i(REPO_TAG, "Successfully deleted project")
+                    } else {
+                        deleteProjectResponse.value = false
+                        Log.i(REPO_TAG, "Failed to deleted project")
+                        Log.i(REPO_TAG, response.code().toString())
+                        Log.i(REPO_TAG, response.message().toString())
+                    }
+                }
+            })
+        return deleteProjectResponse
+    }
+
     private fun checkIfProjectWasPostedByOrganizer(projectHackathonId: Int): Boolean {
         return allHackathonList.value?.find { it.id == projectHackathonId
         }?.organizer_id == user.id
