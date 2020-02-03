@@ -77,6 +77,7 @@ class ApproveProjectFragment : BaseFragment() {
             val uxDesignerCountView: TextView = view.project_approval_text_view_ux_designer_count
             val dataScienceCountView: TextView = view.project_approval_text_view_data_science_count
             val buttonApproveView: Button = view.project_approval_button_approve
+            val buttonDeleteView: Button = view.project_approval_button_delete
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -115,6 +116,22 @@ class ApproveProjectFragment : BaseFragment() {
                                             notifyItemRangeChanged(position, projects.size)
                                         }
                                         false -> activity?.toastLong("Failed to approve Project!")
+                                    }
+                                }
+                            })
+                    }
+                    holder.buttonDeleteView.setOnClickListener {
+                        detailViewModel.deleteProject(data.project_id)
+                            .observe(this@ApproveProjectFragment, Observer {
+                                it?.let { response ->
+                                    when (response) {
+                                        true -> {
+                                            activity?.toastLong("Successfully deleted Project!")
+                                            projects.removeAt(position)
+                                            notifyItemRemoved(position)
+                                            notifyItemRangeChanged(position, projects.size)
+                                        }
+                                        false -> activity?.toastLong("Failed to delete Project!")
                                     }
                                 }
                             })

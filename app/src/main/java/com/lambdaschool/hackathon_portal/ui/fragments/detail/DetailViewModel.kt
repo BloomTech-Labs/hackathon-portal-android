@@ -24,4 +24,8 @@ class DetailViewModel @Inject constructor(private val repo: HackathonRepository)
     fun approveProject(projectId: Int): LiveData<Boolean> {
         return repo.approveProject(projectId)
     }
+
+    fun deleteProject(projectId: Int): LiveData<Boolean> {
+        return repo.deleteProject(projectId)
+    }
 }
