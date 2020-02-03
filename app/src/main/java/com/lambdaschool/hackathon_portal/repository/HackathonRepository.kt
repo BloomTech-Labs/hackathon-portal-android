@@ -1,6 +1,5 @@
 package com.lambdaschool.hackathon_portal.repository
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.gson.JsonObject
@@ -10,16 +9,13 @@ import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Singleton
 class HackathonRepository (private val hackathonService: HackathonApiInterface,
                            private val userAuth0: UserAuth0,
                            private val user: User) {
-
-    companion object {
-        const val REPO_TAG = "REPOSITORY"
-    }
 
     private var userHackathonList = MutableLiveData<MutableList<UserHackathon>>()
     private var allHackathonList = MutableLiveData<MutableList<Hackathon>>()
@@ -78,14 +74,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     addHackathonResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
                         addHackathonResponse.value = true
-                        Log.i(REPO_TAG, "Successfully posted hackathon")
+                        Timber.d("Successfully posted hackathon")
                         val newList = copyUserHackathonList()
                         val newUserHackathon = mapPostedHackathonToUserHackathon(response.body())
                         newList?.add(newUserHackathon)
@@ -95,9 +91,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         allHackathonList.value = newAllHackathonList
                     } else {
                         addHackathonResponse.value = false
-                        Log.i(REPO_TAG, "Failed to post hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to post hackathon")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
             })
@@ -110,19 +106,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getHackathon(hackathonId, bearerToken).enqueue(object: Callback<Hackathon> {
             override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                 getHackathonResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Timber.d("Failed to connect to API")
+                Timber.d(t.message.toString())
             }
 
             override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                 if (response.isSuccessful) {
                     getHackathonResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully got hackathon")
+                    Timber.d("Successfully got hackathon")
                 } else {
                     getHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get hackathon")
-                    Log.i(REPO_TAG, response.code().toString())
-                    Log.i(REPO_TAG, response.message().toString())
+                    Timber.d("Failed to get hackathon")
+                    Timber.d(response.code().toString())
+                    Timber.d(response.message().toString())
 
                 }
             }
@@ -136,22 +132,22 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getAllHackathons(bearerToken).enqueue(object : Callback<MutableList<Hackathon>> {
             override fun onFailure(call: Call<MutableList<Hackathon>>, t: Throwable) {
                 getAllHackathonsResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Timber.d("Failed to connect to API")
+                Timber.d(t.message.toString())
             }
 
             override fun onResponse(call: Call<MutableList<Hackathon>>, response: Response<MutableList<Hackathon>>) {
                 if (response.isSuccessful) {
                     getAllHackathonsResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully got hackathons")
+                    Timber.d("Successfully got hackathons")
                     response.body()?.let {
                         allHackathonList.value = it
                     }
                 } else {
                     getAllHackathonsResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get hackathons")
-                    Log.i(REPO_TAG, response.code().toString())
-                    Log.i(REPO_TAG, response.message().toString())
+                    Timber.d("Failed to get hackathons")
+                    Timber.d(response.code().toString())
+                    Timber.d(response.message().toString())
                 }
             }
         })
@@ -165,14 +161,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Hackathon> {
                 override fun onFailure(call: Call<Hackathon>, t: Throwable) {
                     updateHackathonResponse.value = null
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Hackathon>, response: Response<Hackathon>) {
                     if (response.isSuccessful) {
                         updateHackathonResponse.value = response.body()
-                        Log.i(REPO_TAG, "Successfully updated hackathon")
+                        Timber.d("Successfully updated hackathon")
                         val index = getUserHackathonIndexFromListById(hackathonId)
                         if (index != null && index != -1) {
                             val updateHackathon = userHackathonList.value!![index]
@@ -200,9 +196,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                     }
                     else {
                         updateHackathonResponse.value = null
-                        Log.i(REPO_TAG, "Failed to updated hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to updated hackathon")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
             })
@@ -216,20 +212,20 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Void> {
                 override fun onFailure(call: Call<Void>, t: Throwable) {
                     deleteHackathonResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Void>, response: Response<Void>) {
                     if (response.isSuccessful) {
                         deleteHackathonResponse.value = true
                         removeUserHackathonFromListById(hackathonId)
-                        Log.i(REPO_TAG, "Successfully deleted Hackathon")
+                        Timber.d("Successfully deleted Hackathon")
                     } else {
                         deleteHackathonResponse.value = false
-                        Log.i(REPO_TAG, "Failed to delete hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to delete hackathon")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
 
@@ -243,14 +239,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getUser(userAuth0.id, bearerToken).enqueue(object : Callback<User> {
             override fun onFailure(call: Call<User>, t: Throwable) {
                 getUserResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Timber.d("Failed to connect to API")
+                Timber.d(t.message.toString())
             }
 
             override fun onResponse(call: Call<User>, response: Response<User>) {
                 if (response.isSuccessful) {
                     getUserResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully get user")
+                    Timber.d("Successfully get user")
                     response.body()?.id?.let {
                         user.id = it
                     }
@@ -273,9 +269,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                 }
                 else {
                     getUserResponse.value = null
-                    Log.i(REPO_TAG, "Failed to get user")
-                    Log.i(REPO_TAG, response.code().toString())
-                    Log.i(REPO_TAG, response.message().toString())
+                    Timber.d("Failed to get user")
+                    Timber.d(response.code().toString())
+                    Timber.d(response.message().toString())
                 }
             }
         })
@@ -287,17 +283,17 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getAllUsers(bearerToken).enqueue(object : Callback<MutableList<User>> {
             override fun onFailure(call: Call<MutableList<User>>, t: Throwable) {
                 allUsersResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Timber.d("Failed to connect to API")
+                Timber.d(t.message.toString())
             }
 
             override fun onResponse(call: Call<MutableList<User>>, response: Response<MutableList<User>>) {
                 if (response.isSuccessful) {
                     allUsersResponse.value = response.body()
-                    Log.i(REPO_TAG, "Successfully got users, ${response.body()!![0].username}")
+                    Timber.d("Successfully got users, ${response.body()!![0].username}")
                 } else {
                     allUsersResponse.value = null
-                    Log.i(REPO_TAG, response.message())
+                    Timber.d(response.message())
                 }
             }
         })
@@ -311,14 +307,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<User> {
                 override fun onFailure(call: Call<User>, t: Throwable) {
                     updateUserResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<User>, response: Response<User>) {
                     if (response.isSuccessful) {
                         updateUserResponse.value = true
-                        Log.i(REPO_TAG, "Successfully updated user")
+                        Timber.d("Successfully updated user")
                         response.body()?.username?.let {
                             user.username = it
                         }
@@ -333,9 +329,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         }
                     } else {
                         updateUserResponse.value = false
-                        Log.i(REPO_TAG, "Failed to update user")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to update user")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
 
                     }
                 }
@@ -350,19 +346,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<Deletion> {
                 override fun onFailure(call: Call<Deletion>, t: Throwable) {
                     deleteUserResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Deletion>, response: Response<Deletion>) {
                     if (response.isSuccessful) {
                         deleteUserResponse.value = true
-                        Log.i(REPO_TAG, "Successfully deleted User")
+                        Timber.d("Successfully deleted User")
                     } else {
                         deleteUserResponse.value = false
-                        Log.i(REPO_TAG, "Failed to delete User")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to delete User")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
 
                     }
                 }
@@ -375,19 +371,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
         hackathonService.getProject(projectId, bearerToken).enqueue(object: Callback<Project>{
             override fun onFailure(call: Call<Project>, t: Throwable) {
                 getProjectResponse.value = null
-                Log.i(REPO_TAG, "Failed to connect to API")
-                Log.i(REPO_TAG, t.message.toString())
+                Timber.d("Failed to connect to API")
+                Timber.d(t.message.toString())
             }
 
             override fun onResponse(call: Call<Project>, response: Response<Project>) {
                  if (response.isSuccessful) {
                      getProjectResponse.value = response.body()
-                     Log.i(REPO_TAG, "Successfuly got project")
+                     Timber.d("Successfuly got project")
                  } else {
                      getProjectResponse.value = null
-                     Log.i(REPO_TAG, "Failed to get project")
-                     Log.i(REPO_TAG, response.code().toString())
-                     Log.i(REPO_TAG, response.message().toString())
+                     Timber.d("Failed to get project")
+                     Timber.d(response.code().toString())
+                     Timber.d(response.message().toString())
                  }
             }
 
@@ -397,7 +393,7 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
 
     fun joinHackathon(jsonObject: JsonObject, hackathonId: Int, userId: Int): LiveData<String> {
         val joinHackathonResponse = MutableLiveData<String>()
-        Log.i(REPO_TAG, jsonObject.toString())
+        Timber.d(jsonObject.toString())
         hackathonService.joinHackathon(hackathonId, userId, bearerToken, jsonObject)
             .enqueue(object: Callback<JsonObject>{
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
@@ -425,14 +421,14 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object: Callback<JsonObject> {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     addProjectResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         addProjectResponse.value = true
-                        Log.i(REPO_TAG, "Successfully posted hackathon")
+                        Timber.d("Successfully posted hackathon")
                         response.body()?.let { responseJson ->
                             val projectJson = JSONObject(responseJson.get("data").toString())
                             val projectHackathonId: Int = projectJson.get("hackathon_id").toString().toInt()
@@ -443,9 +439,9 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
                         }
                     } else {
                         addProjectResponse.value = false
-                        Log.i(REPO_TAG, "Failed to post hackathon")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to post hackathon")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
             })
@@ -460,19 +456,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object : Callback<Project> {
                 override fun onFailure(call: Call<Project>, t: Throwable) {
                     approveProjectResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<Project>, response: Response<Project>) {
                     if (response.isSuccessful) {
                         approveProjectResponse.value = true
-                        Log.i(REPO_TAG, "Successfully approved project")
+                        Timber.d("Successfully approved project")
                     } else {
                         approveProjectResponse.value = false
-                        Log.i(REPO_TAG, "Failed to approve project")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to approve project")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
             })
@@ -486,19 +482,19 @@ class HackathonRepository (private val hackathonService: HackathonApiInterface,
             .enqueue(object : Callback<JsonObject> {
                 override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                     deleteProjectResponse.value = false
-                    Log.i(REPO_TAG, "Failed to connect to API")
-                    Log.i(REPO_TAG, t.message.toString())
+                    Timber.d("Failed to connect to API")
+                    Timber.d(t.message.toString())
                 }
 
                 override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
                     if (response.isSuccessful) {
                         deleteProjectResponse.value = true
-                        Log.i(REPO_TAG, "Successfully deleted project")
+                        Timber.d("Successfully deleted project")
                     } else {
                         deleteProjectResponse.value = false
-                        Log.i(REPO_TAG, "Failed to deleted project")
-                        Log.i(REPO_TAG, response.code().toString())
-                        Log.i(REPO_TAG, response.message().toString())
+                        Timber.d("Failed to deleted project")
+                        Timber.d(response.code().toString())
+                        Timber.d(response.message().toString())
                     }
                 }
             })
