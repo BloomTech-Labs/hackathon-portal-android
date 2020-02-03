@@ -69,4 +69,8 @@ interface HackathonApiInterface {
     fun approveProject(@Header("Authorization") bearerToken: String,
                        @Path("project_id") projectId: Int,
                        @Body jsonObject: JsonObject): Call<Project>
+
+    @DELETE("projects/{project_id}")
+    fun deleteProject(@Header("Authorization") bearerToken: String,
+                      @Path("project_id") projectId: Int): Call<JsonObject>
 }
