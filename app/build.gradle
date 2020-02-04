@@ -30,6 +30,14 @@ android {
             resValue 'string', "hackathon_client_id", Auth0_hackportal_clientID
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
 }
 
 dependencies {
@@ -40,23 +48,46 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    testImplementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     //Dagger 2
-    implementation "com.google.dagger:dagger:2.24"
-    kapt "com.google.dagger:dagger-compiler:2.24"
+    implementation "com.google.dagger:dagger:2.25.4"
+    kapt "com.google.dagger:dagger-compiler:2.25.4"
 
     //MVVM
-    implementation "androidx.lifecycle:lifecycle-extensions:2.1.0"
-    kapt "androidx.lifecycle:lifecycle-compiler:2.1.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.2.0"
 
     //Nav component
-    def nav_version = "2.1.0"
+    def nav_version = "2.2.0"
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     //Auth0
-    implementation 'com.auth0.android:auth0:1.19.1'
+    implementation 'com.auth0.android:auth0:1.20.0'
+    implementation 'com.auth0.android:jwtdecode:1.4.0'
+
+    //Retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation 'com.squareup.retrofit2:converter-gson:2.6.2'
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    //Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    //Coroutines
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.3'
+
+    //Circle image
+    implementation 'de.hdodenhof:circleimageview:3.0.1'
+
+    //Material Dialogs
+    implementation 'com.afollestad.material-dialogs:core:3.1.1'
+    implementation 'com.afollestad.material-dialogs:datetime:3.1.1'
+
+    //Timber
+    implementation 'com.jakewharton.timber:timber:4.7.1'
+
 }

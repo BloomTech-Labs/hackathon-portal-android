@@ -3,20 +3,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/loginFragment">
+    app:startDestination="@id/nav_login">
 
     <fragment
-        android:id="@+id/loginFragment"
-        android:name="com.lambdaschool.hackathon_portal.fragments.login.LoginFragment"
-        android:label="fragment_login"
-        tools:layout="@layout/fragment_login" >
-        <action
-            android:id="@+id/action_loginFragment_to_dashboardFragment"
-            app:destination="@id/dashboardFragment" />
-    </fragment>
+        android:id="@+id/nav_login"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.login.LoginFragment"
+        android:label="@string/login"
+        tools:layout="@layout/fragment_login" />
     <fragment
-        android:id="@+id/dashboardFragment"
-        android:name="com.lambdaschool.hackathon_portal.fragments.dashboard.DashboardFragment"
-        android:label="fragment_dashboard"
+        android:id="@+id/nav_dashboard"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.dashboard.DashboardFragment"
+        android:label="@string/dashboard"
         tools:layout="@layout/fragment_dashboard" />
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.settings.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/nav_account"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.account.AccountFragment"
+        android:label="@string/manage_account"
+        tools:layout="@layout/fragment_account" />
+    <fragment
+        android:id="@+id/nav_create_hackathon"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.create.CreateHackathonFragment"
+        android:label="@string/create_hackathon"
+        tools:layout="@layout/fragment_create_hackathon" />
+    <fragment
+        android:id="@+id/nav_edit_hackathon"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.edit.EditHackathonFragment"
+        android:label="@string/edit_hackathon"
+        tools:layout="@layout/fragment_edit_hackathon" />
+    <fragment
+        android:id="@+id/nav_user_hackathons"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.userhackathons.UserHackathonsFragment"
+        android:label="@string/my_hackathons"
+        tools:layout="@layout/fragment_user_hackathons" />
+    <fragment
+        android:id="@+id/nav_hackathon_details"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.DetailFragment"
+        android:label="@string/hackathon_details"
+        tools:layout="@layout/fragment_detail" />
+    <fragment
+        android:id="@+id/nav_logout"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.logout.LogoutFragment"
+        android:label="@string/logout"
+        tools:layout="@layout/fragment_logout" />
+    <fragment
+        android:id="@+id/nav_project_details"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.projectdetail.ProjectDetailsFragment"
+        android:label="@string/project_details"
+        tools:layout="@layout/fragment_project_details" />
+    <fragment
+        android:id="@+id/nav_add_admin"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.addadmin.AddAdminFragment"
+        android:label="@string/add_admins"
+        tools:layout="@layout/fragment_add_admin" />
+    <fragment
+        android:id="@+id/nav_create_project"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.create.CreateProjectFragment"
+        android:label="@string/create_project"
+        tools:layout="@layout/fragment_create_project" />
+    <fragment
+        android:id="@+id/approveProjectFragment"
+        android:name="com.lambdaschool.hackathon_portal.ui.fragments.detail.ApproveProjectFragment"
+        android:label="@string/approve_projects"
+        tools:layout="@layout/fragment_approve_project" />
 </navigation>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:padding="@dimen/activity_vertical_margin"
+    tools:context=".ui.fragments.create.CreateHackathonFragment">
+
+    <View
+        android:id="@+id/view_divider_left"
+        android:layout_width="184dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="56dp"
+        android:background="@color/colorGray"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/user_header_image"
+        android:layout_width="104dp"
+        android:layout_height="104dp"
+        android:contentDescription="@string/nav_header_desc"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@mipmap/ic_launcher_round"
+        app:civ_border_color="@color/colorGray"
+        app:civ_border_width="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/text_view_user_first_name"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/first_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/user_header_image" />
+
+    <EditText
+        android:id="@+id/edit_text_user_first_name"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_view_user_first_name" />
+
+    <TextView
+        android:id="@+id/text_view_user_last_name"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/last_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_user_first_name" />
+
+    <EditText
+        android:id="@+id/edit_text_user_last_name"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_user_last_name" />
+
+    <TextView
+        android:id="@+id/text_view_user_username"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/username"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_user_last_name" />
+
+    <EditText
+        android:id="@+id/edit_text_username"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_user_username" />
+
+    <TextView
+        android:id="@+id/text_view_user_email"
+        style="@style/TextViewStyle"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:text="@string/email"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
+
+    <EditText
+        android:id="@+id/edit_text_email_address"
+        style="@style/EditTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_view_user_email" />
+
+    <Button
+        android:id="@+id/button_fragment_account_save_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/rounded_corner_button"
+        android:text="@string/save"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/button_fragment_account_delete_user"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/button_fragment_account_delete_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_corner_button"
+        android:text="@string/delete"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">hackathon_portal</string>
+    <string name="app_name">Hackathon Portal</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="username">Username</string>
@@ -9,4 +9,66 @@
 
     <string name="com_auth0_client_id">@string/hackathon_client_id</string>
     <string name="com_auth0_domain">hackathonportal.auth0.com</string>
+
+    <string name="nav_header_title">Hackathon Portal</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="dashboard">Dashboard</string>
+    <string name="create_hackathon">Create Hackathon</string>
+    <string name="my_hackathons">My Hackathons</string>
+    <string name="manage_account">Manage Account</string>
+    <string name="logout">Logout</string>
+
+    <string name="edit_hackathon">Edit Hackathon</string>
+    <string name="hackathon_details">Hackathon Details</string>
+
+    <string name="open_drawer">OPEN</string>
+    <string name="close_drawer">CLOSE</string>
+    <string name="settings">Settings</string>
+    <string name="hackathon_name">Hackathon Name</string>
+    <string name="description">Description</string>
+    <string name="name">Name</string>
+    <string name="url">URL</string>
+    <string name="start_date">Start Date</string>
+    <string name="end_date">End Date</string>
+    <string name="is_this_hackathon_open">Is this hackathon open?</string>
+    <string name="no">No</string>
+    <string name="yes">Yes</string>
+    <string name="first_name">First Name</string>
+    <string name="email">Email</string>
+    <string name="last_name">Last Name</string>
+    <string name="location">Location</string>
+    <string name="hackathon_is_open">open</string>
+    <string name="hackathon_is_closed">closed</string>
+    <string name="create">CREATE</string>
+    <string name="save">SAVE</string>
+    <string name="delete">DELETE</string>
+    <string name="status_open">OPEN</string>
+    <string name="status_closed">CLOSED</string>
+    <string name="members">Members:</string>
+    <string name="logging_out">Logging out...</string>
+    <string name="details">DETAILS</string>
+    <string name="front_end_spots">Front End Spots</string>
+    <string name="back_end_spots">Back End Spots</string>
+    <string name="ios_spots">iOS Spots</string>
+    <string name="android_spots">Android Spots</string>
+    <string name="data_science_spots">Data Science Spots</string>
+    <string name="ux_designer_spots">UX Designer Spots</string>
+    <string name="role">Role:</string>
+    <string name="join">JOIN</string>
+    <string name="add_admins">Add Admins</string>
+    <string name="add_as_organizer">Add as Organizer</string>
+    <string name="edit_details">Edit Details</string>
+    <string name="project_title">Project Title</string>
+    <string name="roles">Roles:</string>
+    <string name="registered_participants">Registered Participants:</string>
+    <string name="project_details">Project Details</string>
+    <string name="create_project">Create Project</string>
+    <string name="verifying_credentials">Verifying Credentials...</string>
+    <string name="logging_in">Logging In...</string>
+    <string name="refresh">Refresh</string>
+    <string name="approve">Approve</string>
+    <string name="unapproved_projects">Unapproved Projects</string>
+    <string name="approve_projects">Approve Projects</string>
 </resources>

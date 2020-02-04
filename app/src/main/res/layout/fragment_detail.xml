@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:padding="16dp"
+    tools:context=".ui.fragments.detail.DetailFragment">
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_edit_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/edit_details"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/fragment_detail_image"
+        android:layout_width="72dp"
+        android:layout_height="72dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        android:paddingTop="20dp"
+        android:text="@string/name"
+        android:textColor="@color/colorAccent"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_image"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>-->
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/fragment_detail_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="16dp"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_image"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_name">
+
+        <TextView
+            android:id="@+id/fragment_detail_text_view_hackathon_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status: "
+            android:textColor="@color/colorAccent"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toStartOf="@+id/fragment_detail_text_view_hackathon_is_open"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_name" />
+
+        <TextView
+            android:id="@+id/fragment_detail_text_view_hackathon_is_open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/is_this_hackathon_open"
+            android:textColor="@color/colorAccentLight"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_status"
+            app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_name" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_url_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingTop="24dp"
+        android:text="URL: "
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_image" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_url"
+        style="@style/TextViewStyle"
+        android:autoLink="web"
+        android:paddingTop="24dp"
+        android:text="@string/url"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_url_header"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_image" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_location_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Location: "
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_url" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_location"
+        style="@style/TextViewStyle"
+        android:text="@string/location"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_location_header"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_url" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_start_date_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start date: "
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_location_header" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_start_date"
+        style="@style/TextViewStyle"
+        android:lines="1"
+        android:text="@string/start_date"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_start_date_header"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_location" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_end_date_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="End date: "
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_start_date_header" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_end_date"
+        style="@style/TextViewStyle"
+        android:maxLines="1"
+        android:text="@string/end_date"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_end_date_header"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_start_date" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_participants_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Participants: "
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_end_date_header" />
+
+    <TextView
+        android:id="@+id/fragment_detail_text_view_hackathon_participants"
+        style="@style/TextViewStyle"
+        android:text="#"
+        app:layout_constraintStart_toEndOf="@+id/fragment_detail_text_view_hackathon_participants_header"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_end_date" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/fragment_detail_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_detail_text_view_hackathon_participants_header"
+        app:tabIndicatorColor="@color/colorAccent"
+        app:tabTextColor="@color/colorAccentLight">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_description"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Description" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_admins"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Admins" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/tab_item_projects"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Projects" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fragment_detail_tab_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

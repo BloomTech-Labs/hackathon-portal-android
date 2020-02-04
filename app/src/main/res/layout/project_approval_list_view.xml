@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    android:id="@+id/project_approval_parent_card"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    app:cardBackgroundColor="@android:color/transparent"
+    android:background="@drawable/cardview_background"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/project_approval_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/hello_blank_fragment"
+            android:textColor="@color/colorAccent"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <LinearLayout
+            android:id="@+id/project_approval_linear_layout_expand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/project_approval_title">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/project_approval_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/project_approval_roles_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/roles"
+                    android:textColor="@color/colorAccentLight"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/project_approval_description" />
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_front_end_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_roles_header">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_front_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/front_end_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_front_end_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_back_end_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_front_end_spots">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_back_end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/back_end_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_back_end_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_ios_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_back_end_spots">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_ios"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ios_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_ios_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_android_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_ios_spots">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_android"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/android_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_android_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_data_science_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_android_spots">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_data_science"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/data_science_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_data_science_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/project_approval_linear_layout_ux_designer_spots"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_data_science_spots">
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_ux_designer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ux_designer_spots"
+                        android:textColor="@color/colorAccentLight" />
+
+                    <TextView
+                        android:id="@+id/project_approval_text_view_ux_designer_count"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:textColor="@color/colorAccentLight"
+                        android:textStyle="italic" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/project_approval_button_approve"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner_button"
+                    android:text="@string/approve"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_ux_designer_spots"
+                    app:layout_constraintEnd_toStartOf="@id/project_approval_button_delete"/>
+
+                <Button
+                    android:id="@+id/project_approval_button_delete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_corner_button"
+                    android:text="@string/delete"
+                    android:textColor="@color/colorAccent"
+                    app:layout_constraintTop_toBottomOf="@+id/project_approval_linear_layout_ux_designer_spots"
+                    app:layout_constraintEnd_toEndOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</androidx.cardview.widget.CardView>

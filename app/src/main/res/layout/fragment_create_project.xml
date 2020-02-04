@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
+    android:orientation="vertical"
+    android:padding="@dimen/activity_vertical_margin"
+    tools:context=".ui.fragments.create.CreateHackathonFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:fadeScrollbars="false"
+        android:scrollbarSize="8dp"
+        android:scrollbarStyle="insideOverlay"
+        app:layout_constraintBottom_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tv_project_title"
+                style="@style/TextViewStyle"
+                android:text="@string/project_title" />
+
+            <EditText
+                android:id="@+id/edit_text_project_title"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textCapWords"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_project_description"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/description" />
+
+            <EditText
+                android:id="@+id/edit_text_project_description"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="128dp"
+                android:gravity="top"
+                android:inputType="textMultiLine|textCapSentences"
+                android:lines="6" />
+
+            <TextView
+                android:id="@+id/text_view_front_end_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/front_end_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_front_end_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_back_end_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/back_end_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_back_end_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_ios_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/ios_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_ios_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_android_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/android_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_android_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_data_science_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/data_science_spots"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/edit_text_android_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_data_science_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <TextView
+                android:id="@+id/text_view_ux_designer_spots"
+                style="@style/TextViewStyle"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:text="@string/ux_designer_spots" />
+
+            <EditText
+                android:id="@+id/edit_text_ux_designer_spots"
+                style="@style/EditTextStyle"
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:lines="1" />
+
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/button_fragment_create_project_create_project"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/rounded_corner_button"
+        android:text="@string/create"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

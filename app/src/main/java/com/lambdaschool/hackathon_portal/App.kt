@@ -1,14 +1,8 @@
 package com.lambdaschool.hackathon_portal
 
 import android.app.Application
-import android.content.Context
-import android.content.SharedPreferences
-import com.lambdaschool.hackathon_portal.di.DaggerAppComponent
-
-val prefs: Prefs by lazy {
-    App.prefs!!
-}
-
+import com.lambdaschool.hackathon_portal.di.app.DaggerAppComponent
+import timber.log.Timber
 
 class App : Application() {
 
@@ -19,13 +13,8 @@ class App : Application() {
             .build()
     }
 
-    companion object {
-        var prefs: Prefs? = null
-    }
-
     override fun onCreate() {
         super.onCreate()
-
-        prefs = Prefs(applicationContext)
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 }
