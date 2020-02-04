@@ -18,11 +18,11 @@ import com.lambdaschool.hackathon_portal.util.buildAlertDialog
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_account.*
+import timber.log.Timber
 
 class AccountFragment : NavDrawerFragment() {
 
     private lateinit var accountViewModel: AccountViewModel
-    private var TAG = "ACCOUNT FRAGMENT"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class AccountFragment : NavDrawerFragment() {
                             activity?.toastShort("Failed to update account info")
                         }
                     } else {
-                        Log.d(TAG, "Update User came back null")
+                        Timber.d("Update User came back null")
                         // TODO: Enable Buttons & disable progress bar
                     }
                 })
@@ -94,7 +94,7 @@ class AccountFragment : NavDrawerFragment() {
                                 activity?.toastShort("Failed to delete your account")
                             }
                         } else {
-                            Log.d(TAG, "Delete User came back null")
+                            Timber.d("Delete User came back null")
                             // TODO: Enable Buttons & disable progress bar
                         }
                     })

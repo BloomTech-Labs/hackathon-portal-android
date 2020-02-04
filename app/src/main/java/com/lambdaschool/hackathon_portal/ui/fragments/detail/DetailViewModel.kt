@@ -3,9 +3,7 @@ package com.lambdaschool.hackathon_portal.ui.fragments.detail
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Hackathon
-import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import javax.inject.Inject
 

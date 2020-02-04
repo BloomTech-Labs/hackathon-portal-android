@@ -5,9 +5,7 @@ import com.lambdaschool.hackathon_portal.model.Deletion
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.model.User
-import org.json.JSONObject
 import retrofit2.Call
-import retrofit2.Response
 import retrofit2.http.*
 
 interface HackathonApiInterface {

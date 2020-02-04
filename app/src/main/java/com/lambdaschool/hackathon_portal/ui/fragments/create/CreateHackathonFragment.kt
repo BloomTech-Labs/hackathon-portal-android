@@ -8,25 +8,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.afollestad.date.dayOfMonth
-import com.afollestad.date.month
-import com.afollestad.date.year
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.datePicker
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
-import com.lambdaschool.hackathon_portal.util.formatCalendarToString
 import com.lambdaschool.hackathon_portal.util.setClickListenerToOpenDatePickerAndSetTextToDate
 import com.lambdaschool.hackathon_portal.util.toastLong
 import com.lambdaschool.hackathon_portal.util.toastShort
 import kotlinx.android.synthetic.main.fragment_create_hackathon.*
-import java.util.*
+import timber.log.Timber
 
 class CreateHackathonFragment : BaseFragment() {
 
     private lateinit var createHackathonViewModel: CreateHackathonViewModel
-    private val TAG = "CREATE HACKATHON"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,7 +76,7 @@ class CreateHackathonFragment : BaseFragment() {
                         }
                     } else {
                         // TODO: Enable Buttons & disable progress bar
-                        Log.d(TAG, "Hackathon object came back null")
+                        Timber.d("Hackathon object came back null")
                     }
                 })
             }
@@ -110,7 +103,7 @@ class CreateHackathonFragment : BaseFragment() {
             requiredFieldsEmpty = true
         }
         if (requiredFieldsEmpty) {
-            Log.d(TAG, "Required fields needed")
+            Timber.d("Required fields needed")
             // TODO: Enable Button & disable progress bar
         }
         return requiredFieldsEmpty

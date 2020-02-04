@@ -2,31 +2,22 @@ package com.lambdaschool.hackathon_portal.ui.fragments.edit
 
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.afollestad.date.dayOfMonth
-import com.afollestad.date.month
-import com.afollestad.date.year
-import com.afollestad.materialdialogs.MaterialDialog
-import com.afollestad.materialdialogs.datetime.datePicker
-
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.Hackathon
 import com.lambdaschool.hackathon_portal.ui.fragments.BaseFragment
 import com.lambdaschool.hackathon_portal.util.*
 import kotlinx.android.synthetic.main.fragment_edit_hackathon.*
-import java.util.*
+import timber.log.Timber
 
 class EditHackathonFragment : BaseFragment() {
 
     private lateinit var editHackathonViewModel: EditHackathonViewModel
     private lateinit var retrievedHackathon: Hackathon
-    private val TAG = "EDIT HACKATHON"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,7 +94,7 @@ class EditHackathonFragment : BaseFragment() {
                 }
             } else {
                 // TODO: Enable Buttons & disable progress bar
-                Log.d(TAG, "Hackathon Id was null")
+                Timber.d("Hackathon Id was null")
             }
         }
 
@@ -156,7 +147,7 @@ class EditHackathonFragment : BaseFragment() {
                             activity?.toastShort("Failed to delete Hackathon")
                         }
                     } else {
-                        Log.d(TAG, "Hackathon came back null")
+                        Timber.d("Hackathon came back null")
                         // TODO: Enable Buttons & disable progress bar
                     }
                 })

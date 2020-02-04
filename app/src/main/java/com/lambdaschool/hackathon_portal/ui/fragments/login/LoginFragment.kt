@@ -2,7 +2,6 @@ package com.lambdaschool.hackathon_portal.ui.fragments.login
 
 import android.app.Dialog
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,11 +19,15 @@ import com.auth0.android.result.Credentials
 import com.lambdaschool.hackathon_portal.R
 import com.lambdaschool.hackathon_portal.model.User
 import com.lambdaschool.hackathon_portal.ui.fragments.NavDrawerFragment
-import com.lambdaschool.hackathon_portal.util.*
+import com.lambdaschool.hackathon_portal.util.text
+import com.lambdaschool.hackathon_portal.util.toastLong
+import com.lambdaschool.hackathon_portal.util.visGone
+import com.lambdaschool.hackathon_portal.util.visVisible
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 class LoginFragment : NavDrawerFragment() {
@@ -58,7 +61,7 @@ class LoginFragment : NavDrawerFragment() {
         }
 
         if (credentialsManager.hasValidCredentials()) {
-            Log.i(TAG, "Sending to Dashboard")
+            Timber.d("Sending to Dashboard")
             showNextFragment()
         } else {
             showProgressBarViews(false)
@@ -77,22 +80,22 @@ class LoginFragment : NavDrawerFragment() {
 
             webAuthProviderLogin.start(this, object : AuthCallback {
                 override fun onFailure(dialog: Dialog) {
-                    Log.i(TAG, "Login Failed")
-                    Log.i(TAG, "${dialog.show()}")
+                    Timber.d("Login Failed")
+                    Timber.d("${dialog.show()}")
                     showProgressBarViews(false)
                     activity?.toastLong("Login Failed - ${dialog.show()}")
                 }
 
                 override fun onFailure(exception: AuthenticationException) {
-                    Log.i(TAG, "Login Failed")
-                    Log.i(TAG, "Code: ${exception.code} Message: ${exception.message}")
+                    Timber.d("Login Failed")
+                    Timber.d("Code: ${exception.code} Message: ${exception.message}")
                     showProgressBarViews(false)
                     activity?.toastLong("Login Failed - Code: ${exception.code} Message: ${exception.message}")
                 }
 
                 override fun onSuccess(credentials: Credentials) {
-                    Log.i(TAG, "Login Successful")
-                    Log.i(TAG, credentials.accessToken ?: "AccessToken is null")
+                    Timber.d("Login Successful")
+                    Timber.d(credentials.accessToken ?: "AccessToken is null")
                     credentialsManager.saveCredentials(credentials)
                     GlobalScope.launch(Main) {
                         showNextFragment()
@@ -109,7 +112,7 @@ class LoginFragment : NavDrawerFragment() {
                 if (setUserAuth0(credentials)) {
                     getUserData()
                 } else {
-                    Log.d(TAG, "Failed to set UserAuth0 credentials")
+                    Timber.d("Failed to set UserAuth0 credentials")
                     showProgressBarViews(false)
                 }
             }
@@ -117,7 +120,7 @@ class LoginFragment : NavDrawerFragment() {
             override fun onFailure(error: CredentialsManagerException?) {
                 error?.message?.let {
                     activity?.toastLong(it)
-                    Log.d(TAG, it)
+                    Timber.d(it)
                     showProgressBarViews(false)
                 }
             }
