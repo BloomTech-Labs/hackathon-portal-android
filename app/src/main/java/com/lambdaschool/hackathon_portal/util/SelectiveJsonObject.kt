@@ -1,8 +1,8 @@
 package com.lambdaschool.hackathon_portal.util
 
-import android.util.Log
 import android.widget.EditText
 import com.google.gson.JsonObject
+import timber.log.Timber
 
 private val selectiveJsonObjectList: MutableList<SelectiveJsonObject> = mutableListOf()
 private val TAG = "SELECTIVE_JSON_OBJECT"
@@ -160,7 +160,7 @@ sealed class SelectiveJsonObject {
          * Temporary solution until app wide logging can be incorporated.
          * */
         private fun logDebug(message: String) {
-            Log.d(TAG, message)
+            Timber.d(message)
         }
 
         /**

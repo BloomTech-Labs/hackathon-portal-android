@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.Project
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
-import org.json.JSONObject
 import javax.inject.Inject
 
 class ProjectDetailViewModel @Inject constructor(private val repo: HackathonRepository): ViewModel() {

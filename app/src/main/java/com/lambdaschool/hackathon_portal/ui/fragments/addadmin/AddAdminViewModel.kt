@@ -1,11 +1,9 @@
 package com.lambdaschool.hackathon_portal.ui.fragments.addadmin
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.JsonObject
 import com.lambdaschool.hackathon_portal.model.User
-import com.lambdaschool.hackathon_portal.model.UserModel
 import com.lambdaschool.hackathon_portal.repository.HackathonRepository
 import java.util.*
 import javax.inject.Inject
