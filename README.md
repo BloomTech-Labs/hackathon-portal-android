@@ -1,6 +1,6 @@
 # Hackathon Portal
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project on [Google Play](https://play.google.com/store/apps/details?id=com.lambdaschool.hackathon_portal).
 
 ## 3️⃣ Contributors
 
@@ -19,7 +19,7 @@
 
 ## Project Overview
 
-1️⃣ You can find the deployed project at [🚫URL NAME GOES HERE](🚫copy and paste URL here).
+1️⃣ You can find the deployed project on [Google Play](https://play.google.com/store/apps/details?id=com.lambdaschool.hackathon_portal).
 
 [Trello Board](https://trello.com/b/4gkG3WXz/hackathon-android)
 
